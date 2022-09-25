@@ -1,11 +1,10 @@
 {
-	"name": "djs-v14-ts-template",
-	"description": "A template for discord.js v14 + TypeScript",
-	"author": "andjsrk",
-	"license": "MIT",
+	"name": "prismbot",
+	"description": "A bot for Prism discord community server.",
+	"author": "hswhsw610",
 	"devDependencies": {
-		"typescript": "latest",
-		"@types/node": "latest"
+		"@types/node": "latest",
+		"typescript": "latest"
 	},
 	"dependencies": {
 		"discord.js": "^14.3.0"
