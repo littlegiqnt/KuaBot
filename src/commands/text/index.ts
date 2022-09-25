@@ -4,8 +4,8 @@ import parent from './parent'
 import ping from './ping'
 
 const commands: Array<TextCommand> = [
-	parent,
-	ping,
+//	parent,
+//	ping,
 ]
 
 export default commands
