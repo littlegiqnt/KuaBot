@@ -7,4 +7,4 @@ RUN rm Dockerfile docker-compose.yml
 
 RUN npm install .
 
-ENTRYPOINT [ "npm", "run", "start" ]
+ENTRYPOINT [ "npm", "start" ]
