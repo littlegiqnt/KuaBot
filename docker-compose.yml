@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  pinkcat-bot:
+    container_name: "prismbot"
+    image: "prismbot"
+    privileged: true
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
