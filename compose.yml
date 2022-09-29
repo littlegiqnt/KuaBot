@@ -2,5 +2,5 @@ version: '3.9'
 
 services:
   bot:
-    image: 'prismbot'
+    build: ./
     restart: always
