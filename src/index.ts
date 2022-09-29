@@ -1,14 +1,14 @@
 import { Bot } from './structure/Bot'
 import events from './events'
-import { TOKEN } from './config'
-import MembersCount from "./repeat/MembersCount"
+import { TOKEN } from "./config";
+import { onPostLogin, onPreLogin } from "./workers";
 
 const bot = new Bot({
-	token: TOKEN,
-})
+    token: TOKEN,
+});
 
 bot.registerEvents(events)
-
-bot.login()
-
-MembersCount(bot)
+onPreLogin(bot);
+bot.login().then(async () => {
+    onPostLogin(bot);
+});

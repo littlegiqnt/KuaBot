@@ -4,7 +4,7 @@
 	"author": "hswhsw610",
 	"scripts": {
 		"start": "set NODE_ENV=production && ts-node src/index.ts",
-        "startdev": "set NODE_ENV=development && ts-node-dev src/index.ts --respawn --transfile-only"
+        "dev": "set NODE_ENV=development && ts-node-dev src/index.ts --respawn --transfile-only"
 	},
 	"devDependencies": {
 		"@types/node": "latest",
@@ -13,6 +13,6 @@
 		"typescript": "latest"
 	},
 	"dependencies": {
-		"discord.js": "^14.3.0"
+		"discord.js": "latest"
 	}
 }
