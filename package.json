@@ -4,24 +4,6 @@
 	"author": "hswhsw610",
 	"scripts": {
 		"start": "set NODE_ENV=production && ts-node src/index.ts",
-        "dev": "set NODE_ENV=development && ts-node-dev src/index.ts --respawn --transfile-only"
-	},
-	"devDependencies": {
-		"@types/node": "latest",
-		"ts-node": "^10.9.1",
-		"ts-node-dev": "^2.0.0",
-		"typescript": "latest"
-	},
-	"dependencies": {
-		"discord.js": "latest"
-	}
-}
-{
-	"name": "prismbot",
-	"description": "A bot for Prism discord community server.",
-	"author": "hswhsw610",
-	"scripts": {
-		"start": "set NODE_ENV=production && ts-node src/index.ts",
         "dev": "set NODE_ENV=development && ts-node-dev src/index.ts --respawn --transfile-only",
 		"docker": "docker build --no-cache --tag prismbot:latest ."
 	},
