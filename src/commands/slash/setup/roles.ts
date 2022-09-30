@@ -24,12 +24,12 @@ async function sexSelect(channel: TextBasedChannel) {
             .setDescription("본인의 성별을 선택하세요!");
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder()
-            .setCustomId("male")
+            .setCustomId("selectroles_male")
             .setEmoji("👦")
             .setLabel("남자")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-            .setCustomId("female")
+            .setCustomId("selectroles_female")
             .setEmoji("👧")
             .setLabel("여자")
             .setStyle(ButtonStyle.Primary)
@@ -44,17 +44,17 @@ async function ageSelect(channel: TextBasedChannel) {
             .setDescription("본인의 나이를 선택하세요!");
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder()
-            .setCustomId("adult")
+            .setCustomId("selectroles_adult")
             .setEmoji("🍷")
             .setLabel("성인")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-            .setCustomId("highschool")
+            .setCustomId("selectroles_highschool")
             .setEmoji("📖")
             .setLabel("고등학생")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-            .setCustomId("middleschool")
+            .setCustomId("selectroles_middleschool")
             .setEmoji("📏")
             .setLabel("중학생")
             .setStyle(ButtonStyle.Primary),
@@ -69,12 +69,12 @@ async function loveSelect(channel: TextBasedChannel) {
             .setDescription("현재 상태를 선택하세요!");
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder()
-            .setCustomId("couple")
+            .setCustomId("selectroles_couple")
             .setEmoji("💘")
             .setLabel("커플")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-            .setCustomId("single")
+            .setCustomId("selectroles_single")
             .setEmoji("🤍")
             .setLabel("솔로")
             .setStyle(ButtonStyle.Primary),
@@ -89,17 +89,17 @@ async function pingRelatedSelect(channel: TextBasedChannel) {
             .setDescription("알람 관련된 역할을 선택하세요!");
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder()
-            .setCustomId("announcement")
+            .setCustomId("selectroles_announcement")
             .setEmoji("📢")
             .setLabel("공지 알림받기")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-            .setCustomId("dm_allow")
+            .setCustomId("selectroles_dm_allow")
             .setEmoji("⭕")
             .setLabel("DM 허용")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-            .setCustomId("dm_disallow")
+            .setCustomId("selectroles_dm_disallow")
             .setEmoji("❌")
             .setLabel("DM 비허용")
             .setStyle(ButtonStyle.Primary),
@@ -114,17 +114,17 @@ async function whenOnlineSelect(channel: TextBasedChannel) {
             .setDescription("언제 서버에 등장하실 수 있나요?");
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder()
-            .setCustomId("morning")
+            .setCustomId("selectroles_morning")
             .setEmoji("🌄")
             .setLabel("아침")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-            .setCustomId("noon")
+            .setCustomId("selectroles_noon")
             .setEmoji("🌞")
             .setLabel("낮")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-            .setCustomId("night")
+            .setCustomId("selectroles_night")
             .setEmoji("🌙")
             .setLabel("밤")
             .setStyle(ButtonStyle.Primary),
