@@ -3,7 +3,7 @@ version: "3.9"
 services:
   pinkcat-bot:
     container_name: "prismbot"
-    image: "prismbot"
+    build: "./"
     privileged: true
     restart: always
     volumes:
