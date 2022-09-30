@@ -8,7 +8,7 @@ export default createInteractionCreateEventListener((interaction) => {
     if (!collector) return;
 
     collector.on("collect", async (i) => {
-        await i.editReply({ content: interaction, ephemeral: true });
+        await i.editReply({ content: JSON.stringify(interaction), ephemeral: true });
     });
 
     collector.on("end", (collected) => console.log(`Collected ${collected.size} items`));
