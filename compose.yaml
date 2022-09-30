@@ -4,6 +4,7 @@ services:
   prismbot:
     container_name: "prismbot"
     image: "prismbot"
+    build: .
     privileged: true
     restart: always
     volumes:
