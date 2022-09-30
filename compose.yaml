@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  pinkcat-bot:
+  prismbot:
     container_name: "prismbot"
     build: "./"
     privileged: true
