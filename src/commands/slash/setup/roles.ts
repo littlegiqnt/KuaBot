@@ -5,7 +5,7 @@ export default new SubSlashCommand({
     name: "roles",
     async execute(interaction) {
         await interaction.deferReply();
-        await interaction.deleteReply();
+        interaction.deleteReply();
 
         if (!interaction.channel) return;
 
