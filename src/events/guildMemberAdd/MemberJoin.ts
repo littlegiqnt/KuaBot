@@ -7,7 +7,6 @@ export default createGuildMemberAddEventListener(async (member: GuildMember) => 
     if (!dividerrole_profile || !dividerrole_notice || !dividerrole_games || !dividerrole_user) {
         await reloadRoles(member.guild);
     }
-    console.log("test")
     member.roles.add([dividerrole_profile, dividerrole_notice, dividerrole_games, dividerrole_user]);
     return;
 });
