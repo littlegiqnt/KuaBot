@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ApplicationCommandOptionType, ButtonBuilder, ButtonStyle, EmbedBuilder, TextBasedChannel } from "discord.js";
-import { SubSlashCommand } from '../../../structure/SubSlashCommand'
+import { SubSlashCommand } from "../../../structure/SubSlashCommand";
 
 export default new SubSlashCommand({
     name: "roles",
@@ -13,121 +13,43 @@ export default new SubSlashCommand({
         ageSelect(interaction.channel);
         loveSelect(interaction.channel);
         pingRelatedSelect(interaction.channel);
-        whenOnlineSelect(interaction.channel);
     },
 });
 
 async function sexSelect(channel: TextBasedChannel) {
-    const embed = new EmbedBuilder()
-            .setColor(0x0099ff)
-            .setTitle(":restroom: 『성별선택』")
-            .setDescription("본인의 성별을 선택하세요!");
+    const embed = new EmbedBuilder().setColor(0x0099ff).setTitle(":restroom: 『성별선택』").setDescription("본인의 성별을 선택하세요!");
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-        new ButtonBuilder()
-            .setCustomId("selectroles_male")
-            .setEmoji("👦")
-            .setLabel("남자")
-            .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setCustomId("selectroles_female")
-            .setEmoji("👧")
-            .setLabel("여자")
-            .setStyle(ButtonStyle.Primary)
+        new ButtonBuilder().setCustomId("selectroles_male").setEmoji("👦").setLabel("남자").setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId("selectroles_female").setEmoji("👧").setLabel("여자").setStyle(ButtonStyle.Primary)
     );
     await channel.send({ embeds: [embed], components: [row] });
 }
 
 async function ageSelect(channel: TextBasedChannel) {
-    const embed = new EmbedBuilder()
-            .setColor(0x0099ff)
-            .setTitle("⏱️ 『나이대 선택』")
-            .setDescription("본인의 나이를 선택하세요!");
+    const embed = new EmbedBuilder().setColor(0x0099ff).setTitle("⏱️ 『나이대 선택』").setDescription("본인의 나이를 선택하세요!");
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-        new ButtonBuilder()
-            .setCustomId("selectroles_adult")
-            .setEmoji("🍷")
-            .setLabel("성인")
-            .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setCustomId("selectroles_highschool")
-            .setEmoji("📖")
-            .setLabel("고등학생")
-            .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setCustomId("selectroles_middleschool")
-            .setEmoji("📏")
-            .setLabel("중학생")
-            .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId("selectroles_adult").setEmoji("🍷").setLabel("성인").setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId("selectroles_highschool").setEmoji("📖").setLabel("고등학생").setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId("selectroles_middleschool").setEmoji("📏").setLabel("중학생").setStyle(ButtonStyle.Primary)
     );
     await channel.send({ embeds: [embed], components: [row] });
 }
 
 async function loveSelect(channel: TextBasedChannel) {
-    const embed = new EmbedBuilder()
-            .setColor(0x0099ff)
-            .setTitle("🧡 『애인 유무』")
-            .setDescription("현재 상태를 선택하세요!");
+    const embed = new EmbedBuilder().setColor(0x0099ff).setTitle("🧡 『애인 유무』").setDescription("현재 상태를 선택하세요!");
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-        new ButtonBuilder()
-            .setCustomId("selectroles_couple")
-            .setEmoji("💘")
-            .setLabel("커플")
-            .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setCustomId("selectroles_single")
-            .setEmoji("🤍")
-            .setLabel("솔로")
-            .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId("selectroles_couple").setEmoji("💘").setLabel("커플").setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId("selectroles_single").setEmoji("🤍").setLabel("솔로").setStyle(ButtonStyle.Primary)
     );
     await channel.send({ embeds: [embed], components: [row] });
 }
 
 async function pingRelatedSelect(channel: TextBasedChannel) {
-    const embed = new EmbedBuilder()
-            .setColor(0x0099ff)
-            .setTitle("📌 『알람 관련』")
-            .setDescription("알람 관련된 역할을 선택하세요!");
+    const embed = new EmbedBuilder().setColor(0x0099ff).setTitle("📌 『알람 관련』").setDescription("알람 관련된 역할을 선택하세요!");
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-        new ButtonBuilder()
-            .setCustomId("selectroles_announcement")
-            .setEmoji("📢")
-            .setLabel("공지 알림받기")
-            .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setCustomId("selectroles_dm_allow")
-            .setEmoji("⭕")
-            .setLabel("DM 허용")
-            .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setCustomId("selectroles_dm_disallow")
-            .setEmoji("❌")
-            .setLabel("DM 비허용")
-            .setStyle(ButtonStyle.Primary),
-    );
-    await channel.send({ embeds: [embed], components: [row] });
-}
-
-async function whenOnlineSelect(channel: TextBasedChannel) {
-    const embed = new EmbedBuilder()
-            .setColor(0x0099ff)
-            .setTitle("⌛ 『출몰 시간』")
-            .setDescription("언제 서버에 등장하실 수 있나요?");
-    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-        new ButtonBuilder()
-            .setCustomId("selectroles_morning")
-            .setEmoji("🌄")
-            .setLabel("아침")
-            .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setCustomId("selectroles_noon")
-            .setEmoji("🌞")
-            .setLabel("낮")
-            .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setCustomId("selectroles_night")
-            .setEmoji("🌙")
-            .setLabel("밤")
-            .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId("selectroles_announcement").setEmoji("📢").setLabel("공지 알림받기").setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId("selectroles_dm_allow").setEmoji("⭕").setLabel("DM 허용").setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId("selectroles_dm_disallow").setEmoji("❌").setLabel("DM 비허용").setStyle(ButtonStyle.Primary)
     );
     await channel.send({ embeds: [embed], components: [row] });
 }

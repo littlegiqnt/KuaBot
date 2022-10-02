@@ -1,13 +1,12 @@
-import { createMessageCreateEventListener } from './index'
-import commands from '../../commands/text'
-import { PREFIX } from '../../config'
+import { createMessageCreateEventListener } from "./index";
+import commands from "../../commands/text";
 
-export default createMessageCreateEventListener(msg => {
-	if (!msg.content.startsWith(PREFIX)) return
-	
-	for (const command of commands) {
-		if (command.isMine(msg)) {
-			command.execute(msg)
-		}
-	}
-})
+export default createMessageCreateEventListener((msg) => {
+    if (!msg.content.startsWith(process.env.PREFIX!)) return;
+
+    for (const command of commands) {
+        if (command.isMine(msg)) {
+            command.execute(msg);
+        }
+    }
+});
