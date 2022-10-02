@@ -84,7 +84,7 @@ async function processSelectRoles(interaction: MessageComponentInteraction) {
     if (interaction.customId !== "selectroles_announcement") {
         const rolesLeft: number = await checkRolesLeft(member);
         if (rolesLeft > 0) {
-            interaction.editReply({ content: `설정되었습니다!\n ${rolesLeft}개의 역할을 선택하시면 1차 인증이 완료됩니다!` });
+            interaction.editReply({ content: `설정되었습니다!\n남은 필수 역할은 총 ${rolesLeft}개 입니다. :D` });
         } else if (beforeLeftRoles != 0) {
             interaction.editReply({ content: "설정되었습니다!\n1차 인증이 완료되어 이제 서버에서 활동하실 수 있습니다!" });
             member.roles.add(getCachedRole("verified_1")!);
