@@ -1,4 +1,4 @@
-import { disableValidators, Guild, GuildMember, Role } from "discord.js";
+import { Guild, GuildMember, Role } from "discord.js";
 import { createGuildMemberAddEventListener } from ".";
 
 let dividerrole_profile: Role, dividerrole_notice: Role, dividerrole_games: Role, dividerrole_user: Role;
@@ -7,7 +7,9 @@ export default createGuildMemberAddEventListener(async (member: GuildMember) => 
     if (!dividerrole_profile || !dividerrole_notice || !dividerrole_games || !dividerrole_user) {
         await reloadRoles(member.guild);
     }
+    console.log("test")
     member.roles.add([dividerrole_profile, dividerrole_notice, dividerrole_games, dividerrole_user]);
+    return;
 });
 
 async function reloadRoles(guild: Guild) {

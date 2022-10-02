@@ -22,6 +22,7 @@ export class Bot extends Client {
 				Intents.Guilds,
 				Intents.GuildMessages,
 				Intents.MessageContent,
+                Intents.GuildMembers
 			],
 		})
 		this.token = options.token
