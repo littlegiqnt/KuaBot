@@ -8,7 +8,7 @@ WORKDIR /bot
 COPY . .
 
 RUN rm Dockerfile compose.yaml
-RUN echo "TOKEN=${DISCORD_TOKEN}" > .env
+RUN echo "TOKEN=${DISCORD_TOKEN}" >> .env
 RUN npm install .
 
 ENTRYPOINT [ "npm", "start" ]
