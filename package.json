@@ -4,8 +4,7 @@
     "author": "hswhsw610",
     "scripts": {
         "start": "set NODE_ENV=production && ts-node src/index.ts",
-        "dev": "set NODE_ENV=development && ts-node-dev src/index.ts --respawn --transfile-only",
-        "docker": "docker build --no-cache --tag prismbot:latest ."
+        "dev": "set NODE_ENV=development && ts-node-dev src/index.ts --respawn --transfile-only"
     },
     "devDependencies": {
         "@types/node": "latest",
