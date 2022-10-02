@@ -1,13 +1,14 @@
 FROM node:18.10-alpine3.15
 
-ARG DISCORD_TOKEN
-ENV DISCORD_TOKEN=${DISCORD_TOKEN}
+ARG TOKEN
+ENV DISCORD_TOKEN=${TOKEN}
 
 WORKDIR /bot
 
 COPY . .
-RUN rm Dockerfile compose.yaml
 
+RUN rm Dockerfile compose.yaml
+RUN echo "TOKEN=${DISCORD_TOKEN}" > .env
 RUN npm install .
 
-ENTRYPOINT [ "TOKEN=${DISCORD_TOKEN}", "npm", "start" ]
+ENTRYPOINT [ "npm", "start" ]
