@@ -18,7 +18,7 @@ services:
     privileged: true
     restart: always
     volumes:
-      - ./db_data:/data/db
+      - ../db_data:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=2eb70a31fc66a689b2a095d1c11bbb15c4cbed72f2fa4ea8b23739c1218e45be
