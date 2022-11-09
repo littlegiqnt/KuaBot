@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export enum Status {
+export enum TicketStatus {
     CREATED,
     OPENED,
     CLOSED
@@ -10,7 +10,7 @@ export enum Status {
 export interface ISupportTicket {
     _id: string
     opener: string
-    status: Status
+    status: TicketStatus
     whenCreated: Date
     whenOpened: Date|null
     users: string[]
@@ -20,7 +20,7 @@ export interface ISupportTicket {
 export const supportTicketSchema = new Schema<ISupportTicket>({
     _id: String,
     opener: String,
-    status: { type: Number, enum: Status },
+    status: { type: Number, enum: TicketStatus },
     whenCreated: Date,
     whenOpened: Date,
     users: Array<String>,

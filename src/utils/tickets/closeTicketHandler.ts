@@ -1,10 +1,10 @@
-import axios, { AxiosError } from "axios";
 import type { ButtonInteraction, ChatInputCommandInteraction, GuildChannel, InteractionReplyOptions } from "discord.js";
 import { ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
-import { Status } from "schema/ticketSchema";
+import { TicketStatus } from "schema/ticketSchema";
 import { ActionRow } from "structure/ActionRow";
 import dbManager from "structure/DBManager";
 import logger from "structure/Logger";
+import { uploadTranscript } from "./ticketTranscriptHandler";
 
 const checkEmbed: InteractionReplyOptions = {
     ephemeral: true,
@@ -56,37 +56,11 @@ export const closeTicket = async (interaction: ButtonInteraction) => {
 export const onTicketDelete = async (channel: GuildChannel) => {
     const supportTicket = await dbManager.SupportTicket.findById(channel.id);
     if (supportTicket == null) return;
-    if (supportTicket.status === Status.CREATED) {
+    if (supportTicket.status === TicketStatus.CREATED) {
         await logger.ticket(supportTicket, channel.client);
     } else {
         const url = await uploadTranscript(supportTicket.transcript);
         await logger.ticket(supportTicket, channel.client, url);
     }
     await supportTicket.remove();
-};
-
-const uploadTranscript = async (transcript: string): Promise<string | undefined> => {
-    try {
-        const response = await axios({
-            method: "post",
-            url: "https://pastebin.com/api/api_post.php",
-            headers: {
-                "content-type": "multipart/form-data;",
-            },
-            data: {
-                /* eslint-disable @typescript-eslint/naming-convention */
-                api_dev_key: "zVErncKp0NECrshme_ZHKE4eQDGBkJBs",
-                api_option: "paste",
-                api_paste_code: transcript,
-                /* eslint-enable @typescript-eslint/naming-convention */
-            },
-        });
-        return response.data;
-    } catch (e) {
-        if (e instanceof AxiosError) {
-            logger.error(e);
-            logger.debug(e.response?.data);
-        }
-        return undefined;
-    }
 };

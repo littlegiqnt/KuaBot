@@ -1,7 +1,7 @@
 import type { ButtonInteraction, ChatInputCommandInteraction, InteractionReplyOptions } from "discord.js";
 import { ButtonBuilder, ButtonStyle, CategoryChannel, channelMention, ChannelType, EmbedBuilder, GuildMember, PermissionsBitField, userMention } from "discord.js";
 import { bot } from "index";
-import { Status } from "schema/ticketSchema";
+import { TicketStatus } from "schema/ticketSchema";
 import { ActionRow } from "structure/ActionRow";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
@@ -53,7 +53,7 @@ export const createTicket = async (interaction: ButtonInteraction) => {
         await dbManager.SupportTicket.create({
             _id: channel.id,
             opener: member.id,
-            status: Status.CREATED,
+            status: TicketStatus.CREATED,
             whenCreated: now,
             whenOpened: null,
             users: [],

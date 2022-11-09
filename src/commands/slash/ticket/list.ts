@@ -1,5 +1,5 @@
 import { channelMention, EmbedBuilder, GuildMember, time, userMention } from "discord.js";
-import { Status } from "schema/ticketSchema";
+import { TicketStatus } from "schema/ticketSchema";
 import dbManager from "structure/DBManager";
 import rolesManager from "structure/RolesManager";
 import { SubSlashCommand } from "structure/SubSlashCommand";
@@ -23,7 +23,7 @@ export default new SubSlashCommand({
                     value: `\
 채널: ${channelMention(value.id)}
 신청자: ${userMention(value.opener)}
-상태: ${value.status === Status.CREATED ? "아직 시작 안됨(아직 아무 채팅을 안 입력함)" : "오픈됨"}
+상태: ${value.status === TicketStatus.CREATED ? "아직 시작 안됨(아직 아무 채팅을 안 입력함)" : "오픈됨"}
 생성된 날짜: ${time(value.whenCreated, "F")}
 시작된 날짜: ${value.whenOpened == null ? "아직 시작 안됨" : time(value.whenOpened, "F")}
 추가로 참여한 유저들: ${value.users.length === 0 ? "없음" : value.users.map((id) => userMention(id))}`,
