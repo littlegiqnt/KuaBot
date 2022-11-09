@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  prism_bot:
+    container_name: "prismbot"
+    build: ./
+    networks:
+      - prismbot
+    privileged: true
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+  prism_db:
+    container_name: "prismdb"
+    image: "mongo:latest"
+    networks:
+      - prismbot
+    privileged: true
+    restart: always
+    volumes:
+      - ../db_data:/data/db
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=qwer11!!
+
+networks:
+  prismbot:

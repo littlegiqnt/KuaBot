@@ -1,0 +1,18 @@
+import type { AllEventListener } from "../structure/EventListener";
+import channelDelete from "./channelDelete";
+import guildMemberAdd from "./guildMemberAdd";
+import guildMemberRemove from "./guildMemberRemove";
+import interactionCreate from "./interactionCreate";
+import messageCreate from "./messageCreate";
+import ready from "./ready";
+
+const events: AllEventListener[][] = [
+    ready,
+    messageCreate,
+    interactionCreate,
+    guildMemberAdd,
+    guildMemberRemove,
+    channelDelete,
+];
+
+export default events;
