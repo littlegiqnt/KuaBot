@@ -70,6 +70,8 @@ const processSelectRoles = async (interaction: MessageComponentInteraction) => {
             await Promise.all([
                 member.roles.add(rolesManager.get("couple")!),
                 member.roles.remove(rolesManager.get("single")!),
+                member.roles.remove(rolesManager.get("foreveralone")!),
+                member.roles.remove(rolesManager.get("lovePrivate")!),
             ]);
             break;
         }
@@ -77,6 +79,26 @@ const processSelectRoles = async (interaction: MessageComponentInteraction) => {
             await Promise.all([
                 member.roles.remove(rolesManager.get("couple")!),
                 member.roles.add(rolesManager.get("single")!),
+                member.roles.remove(rolesManager.get("foreveralone")!),
+                member.roles.remove(rolesManager.get("lovePrivate")!),
+            ]);
+            break;
+        }
+        case "selectroles_foreveralone": {
+            await Promise.all([
+                member.roles.remove(rolesManager.get("couple")!),
+                member.roles.remove(rolesManager.get("single")!),
+                member.roles.add(rolesManager.get("foreveralone")!),
+                member.roles.remove(rolesManager.get("lovePrivate")!),
+            ]);
+            break;
+        }
+        case "selectroles_love_private": {
+            await Promise.all([
+                member.roles.remove(rolesManager.get("couple")!),
+                member.roles.remove(rolesManager.get("single")!),
+                member.roles.remove(rolesManager.get("foreveralone")!),
+                member.roles.add(rolesManager.get("lovePrivate")!),
             ]);
             break;
         }
@@ -150,7 +172,10 @@ const checkRolesLeft = async (bot: Bot, member: GuildMember): Promise<number> =>
     ) {
         left += 1;
     }
-    if (!(member.roles.cache.has(rolesManager.get("couple")!.id) || member.roles.cache.has(rolesManager.get("single")!.id))) {
+    if (!(member.roles.cache.has(rolesManager.get("couple")!.id)
+            || member.roles.cache.has(rolesManager.get("single")!.id)
+            || member.roles.cache.has(rolesManager.get("foreveralone")!.id)
+            || member.roles.cache.has(rolesManager.get("lovePrivate")!.id))) {
         left += 1;
     }
     if (

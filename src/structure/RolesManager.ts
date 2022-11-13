@@ -39,6 +39,8 @@ class RolesManager {
         middleschool: "1023192855700832416",
         couple: "1023193785343148042",
         single: "1023193735179288696",
+        foreveralone: "1040961057553928262",
+        lovePrivate: "1040959570379538462",
         announcement: "1024229806193258506",
         dmAllow: "1024229137809952778",
         dmDisallow: "1024229118583255060",
