@@ -1,16 +1,23 @@
 import type { MessageComponentInteraction, Role } from "discord.js";
-import { GuildMember } from "discord.js";
+import { GuildMember, Locale } from "discord.js";
 import Bot from "structure/Bot";
 import logger from "structure/Logger";
 import rolesManager from "structure/RolesManager";
 import handleErrorReply from "utils/handleErrorReply";
+import updateLang from "utils/updateLang";
 import createInteractionCreateEventListener from "./createInteractionCreateEventListener";
 
 export default createInteractionCreateEventListener(async (interaction) => {
     if (!interaction.isButton()) return;
 
-    if (interaction.customId.startsWith("selectroles")) {
-        processSelectRoles(interaction);
+    try {
+        if (interaction.customId.startsWith("selectroles")) {
+            await processSelectRoles(interaction);
+        } else if (interaction.customId === "detect_language") {
+            await processDetectLanguage(interaction);
+        }
+    } catch (e) {
+        handleErrorReply(e, interaction);
     }
 });
 
@@ -143,7 +150,7 @@ const processSelectRoles = async (interaction: MessageComponentInteraction) => {
             return;
         }
     }
-    const rolesLeft: number = await checkRolesLeft(bot, member);
+    const rolesLeft: number = await checkRolesLeft(member);
     if (rolesLeft > 0) {
         interaction.editReply({ content: `설정되었습니다!\n남은 필수 역할은 총 ${rolesLeft}개 입니다. :D` });
     } else if (!member.roles.cache.has(rolesManager.get("stepOneVerified")!.id)) {
@@ -158,7 +165,7 @@ const processSelectRoles = async (interaction: MessageComponentInteraction) => {
     }
 };
 
-const checkRolesLeft = async (bot: Bot, member: GuildMember): Promise<number> => {
+const checkRolesLeft = async (member: GuildMember): Promise<number> => {
     let left = 0;
     if (!(member.roles.cache.has(rolesManager.get("male")!.id) || member.roles.cache.has(rolesManager.get("female")!.id))) {
         left += 1;
@@ -184,4 +191,22 @@ const checkRolesLeft = async (bot: Bot, member: GuildMember): Promise<number> =>
         left += 1;
     }
     return left;
+};
+
+const processDetectLanguage = async (interaction: MessageComponentInteraction) => {
+    await interaction.deferReply({ ephemeral: true });
+
+    const lang = interaction.locale;
+
+    switch (lang) {
+        case Locale.Korean:
+        case Locale.EnglishUS:
+        case Locale.EnglishGB: {
+            await updateLang(interaction, lang);
+            break;
+        }
+        default: {
+            throw new Error("알 수 없는 언어");
+        }
+    }
 };

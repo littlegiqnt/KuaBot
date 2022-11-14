@@ -3,7 +3,7 @@ const enum Color {
     BRIGHT_RED = 0xEE4B2B,
     GREEN = 0x00FF00,
     BLUE = 0x0000FF,
-    BRIGHT_BLUE = 0x0096FF,
+    BRIGHT_BLUE = 0x0099FF,
 }
 
 export default Color;
