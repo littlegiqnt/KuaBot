@@ -1,8 +1,10 @@
 import type { Role, SelectMenuInteraction } from "discord.js";
-import { GuildMember } from "discord.js";
+import { GuildMember, Locale } from "discord.js";
 import Bot from "structure/Bot";
+import dbManager from "structure/DBManager";
 import rolesManager from "structure/RolesManager";
 import handleErrorReply from "utils/handleErrorReply";
+import updateLang from "utils/updateLang";
 import createInteractionCreateEventListener from "./createInteractionCreateEventListener";
 
 export default createInteractionCreateEventListener(async (interaction) => {
@@ -10,7 +12,9 @@ export default createInteractionCreateEventListener(async (interaction) => {
 
     try {
         if (interaction.customId === "selectroles_games") {
-            processSelectGames(interaction);
+            await processSelectGames(interaction);
+        } else if (interaction.customId === "select_language") {
+            await processSelectLanguage(interaction);
         }
     } catch (e) {
         handleErrorReply(e, interaction);
@@ -44,6 +48,27 @@ const processSelectGames = async (interaction: SelectMenuInteraction) => {
     }
 };
 
-const supportTicketOpen = async (interaction: SelectMenuInteraction) => {
+const processSelectLanguage = async (interaction: SelectMenuInteraction) => {
+    await interaction.deferReply({ ephemeral: true });
 
+    if (interaction.values.length > 1 || interaction.values.length < 1) {
+        interaction.editReply("오류가 발생하였어요!");
+        return;
+    }
+    const user = await dbManager.loadUser(interaction.user.id);
+    const [ lang ] = interaction.values;
+
+    switch (lang) {
+        case "lang_ko": {
+            updateLang(interaction, Locale.Korean);
+            break;
+        }
+        case "lang_en": {
+            updateLang(interaction, Locale.EnglishUS);
+            break;
+        }
+        default: {
+            throw new Error("알 수 없는 언어");
+        }
+    }
 };
