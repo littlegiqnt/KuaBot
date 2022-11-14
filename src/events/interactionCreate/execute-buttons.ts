@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import type { MessageComponentInteraction, Role } from "discord.js";
 import { GuildMember, Locale } from "discord.js";
 import Bot from "structure/Bot";
@@ -100,7 +101,7 @@ const processSelectRoles = async (interaction: MessageComponentInteraction) => {
             ]);
             break;
         }
-        case "selectroles_love_private": {
+        case "selectroles_relationship_hide": {
             await Promise.all([
                 member.roles.remove(rolesManager.get("couple")!),
                 member.roles.remove(rolesManager.get("single")!),
@@ -150,18 +151,35 @@ const processSelectRoles = async (interaction: MessageComponentInteraction) => {
             return;
         }
     }
-    const rolesLeft: number = await checkRolesLeft(member);
-    if (rolesLeft > 0) {
-        interaction.editReply({ content: `설정되었습니다!\n남은 필수 역할은 총 ${rolesLeft}개 입니다. :D` });
-    } else if (!member.roles.cache.has(rolesManager.get("stepOneVerified")!.id)) {
-        interaction.editReply({
-            content:
-                "설정되었습니다!\n<:verified:1026009161865101354> 1차 인증이 완료되어 이제 서버에서 활동하실 수 있습니다!",
-        });
-        member.roles.add(rolesManager.get("stepOneVerified")!);
-        logger.stepOneVerify(member);
+
+    if (interaction.channelId === "1041545759109165066") {
+        if (member.roles.cache.has(rolesManager.get("stepOneVerified")!.id)) {
+            interaction.editReply({ content: "Setup!" });
+        } else {
+            const rolesLeft: number = await checkRolesLeft(member);
+            if (rolesLeft > 0) {
+                interaction.editReply({ content: `설정되었습니다!\n남은 필수 역할은 총 ${rolesLeft}개 입니다. :D` });
+            } else {
+                interaction.editReply({ content:
+                    "설정되었습니다!\n<:verified:1026009161865101354> 1차 인증이 완료되어 이제 서버에서 활동하실 수 있습니다!" });
+                member.roles.add(rolesManager.get("stepOneVerified")!);
+                logger.stepOneVerify(member);
+            }
+        }
     } else {
-        interaction.editReply({ content: "설정되었습니다!" });
+        if (member.roles.cache.has(rolesManager.get("stepOneVerified")!.id)) {
+            interaction.editReply({ content: "설정되었습니다!" });
+        } else {
+            const rolesLeft: number = await checkRolesLeft(member);
+            if (rolesLeft > 0) {
+                interaction.editReply({ content: `설정되었습니다!\n남은 필수 역할은 총 ${rolesLeft}개 입니다. :D` });
+            } else {
+                interaction.editReply({ content:
+                    "설정되었습니다!\n<:verified:1026009161865101354> 1차 인증이 완료되어 이제 서버에서 활동하실 수 있습니다!" });
+                member.roles.add(rolesManager.get("stepOneVerified")!);
+                logger.stepOneVerify(member);
+            }
+        }
     }
 };
 

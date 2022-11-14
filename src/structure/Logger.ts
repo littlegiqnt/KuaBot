@@ -25,16 +25,20 @@ class Logger {
         if (!(error instanceof Error)) {
             return;
         }
-        try {
-            const embed = new EmbedBuilder()
-                .setColor(0xFF5733)
-                .setTitle("오류 발생!")
-                .setDescription(`**${error.message}**\n${error.stack}`);
-            await this.devChannel?.send({ embeds: [ embed ] });
-        } catch (e) {
+        if (isProduction()) {
+            try {
+                const embed = new EmbedBuilder()
+                    .setColor(0xFF5733)
+                    .setTitle("오류 발생!")
+                    .setDescription(`**${error.message}**\n${error.stack}`);
+                await this.devChannel?.send({ embeds: [ embed ] });
+            } catch (e) {
+                console.log(error);
+                console.log(e);
+                return;
+            }
+        } else {
             console.log(error);
-            console.log(e);
-            return;
         }
     }
 
