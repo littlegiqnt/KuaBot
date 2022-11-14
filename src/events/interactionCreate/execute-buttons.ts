@@ -158,10 +158,10 @@ const processSelectRoles = async (interaction: MessageComponentInteraction) => {
         } else {
             const rolesLeft: number = await checkRolesLeft(member);
             if (rolesLeft > 0) {
-                interaction.editReply({ content: `설정되었습니다!\n남은 필수 역할은 총 ${rolesLeft}개 입니다. :D` });
+                interaction.editReply({ content: `Setup!\nYou need to select ${rolesLeft} more role${rolesLeft > 1 ?? "s"}. :D` });
             } else {
                 interaction.editReply({ content:
-                    "설정되었습니다!\n<:verified:1026009161865101354> 1차 인증이 완료되어 이제 서버에서 활동하실 수 있습니다!" });
+                    "Setup!\n<:verified:1026009161865101354> You are now verified! Welcome!" });
                 member.roles.add(rolesManager.get("stepOneVerified")!);
                 logger.stepOneVerify(member);
             }
