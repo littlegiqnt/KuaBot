@@ -1,7 +1,8 @@
 import { GUILD_ID } from "config";
-import { ApplicationCommandOptionType, EmbedBuilder, TextChannel } from "discord.js";
+import { ApplicationCommandOptionType, EmbedBuilder } from "discord.js";
 import Color from "structure/Color";
 import { SlashCommand } from "structure/SlashCommand";
+import { isNormalTextChannel } from "utils/checkChannel";
 
 export default new SlashCommand({
     name: "clear",
@@ -13,9 +14,9 @@ export default new SlashCommand({
         },
     ],
     async execute(interaction) {
-        const amount = interaction.options.getInteger("개수")!;
         const { channel } = interaction;
-        if (!(channel instanceof TextChannel)) return;
+        const amount = interaction.options.getInteger("개수")!;
+        if (channel == null || !isNormalTextChannel(channel)) return;
 
         interaction.deferReply({ ephemeral: true });
 

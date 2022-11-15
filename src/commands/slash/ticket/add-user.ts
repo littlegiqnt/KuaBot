@@ -1,7 +1,8 @@
-import { ApplicationCommandOptionType, EmbedBuilder, GuildMember, TextChannel, userMention } from "discord.js";
+import { ApplicationCommandOptionType, EmbedBuilder, GuildMember, userMention } from "discord.js";
 import dbManager from "structure/DBManager";
 import rolesManager from "structure/RolesManager";
 import { SubSlashCommand } from "structure/SubSlashCommand";
+import { isNormalTextChannel } from "utils/checkChannel";
 import { notTicketEmbed } from "utils/tickets/closeTicketHandler";
 
 export default new SubSlashCommand({
@@ -15,21 +16,22 @@ export default new SubSlashCommand({
         },
     ],
     async execute(interaction) {
-        if (!(interaction.member instanceof GuildMember)) return;
-        if (!interaction.member.roles.cache.hasAny(rolesManager.getId("owner"), rolesManager.getId("manager"))) return;
+        const { channel, member } = interaction;
+
+        if (!(member instanceof GuildMember) || channel == null
+            || !member.roles.cache.hasAny(rolesManager.getId("owner"), rolesManager.getId("manager"))
+            || !isNormalTextChannel(channel)) return;
 
         const supportTicket = await dbManager.SupportTicket.findById(interaction.channelId);
         if (supportTicket == null) {
             interaction.reply(notTicketEmbed);
             return;
         }
-
-        if (!(interaction.channel instanceof TextChannel)) return;
         const user = interaction.options.getUser("유저");
         if (user == null) return;
-        supportTicket.users.push(user.id);
+        supportTicket.users = Array.from(new Set(supportTicket.users).add(user.id));
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        await Promise.all([ interaction.channel.permissionOverwrites.edit(user, { ViewChannel: true }), supportTicket.save() ]);
+        await Promise.all([ channel.permissionOverwrites.edit(user, { ViewChannel: true }), supportTicket.save() ]);
         interaction.reply({ embeds: [ new EmbedBuilder()
             .setColor("Green")
             .setTitle("해당 유저를 추가했어요!")

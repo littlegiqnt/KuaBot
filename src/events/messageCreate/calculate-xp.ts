@@ -1,24 +1,23 @@
+import { GUILD_ID } from "config";
 import type { GuildMember } from "discord.js";
-import { TextChannel } from "discord.js";
 import Bot from "structure/Bot";
 import dbManager from "structure/DBManager";
+import { isNormalTextChannel } from "utils/checkChannel";
 import createMessageCreateEventListener from "./createMessageCreateEventListener";
 
 const history: Record<string, number> = {};
 const allowedCategories: string[] = [ "1023074542190592000", "1023185189553311754" ];
 
 export default createMessageCreateEventListener((message) => {
+    if (message.guildId !== GUILD_ID) return;
+
     const bot = message.client;
     if (!(bot instanceof Bot)) {
         return;
     }
-    const { member } = message;
-    if (member == null || member.user.bot) {
-        return;
-    }
+    const { member, channel } = message;
+    if (member == null || member.user.bot || !isNormalTextChannel(channel)) return;
 
-    const { channel } = message;
-    if (!(channel instanceof TextChannel)) return;
     const category = channel.parentId;
     if (category == null || !allowedCategories.includes(category)) {
         return;
