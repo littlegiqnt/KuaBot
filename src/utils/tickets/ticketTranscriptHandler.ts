@@ -59,7 +59,7 @@ export const addTranscriptMessage = async (message: Message) => {
                 supportTicket.status = TicketStatus.OPENED;
                 supportTicket.whenOpened = message.createdAt;
                 await supportTicket.save();
-                message.channel.send({
+                channel.send({
                     embeds: [
                         new EmbedBuilder()
                             .setColor("Blue")
@@ -99,7 +99,7 @@ export const updateTranscriptMessage = async (oldMessage: Message, newMessage: M
 
 export const buildTranscriptLine = (message: Message): string => {
     let msg = "";
-    if (message.content != null && message.content !== "") {
+    if (message.author.bot || (message.content != null && message.content !== "")) {
         msg += `[${ticketDateFormatter.format(message.createdAt)}] [${message.author.tag}]: ${message.content}`;
     }
     if (message.attachments != null && message.attachments.size > 0) {

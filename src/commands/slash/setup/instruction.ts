@@ -1,5 +1,6 @@
-import type { TextBasedChannel } from "discord.js";
+import type { TextChannel } from "discord.js";
 import { EmbedBuilder } from "discord.js";
+import { isNormalTextChannel } from "utils/checkChannel";
 import { SubSlashCommand } from "../../../structure/SubSlashCommand";
 
 export default new SubSlashCommand({
@@ -7,14 +8,14 @@ export default new SubSlashCommand({
     async execute(interaction) {
         interaction.deferReply().then(() => interaction.deleteReply());
 
-        if (!interaction.channel) return;
+        if (interaction.channel == null || !isNormalTextChannel(interaction.channel)) return;
 
         await sendMain(interaction.channel);
         await sendRoles(interaction.channel);
     },
 });
 
-const sendMain = async (channel: TextBasedChannel) => {
+const sendMain = async (channel: TextChannel) => {
     const embed1 = new EmbedBuilder()
         .setColor(0xff7f00)
         .setTitle("✨《PRISM》에 오신것을 환영합니다!")
@@ -33,7 +34,7 @@ const sendMain = async (channel: TextBasedChannel) => {
     await channel.send({ embeds: [ embed1, embed2 ] });
 };
 
-const sendRoles = async (channel: TextBasedChannel) => {
+const sendRoles = async (channel: TextChannel) => {
     const embed = new EmbedBuilder()
         .setColor(0xff7f00)
         .setDescription(
