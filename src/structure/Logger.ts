@@ -1,7 +1,7 @@
-import { NAME } from "config";
 import type { Client, GuildMember, PartialGuildMember, TextChannel } from "discord.js";
 import { EmbedBuilder, time, userMention } from "discord.js";
 import type { ISupportTicket } from "schema/ticketSchema";
+import { description, title } from "templates/join";
 import isProduction from "utils/isProduction";
 
 class Logger {
@@ -10,7 +10,6 @@ class Logger {
     private devChannel: TextChannel | undefined;
     private mainChatChannel: TextChannel | undefined;
     private ticketLogChannel: TextChannel | undefined;
-    private stepOneVerifyChannel: TextChannel | undefined;
 
     public init(client: Client) {
         this.userWelcomeChannel = client.channels.cache.get("1023191661167263859") as TextChannel;
@@ -18,7 +17,6 @@ class Logger {
         this.devChannel = client.channels.cache.get("1024959239384477726") as TextChannel;
         this.mainChatChannel = client.channels.cache.get("1031057694213296159") as TextChannel;
         this.ticketLogChannel = client.channels.cache.get("1038463307021025290") as TextChannel;
-        this.stepOneVerifyChannel = client.channels.cache.get("1023189655576916038") as TextChannel;
     }
 
     public async error(error: unknown) {
@@ -69,18 +67,15 @@ class Logger {
             .setThumbnail(member.displayAvatarURL());
         const welcomeEmbed = new EmbedBuilder()
             .setColor(0x00ff00)
-            .setTitle(`《${NAME}》✨`)
-            .setDescription(
-                `${userMention(member.id)}님! 유저가 이끄는 서버, **${NAME}**에 오신것을 환영합니다!\n\n`
-                + "<#1023077753504944138>를 잘 숙지하시고 <#1023189655576916038>에서 간단한 인증을 진행해 주시면 바로 활동하실 수 있어요!",
-            );
+            .setTitle(title)
+            .setDescription(description(member));
         return Promise.all([
             this.userLogChannel?.send({ embeds: [ logEmbed ] }),
-            this.userWelcomeChannel?.send({ embeds: [ welcomeEmbed ] }),
-            (await this.stepOneVerifyChannel?.send({
+            this.userWelcomeChannel?.send({
+                embeds: [ welcomeEmbed ],
                 content: userMention(member.id),
-                allowedMentions: { parse: [ "users", "roles" ] },
-            }))?.delete(),
+                allowedMentions: { parse: [ "users" ] },
+            }),
         ]);
     }
 

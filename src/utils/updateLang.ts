@@ -1,5 +1,5 @@
 import type { MessageComponentInteraction, SelectMenuInteraction } from "discord.js";
-import { GuildMember, Locale } from "discord.js";
+import { channelMention, GuildMember, Locale } from "discord.js";
 import dbManager from "structure/DBManager";
 import rolesManager from "structure/RolesManager";
 
@@ -23,7 +23,7 @@ export default async (interaction: MessageComponentInteraction|SelectMenuInterac
                 user.save(),
                 member.roles.add(rolesManager.get("foreign")!),
             ]);
-            interaction.editReply("I've set your language to English");
+            interaction.editReply(`I've set your language to English!\nNow, go to ${channelMention("1041545759109165066")}, and select required roles.`);
             break;
         }
     }
