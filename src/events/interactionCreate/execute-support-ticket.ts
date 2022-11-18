@@ -9,10 +9,10 @@ export default createInteractionCreateEventListener(async (interaction) => {
     try {
         if (interaction.customId === "create_ticket_check") {
             await createTicketCheck(interaction);
-        } else if (interaction.customId === "create_ticket") {
-            await createTicket(interaction);
         } else if (interaction.customId === "close_ticket_check") {
             await closeTicketCheck(interaction);
+        } else if (interaction.customId.startsWith("create_ticket_")) {
+            await createTicket(interaction);
         } else if (interaction.customId === "close_ticket") {
             await closeTicket(interaction);
         }

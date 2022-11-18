@@ -1,7 +1,8 @@
 import type { ButtonInteraction, ChatInputCommandInteraction, InteractionReplyOptions } from "discord.js";
 import { ButtonBuilder, ButtonStyle, CategoryChannel, channelMention, ChannelType, EmbedBuilder, GuildMember, PermissionsBitField, userMention } from "discord.js";
 import { bot } from "index";
-import { TicketStatus } from "schema/ticketSchema";
+import type { TicketTypeKey } from "schema/ticketSchema";
+import { TicketStatus, TicketType } from "schema/ticketSchema";
 import { ActionRow } from "structure/ActionRow";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
@@ -18,9 +19,20 @@ const checkEmbed: InteractionReplyOptions = {
     components: [
         new ActionRow(
             new ButtonBuilder()
+                .setStyle(ButtonStyle.Danger)
+                .setCustomId("create_ticket_report")
+                .setLabel("신고")
+                .setEmoji("⚠️"),
+            new ButtonBuilder()
                 .setStyle(ButtonStyle.Success)
-                .setCustomId("create_ticket")
-                .setLabel("문의 생성하기"),
+                .setCustomId("create_ticket_suggestion")
+                .setLabel("건의사항")
+                .setEmoji("🙋"),
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Secondary)
+                .setCustomId("create_ticket_other")
+                .setLabel("기타")
+                .setEmoji("❓"),
         ),
     ],
 };
@@ -43,7 +55,7 @@ export const createTicket = async (interaction: ButtonInteraction) => {
         type: ChannelType.GuildText,
         permissionOverwrites: [
             {
-                id: interaction.user.id,
+                id: member.id,
                 allow: [ PermissionsBitField.Flags.ViewChannel ],
             },
         ],
@@ -54,6 +66,7 @@ export const createTicket = async (interaction: ButtonInteraction) => {
             _id: channel.id,
             opener: member.id,
             status: TicketStatus.CREATED,
+            type: getTicketType(interaction.customId),
             whenCreated: now,
             whenOpened: null,
             users: [],
@@ -97,4 +110,10 @@ export const createTicket = async (interaction: ButtonInteraction) => {
                 .setDescription(`${channelMention(channel.id)}로 이동해 주세요!`),
         ],
     });
+};
+
+const getTicketType = (buttonId: string): TicketType => {
+    const splitted = buttonId.split("_");
+    const typeString = splitted[splitted.length - 1].toUpperCase() as TicketTypeKey;
+    return TicketType[typeString];
 };

@@ -6,6 +6,8 @@ export enum TicketType {
     OTHER
 }
 
+export type TicketTypeKey = keyof typeof TicketType;
+
 export enum TicketStatus {
     CREATED,
     OPENED,
