@@ -3,4 +3,5 @@ package-lock.json
 pnpm-lock.yaml
 db_data/
 build/
+dist/
 .env
