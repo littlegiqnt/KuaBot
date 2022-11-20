@@ -3,6 +3,7 @@ import { SubSlashCommand } from "structure/SubSlashCommand";
 
 export default new SubSlashCommand({
     name: "eval",
+    description: "자바스크립트 코드 실행",
     args: [
         {
             type: ApplicationCommandOptionType.String,

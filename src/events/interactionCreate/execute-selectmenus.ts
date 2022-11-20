@@ -45,8 +45,8 @@ const processSelectGames = async (interaction: SelectMenuInteraction) => {
 const processSelectLanguage = async (interaction: SelectMenuInteraction) => {
     await interaction.deferReply({ ephemeral: true });
 
-    if (interaction.values.length > 1 || interaction.values.length < 1) {
-        interaction.editReply("오류가 발생하였어요!");
+    if (interaction.values.length !== 1) {
+        interaction.editReply("Error!");
         return;
     }
     const [ lang ] = interaction.values;

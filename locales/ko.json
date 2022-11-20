@@ -1,0 +1,41 @@
+{
+    "rolesSelect": {
+        "success": "설정되었습니다!",
+        "successWithRolesLeft_one": "설정되었습니다!\n남은 필수 역할은 총 {{count}}개입니다! :D",
+        "successWithRolesLeft_other": "Setup!\nYou need to select {{count}} more roles :D",
+        "successComplete": "설정되었습니다!\n<:verified:1026009161865101354> 이제 서버에서 활동하실 수 있어요!",
+        "failed": "실패하였습니다! 관리자에게 문의해주세요.",
+        "add": "해당 역할이 추가되었습니다!",
+        "remove": "해당 역할이 제거되었습니다!"
+    },
+    "tickets": {
+        "transcript": "문의 기록",
+        "createConfirmEmbed": {
+            "title": "정말로 문의를 하실 거죠?",
+            "description": "적합한 카테고리를 선택해 주세요!"
+        },
+        "createMessage": {
+            "title": "문의가 성공적으로 신청되었어요!",
+            "description": "{{- channel}}로 이동해 주세요!"
+        },
+        "createEmbed": {
+            "title": "문의가 신청되었어요!",
+            "description": "현재 발생한 문제 또는 상황에 대하여 최대한 자세하게 설명해 주세요!\n또한, 채팅을 입력하면 바로 문의가 열려요.",
+            "closeButton": "문의 닫기"
+        },
+        "openEmbed": {
+            "title": "문의가 공개되었어요!",
+            "description": "저희 측의 관리자분들이 곧 도와주실 거예요."
+        },
+        "closeConfirmEmbed": {
+            "title": "정말로 닫으실 건가요?",
+            "description": "실수가 아닌지 확인하는 거랍니다! :D\n또한, 문의를 닫으시면 제가 개인 메세지로 채팅 기록을 보내드려요.",
+            "confirmButton": "정말로 문의를 닫아주세요!"
+        },
+        "category": {
+            "report": "신고",
+            "suggestion": "건의",
+            "other": "기타"
+        }
+    }
+}

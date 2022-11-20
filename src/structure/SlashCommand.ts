@@ -8,9 +8,11 @@ export interface ParentSlashCommandOptions extends Pick<BaseSlashCommandOptions,
     readonly subCommands: SubSlashCommand[]
     readonly guildID?: string
 }
+
 export interface SlashCommandOptions extends BaseSlashCommandOptions {
     readonly guildID?: string
 }
+
 export class SlashCommand extends BaseSlashCommand {
     private readonly subCommands: SubSlashCommand[] | null = null;
 

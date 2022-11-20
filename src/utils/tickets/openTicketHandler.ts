@@ -1,4 +1,4 @@
-import type { ButtonInteraction, ChatInputCommandInteraction, InteractionReplyOptions } from "discord.js";
+import type { ButtonInteraction, ChatInputCommandInteraction } from "discord.js";
 import { ButtonBuilder, ButtonStyle, CategoryChannel, channelMention, ChannelType, EmbedBuilder, GuildMember, PermissionsBitField, userMention } from "discord.js";
 import { bot } from "index";
 import type { TicketTypeKey } from "schema/ticketSchema";
@@ -7,38 +7,37 @@ import { ActionRow } from "structure/ActionRow";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { ticketDateFormatter } from "utils/dateFormatter";
-
-const checkEmbed: InteractionReplyOptions = {
-    ephemeral: true,
-    embeds: [
-        new EmbedBuilder()
-            .setColor("Gold")
-            .setTitle("정말로 문의를 하실 거죠?")
-            .setDescription("실수가 아닌지 확인하는 거랍니다! :D"),
-    ],
-    components: [
-        new ActionRow(
-            new ButtonBuilder()
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId("create_ticket_report")
-                .setLabel("신고")
-                .setEmoji("⚠️"),
-            new ButtonBuilder()
-                .setStyle(ButtonStyle.Success)
-                .setCustomId("create_ticket_suggestion")
-                .setLabel("건의사항")
-                .setEmoji("🙋"),
-            new ButtonBuilder()
-                .setStyle(ButtonStyle.Secondary)
-                .setCustomId("create_ticket_other")
-                .setLabel("기타")
-                .setEmoji("❓"),
-        ),
-    ],
-};
+import msg from "utils/msg";
 
 export const createTicketCheck = async (interaction: ButtonInteraction | ChatInputCommandInteraction) => {
-    interaction.reply(checkEmbed);
+    interaction.reply({
+        ephemeral: true,
+        embeds: [
+            new EmbedBuilder()
+                .setColor("Gold")
+                .setTitle(msg(interaction.locale, "tickets.createConfirmEmbed.title"))
+                .setDescription(msg(interaction.locale, "tickets.createConfirmEmbed.description")),
+        ],
+        components: [
+            new ActionRow(
+                new ButtonBuilder()
+                    .setStyle(ButtonStyle.Danger)
+                    .setCustomId("create_ticket_report")
+                    .setLabel(msg(interaction.locale, "tickets.category.report"))
+                    .setEmoji("⚠️"),
+                new ButtonBuilder()
+                    .setStyle(ButtonStyle.Success)
+                    .setCustomId("create_ticket_suggestion")
+                    .setLabel(msg(interaction.locale, "tickets.category.suggestion"))
+                    .setEmoji("🙋"),
+                new ButtonBuilder()
+                    .setStyle(ButtonStyle.Secondary)
+                    .setCustomId("create_ticket_other")
+                    .setLabel(msg(interaction.locale, "tickets.category.other"))
+                    .setEmoji("❓"),
+            ),
+        ],
+    });
 };
 
 export const createTicket = async (interaction: ButtonInteraction) => {
@@ -67,12 +66,13 @@ export const createTicket = async (interaction: ButtonInteraction) => {
             opener: member.id,
             status: TicketStatus.CREATED,
             type: getTicketType(interaction.customId),
+            lang: interaction.locale,
             whenCreated: now,
             whenOpened: null,
             users: [],
             transcript: `\
-문의자: ${member.user?.tag ?? "알 수 없음"} (${member.displayName}) ${member.id}
-신청 날짜: ${ticketDateFormatter.format(now)}`,
+User: ${member.user?.tag ?? "알 수 없음"} (${member.displayName}) ${member.id}
+Date: ${ticketDateFormatter.format(now)}`,
         });
     } catch (e) {
         await channel.delete();
@@ -83,10 +83,8 @@ export const createTicket = async (interaction: ButtonInteraction) => {
         embeds: [
             new EmbedBuilder()
                 .setColor("Green")
-                .setTitle("문의가 신청되었어요!")
-                .setDescription("현재 발생한 문제 또는 상황에 대하여 최대한 자세하게 설명해 주세요!\n"
-                    + "채팅을 입력하면 문의가 정식으로 신청됩니다.\n\n"
-                    + "문의를 닫으시려면 밑의 버튼을 눌러주세요!"),
+                .setTitle(msg(interaction.locale, "tickets.createEmbed.title"))
+                .setDescription(msg(interaction.locale, "tickets.createEmbed.description")),
         ],
         content: `${userMention(member.id)}`,
         allowedMentions: {
@@ -97,7 +95,7 @@ export const createTicket = async (interaction: ButtonInteraction) => {
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Secondary)
                     .setCustomId("close_ticket_check")
-                    .setLabel("문의 닫기"),
+                    .setLabel(msg(interaction.locale, "tickets.createEmbed.closeButton")),
             ),
         ],
     });
@@ -106,8 +104,8 @@ export const createTicket = async (interaction: ButtonInteraction) => {
         embeds: [
             new EmbedBuilder()
                 .setColor(Color.GREEN)
-                .setTitle("문의가 성공적으로 신청되었어요!")
-                .setDescription(`${channelMention(channel.id)}로 이동해 주세요!`),
+                .setTitle(msg(interaction.locale, "tickets.createMessage.title"))
+                .setDescription(msg(interaction.locale, "tickets.createMessage.description", { channel: channelMention(channel.id) })),
         ],
     });
 };

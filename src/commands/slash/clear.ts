@@ -6,6 +6,7 @@ import { isNormalTextChannel } from "utils/checkChannel";
 
 export default new SlashCommand({
     name: "clear",
+    description: "메세지 삭제",
     args: [
         {
             type: ApplicationCommandOptionType.Integer,

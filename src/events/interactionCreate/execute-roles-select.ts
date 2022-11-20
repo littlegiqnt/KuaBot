@@ -5,6 +5,7 @@ import logger from "structure/Logger";
 import rolesManager from "structure/RolesManager";
 import TaskQueue from "structure/TaskQueue";
 import handleErrorReply from "utils/handleErrorReply";
+import msg from "utils/msg";
 import createInteractionCreateEventListener from "./createInteractionCreateEventListener";
 
 export default createInteractionCreateEventListener(async (interaction) => {
@@ -131,38 +132,21 @@ const processSelectRoles = (interaction: MessageComponentInteraction) => {
                 return;
             }
             default: {
-                interaction.editReply({ content: "실패하였습니다! 관리자에게 문의해주세요." });
+                interaction.editReply({ content: msg(interaction.locale, "rolesSelect.failed") });
                 return;
             }
         }
 
-        if (interaction.channelId === "1041545759109165066") {
-            if (member.roles.cache.has(rolesManager.get("stepOneVerified")!.id)) {
-                interaction.editReply({ content: "Setup!" });
-            } else {
-                const rolesLeft: number = await checkRolesLeft(member);
-                if (rolesLeft > 0) {
-                    interaction.editReply({ content: `Setup!\nYou need to select ${rolesLeft} more role${rolesLeft > 1 ? "s" : ""}. :D` });
-                } else {
-                    interaction.editReply({ content:
-                    "Setup!\n<:verified:1026009161865101354> You are now verified! Welcome!" });
-                    member.roles.add(rolesManager.get("stepOneVerified")!);
-                    logger.stepOneVerify(member);
-                }
-            }
+        if (member.roles.cache.has(rolesManager.get("stepOneVerified")!.id)) {
+            interaction.editReply({ content: msg(interaction.locale, "rolesSelect.success") });
         } else {
-            if (member.roles.cache.has(rolesManager.get("stepOneVerified")!.id)) {
-                interaction.editReply({ content: "설정되었습니다!" });
+            const rolesLeft: number = await checkRolesLeft(member);
+            if (rolesLeft > 0) {
+                interaction.editReply({ content: msg(interaction.locale, "rolesSelect.successWithRolesLeft", { count: rolesLeft }) });
             } else {
-                const rolesLeft: number = await checkRolesLeft(member);
-                if (rolesLeft > 0) {
-                    interaction.editReply({ content: `설정되었습니다!\n남은 필수 역할은 총 ${rolesLeft}개 입니다. :D` });
-                } else {
-                    interaction.editReply({ content:
-                    "설정되었습니다!\n<:verified:1026009161865101354> 이제 서버에서 활동하실 수 있어요!" });
-                    member.roles.add(rolesManager.get("stepOneVerified")!);
-                    logger.stepOneVerify(member);
-                }
+                interaction.editReply({ content: msg(interaction.locale, "rolesSelect.successComplete") });
+                member.roles.add(rolesManager.get("stepOneVerified")!);
+                logger.stepOneVerify(member);
             }
         }
     });
@@ -197,21 +181,11 @@ const checkRolesLeft = async (member: GuildMember): Promise<number> => {
 };
 
 const handlePingRole = async (role: Role, member: GuildMember, interaction: MessageComponentInteraction) => {
-    if (interaction.channelId === "1041545759109165066") {
-        if (member.roles.cache.has(role.id)) {
-            await member.roles.remove(role);
-            interaction.editReply({ content: "\\➖ The role have been removed!" });
-        } else {
-            await member.roles.add(role);
-            interaction.editReply({ content: "\\➕ The role have been added!" });
-        }
+    if (member.roles.cache.has(role.id)) {
+        await member.roles.remove(role);
+        interaction.editReply({ content: `\\➖ ${msg(interaction.locale, "rolesSelect.remove")}` });
     } else {
-        if (member.roles.cache.has(role.id)) {
-            await member.roles.remove(role);
-            interaction.editReply({ content: "\\➖ 해당 역할이 제거되었습니다!" });
-        } else {
-            await member.roles.add(role);
-            interaction.editReply({ content: "\\➕ 해당 역할이 추가되었습니다!" });
-        }
+        await member.roles.add(role);
+        interaction.editReply({ content: `\\➕ ${msg(interaction.locale, "rolesSelect.add")}` });
     }
 };

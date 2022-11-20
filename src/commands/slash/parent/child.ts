@@ -3,6 +3,7 @@ import { SubSlashCommand } from "../../../structure/SubSlashCommand";
 
 export default new SubSlashCommand({
     name: "child",
+    description: "description",
     args: [
         {
             type: ApplicationCommandOptionType.String,

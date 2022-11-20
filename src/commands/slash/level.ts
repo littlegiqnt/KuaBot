@@ -11,7 +11,7 @@ export default new SlashCommand({
         {
             type: ApplicationCommandOptionType.User,
             name: "유저",
-            description: "특정한 유저를 선택해요.",
+            description: "특정한 유저를 선택해요",
         },
     ],
     async execute(interaction) {

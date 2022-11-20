@@ -3,6 +3,7 @@ import { EmbedBuilder, time, userMention } from "discord.js";
 import type { ISupportTicket } from "schema/ticketSchema";
 import { description, title } from "templates/join";
 import isProduction from "utils/isProduction";
+import msg from "utils/msg";
 
 class Logger {
     private userWelcomeChannel: TextChannel | undefined;
@@ -111,6 +112,7 @@ class Logger {
     }
 
     public async ticket(supportTicket: ISupportTicket, client: Client, transcriptUrl?: string) {
+        const opener = await client.users.fetch(supportTicket.opener);
         const embed = new EmbedBuilder()
             .setColor("Navy")
             .setTitle("문의 티켓 로그")
@@ -141,9 +143,15 @@ class Logger {
                     inline: true,
                 },
             ]);
-        this.ticketLogChannel?.send({ embeds: [ embed ] });
-        const opener = await client.users.fetch(supportTicket.opener);
-        return opener.send({ embeds: [ embed ] }).catch(() => {});
+        Promise.all([
+            this.ticketLogChannel?.send({ embeds: [ embed ] }),
+            transcriptUrl == null ? undefined : opener.send({ embeds: [
+                new EmbedBuilder()
+                    .setColor("Navy")
+                    .setTitle(msg(supportTicket.lang, "tickets.transcript"))
+                    .setDescription(transcriptUrl),
+            ] }).catch(() => {}),
+        ]);
     }
 }
 

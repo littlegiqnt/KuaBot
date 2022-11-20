@@ -4,26 +4,8 @@ import { TicketStatus } from "schema/ticketSchema";
 import { ActionRow } from "structure/ActionRow";
 import dbManager from "structure/DBManager";
 import logger from "structure/Logger";
+import msg from "utils/msg";
 import { uploadTranscript } from "./ticketTranscriptHandler";
-
-const checkEmbed: InteractionReplyOptions = {
-    ephemeral: true,
-    embeds: [
-        new EmbedBuilder()
-            .setColor("Gold")
-            .setTitle("정말로 문의를 닫으실 거죠?")
-            .setDescription("실수가 아닌지 확인하는 거랍니다! :D\n"
-            + "또한, 문의를 닫으시면 개인 메세지로 제가 채팅 기록을 보내드려요."),
-    ],
-    components: [
-        new ActionRow(
-            new ButtonBuilder()
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId("close_ticket")
-                .setLabel("정말로 문의를 닫아주세요!"),
-        ),
-    ],
-};
 
 export const notTicketEmbed: InteractionReplyOptions = {
     ephemeral: true,
@@ -41,7 +23,23 @@ export const closeTicketCheck = async (interaction: ButtonInteraction | ChatInpu
         interaction.reply(notTicketEmbed);
         return;
     }
-    interaction.reply(checkEmbed);
+    interaction.reply({
+        ephemeral: true,
+        embeds: [
+            new EmbedBuilder()
+                .setColor("Gold")
+                .setTitle(msg(interaction.locale, "tickets.closeConfirmEmbed.title"))
+                .setDescription(msg(interaction.locale, "tickets.closeConfirmEmbed.description")),
+        ],
+        components: [
+            new ActionRow(
+                new ButtonBuilder()
+                    .setStyle(ButtonStyle.Danger)
+                    .setCustomId("close_ticket")
+                    .setLabel(msg(interaction.locale, "tickets.closeConfirmEmbed.confirmButton")),
+            ),
+        ],
+    });
 };
 
 export const closeTicket = async (interaction: ButtonInteraction) => {

@@ -4,6 +4,7 @@ import { SubSlashCommand } from "../../../structure/SubSlashCommand";
 
 export default new SubSlashCommand({
     name: "buttons",
+    description: "버튼 스타일 목록 보기",
     args: [],
     async execute(interaction) {
         const row = new ActionRow<ButtonBuilder>(

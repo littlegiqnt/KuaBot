@@ -8,6 +8,7 @@ import TaskQueue from "structure/TaskQueue";
 import { isNormalTextChannel } from "utils/checkChannel";
 import { ticketDateFormatter } from "utils/dateFormatter";
 import handleErrorReply from "utils/handleErrorReply";
+import msg from "utils/msg";
 
 const queue: TaskQueue = new TaskQueue(); // ?
 
@@ -63,7 +64,8 @@ export const addTranscriptMessage = async (message: Message) => {
                     embeds: [
                         new EmbedBuilder()
                             .setColor("Blue")
-                            .setDescription("문의가 공개되었어요!"),
+                            .setTitle(msg(supportTicket.lang, "tickets.openEmbed.title"))
+                            .setDescription(msg(supportTicket.lang, "tickets.openEmbed.description")),
                     ],
                 });
             } catch (e) {
@@ -98,16 +100,16 @@ export const updateTranscriptMessage = async (oldMessage: Message, newMessage: M
 };
 
 export const buildTranscriptLine = (message: Message): string => {
-    let msg = "";
+    let line = "";
     if (message.author.bot || (message.content != null && message.content !== "")) {
-        msg += `[${ticketDateFormatter.format(message.createdAt)}] [${message.author.tag}]: ${message.content}`;
+        line += `[${ticketDateFormatter.format(message.createdAt)}] [${message.author.tag}]: ${message.content}`;
     }
     if (message.attachments != null && message.attachments.size > 0) {
-        if (msg !== "") {
-            msg += "\n";
+        if (line !== "") {
+            line += "\n";
         }
-        msg += `[${ticketDateFormatter.format(message.createdAt)}] [${message.author.tag}]: `
+        line += `[${ticketDateFormatter.format(message.createdAt)}] [${message.author.tag}]: `
             + `${message.attachments.map((value) => value.url).join(", ")}`;
     }
-    return msg;
+    return line;
 };

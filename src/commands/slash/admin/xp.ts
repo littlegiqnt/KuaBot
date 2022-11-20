@@ -4,6 +4,7 @@ import { SubSlashCommand } from "structure/SubSlashCommand";
 
 export default new SubSlashCommand({
     name: "xp",
+    description: "유저의 xp 확인",
     args: [
         {
             type: ApplicationCommandOptionType.User,

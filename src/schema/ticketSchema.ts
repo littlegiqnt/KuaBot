@@ -1,3 +1,4 @@
+import { Locale } from "discord.js";
 import { Schema } from "mongoose";
 
 export enum TicketType {
@@ -20,6 +21,7 @@ export interface ISupportTicket {
     opener: string
     status: TicketStatus
     type: TicketType
+    lang: Locale
     whenCreated: Date
     whenOpened: Date|null
     users: string[]
@@ -31,6 +33,7 @@ export const supportTicketSchema = new Schema<ISupportTicket>({
     opener: String,
     status: { type: Number, enum: TicketStatus, default: TicketStatus.CREATED },
     type: { type: Number, enum: TicketType, default: TicketType.OTHER },
+    lang: { type: String, enum: Locale, default: Locale.EnglishUS },
     whenCreated: Date,
     whenOpened: Date,
     users: Array<String>,
