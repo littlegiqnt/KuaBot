@@ -1,0 +1,6 @@
+{
+  "name": "codespace-1",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+  }
+}
