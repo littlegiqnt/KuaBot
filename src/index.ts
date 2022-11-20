@@ -6,7 +6,7 @@ import registerSelfBot from "utils/registerSelfBot";
 import events from "./events";
 
 dotenv.config();
-const bot: Bot = new Bot({
+export const bot: Bot = new Bot({
     token: process.env.TOKEN!,
 });
 
