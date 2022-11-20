@@ -143,7 +143,7 @@ class Logger {
             ]);
         this.ticketLogChannel?.send({ embeds: [ embed ] });
         const opener = await client.users.fetch(supportTicket.opener);
-        return opener.send({ embeds: [ embed ] }).catch((err) => {});
+        return opener.send({ embeds: [ embed ] }).catch(() => {});
     }
 }
 

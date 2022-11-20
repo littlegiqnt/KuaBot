@@ -1,7 +1,7 @@
 import logger from "structure/Logger";
 import createReadyEventListener from "./createReadyEventListener";
 
-export default createReadyEventListener(async (client) => {
+export default createReadyEventListener(async () => {
     try {
         const now = new Date();
         let millisTill = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0).getTime() - now.getTime();

@@ -1,9 +1,9 @@
 import type { ButtonInteraction, ChatInputCommandInteraction, InteractionReplyOptions } from "discord.js";
 import { ButtonBuilder, ButtonStyle, CategoryChannel, channelMention, ChannelType, EmbedBuilder, GuildMember, PermissionsBitField, userMention } from "discord.js";
-import { bot } from "index";
 import type { TicketTypeKey } from "schema/ticketSchema";
 import { TicketStatus, TicketType } from "schema/ticketSchema";
 import { ActionRow } from "structure/ActionRow";
+import bot from "structure/Bot";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { ticketDateFormatter } from "utils/dateFormatter";

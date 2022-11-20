@@ -17,7 +17,7 @@ export default new SubSlashCommand({
         if (tickets.length === 0) {
             embed.setDescription("생성되었거나 열려있는 문의가 없어요!");
         } else {
-            tickets.forEach((value, index) => {
+            tickets.forEach((value) => {
                 embed.addFields({
                     name: `${(interaction.client.users.cache.get(value.opener))?.tag ?? "알 수 없는 멤버"}`,
                     value: `\

@@ -30,7 +30,7 @@ export class SlashCommand extends BaseSlashCommand {
         if ("guildID" in options) this.guildID = options.guildID;
     }
 
-    public override isMine(interaction: ChatInputCommandInteraction) {
+    public override isMine(interaction: ChatInputCommandInteraction): boolean {
         return interaction.commandName === this.name;
     }
 

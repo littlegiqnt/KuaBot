@@ -1,5 +1,4 @@
 import { ApplicationCommandOptionType, EmbedBuilder, escapeMarkdown, GuildMember } from "discord.js";
-import Bot from "structure/Bot";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { SubSlashCommand } from "../../../structure/SubSlashCommand";
@@ -15,10 +14,6 @@ export default new SubSlashCommand({
         },
     ],
     async execute(interaction) {
-        const bot = interaction.client;
-        if (!(bot instanceof Bot)) {
-            return;
-        }
         await interaction.deferReply({ ephemeral: false });
         const member = interaction.options.getMember("유저") ?? interaction.member;
         if (!(member instanceof GuildMember)) {

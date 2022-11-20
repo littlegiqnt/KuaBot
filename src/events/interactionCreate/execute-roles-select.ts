@@ -1,7 +1,6 @@
 /* eslint-disable no-lonely-if */
 import type { MessageComponentInteraction, Role } from "discord.js";
 import { GuildMember } from "discord.js";
-import Bot from "structure/Bot";
 import logger from "structure/Logger";
 import rolesManager from "structure/RolesManager";
 import TaskQueue from "structure/TaskQueue";
@@ -27,10 +26,6 @@ const processSelectRoles = (interaction: MessageComponentInteraction) => {
     queue.enqueue(async () => {
         await interaction.deferReply({ ephemeral: true });
 
-        const bot = interaction.client;
-        if (!(bot instanceof Bot)) {
-            return;
-        }
         const { member } = interaction;
         if (!(member instanceof GuildMember)) {
             handleErrorReply(new Error("member가 GuildMember가 아님"), interaction);

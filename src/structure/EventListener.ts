@@ -10,5 +10,6 @@ export const createEventListenerFactory =
             new EventListener(eventName, listener);
 
 export class EventListener<EventName extends keyof ClientEvents> {
+    // eslint-disable-next-line no-useless-constructor, no-empty-function
     constructor(public readonly eventName: EventName, public readonly listener: EventListenerFn<EventName>) {}
 }

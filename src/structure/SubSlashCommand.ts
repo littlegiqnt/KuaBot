@@ -2,7 +2,7 @@ import { ApplicationCommandOptionType as CommandArgType, type ApplicationCommand
 import { BaseSlashCommand } from "./BaseSlashCommand";
 
 export class SubSlashCommand extends BaseSlashCommand {
-    public override isMine(interaction: ChatInputCommandInteraction) {
+    public override isMine(interaction: ChatInputCommandInteraction): boolean {
         return interaction.options.getSubcommand(false) === this.name;
     }
 

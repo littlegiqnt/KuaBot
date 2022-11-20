@@ -1,7 +1,5 @@
 import type { Role, SelectMenuInteraction } from "discord.js";
 import { GuildMember, Locale } from "discord.js";
-import Bot from "structure/Bot";
-import dbManager from "structure/DBManager";
 import rolesManager from "structure/RolesManager";
 import handleErrorReply from "utils/handleErrorReply";
 import updateLang from "utils/updateLang";
@@ -24,10 +22,6 @@ export default createInteractionCreateEventListener(async (interaction) => {
 const processSelectGames = async (interaction: SelectMenuInteraction) => {
     await interaction.deferReply({ ephemeral: true });
 
-    const bot = interaction.client;
-    if (!(bot instanceof Bot)) {
-        return;
-    }
     const { member } = interaction;
     if (!(member instanceof GuildMember)) {
         throw new Error("member가 GuildMember가 아님");
@@ -55,7 +49,6 @@ const processSelectLanguage = async (interaction: SelectMenuInteraction) => {
         interaction.editReply("오류가 발생하였어요!");
         return;
     }
-    const user = await dbManager.loadUser(interaction.user.id);
     const [ lang ] = interaction.values;
 
     switch (lang) {

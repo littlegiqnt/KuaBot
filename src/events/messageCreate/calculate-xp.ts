@@ -1,6 +1,5 @@
 import { GUILD_ID } from "config";
 import type { GuildMember } from "discord.js";
-import Bot from "structure/Bot";
 import dbManager from "structure/DBManager";
 import { isNormalTextChannel } from "utils/checkChannel";
 import createMessageCreateEventListener from "./createMessageCreateEventListener";
@@ -11,10 +10,6 @@ const allowedCategories: string[] = [ "1023074542190592000", "102318518955331175
 export default createMessageCreateEventListener((message) => {
     if (message.guildId !== GUILD_ID) return;
 
-    const bot = message.client;
-    if (!(bot instanceof Bot)) {
-        return;
-    }
     const { member, channel } = message;
     if (member == null || member.user.bot || !isNormalTextChannel(channel)) return;
 
@@ -28,12 +23,12 @@ export default createMessageCreateEventListener((message) => {
 
     if (!lastCreated || lastCreated !== whenCreated) {
         history[member.id] = whenCreated;
-        addXp(bot, member);
+        addXp(member);
         return;
     }
 });
 
-const addXp = async (bot: Bot, member: GuildMember) => {
+const addXp = async (member: GuildMember) => {
     const user = await dbManager.loadUser(member.id);
     if (!user.totalXp) {
         user.totalXp = 1;

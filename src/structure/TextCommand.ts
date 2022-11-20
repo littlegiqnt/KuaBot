@@ -35,12 +35,12 @@ export class TextCommand extends Command<Message, TransformedArgs> {
     }
 
     protected override transform(msg: Message): [Message, string[]] {
-        const [ _commandName, ...args ] = msg.content.split(" ")
+        const [ ...args ] = msg.content.split(" ")
             .slice(this.depth);
         return [ msg, args ];
     }
 
-    public override isMine(msg: Message) {
+    public override isMine(msg: Message): boolean {
         return msg.content.startsWith(PREFIX) && msg.content.slice(PREFIX.length)
             .split(" ")[this.depth] === this.name;
     }

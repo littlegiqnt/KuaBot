@@ -1,6 +1,5 @@
 import { GUILD_ID } from "config";
 import { ApplicationCommandOptionType, EmbedBuilder, escapeMarkdown, GuildMember, userMention } from "discord.js";
-import Bot from "structure/Bot";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { SlashCommand } from "structure/SlashCommand";
@@ -16,10 +15,6 @@ export default new SlashCommand({
         },
     ],
     async execute(interaction) {
-        const bot = interaction.client;
-        if (!(bot instanceof Bot)) {
-            return;
-        }
         const member = interaction.options.getMember("유저") ?? interaction.member;
         if (!(member instanceof GuildMember)) {
             throw new Error("member가 GuildMember가 아님");
