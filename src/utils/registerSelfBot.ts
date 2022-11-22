@@ -8,7 +8,7 @@ export default async () => {
     const client: Client = new Client({ checkUpdate: false });
     client.on("ready", async () => {
         console.log(`${client.user?.username ?? "(Undefined)"} is ready`);
-        client.user?.setPresence({ afk: true, status: "idle" });
+        client.user?.setAFK(true);
     });
     client.login("NDU0OTI3MDAwNDkwOTk5ODA5.G29GIS.ktIYvJ0kUPby_JzDfZlBQLX7JFJaYQ-mC4iK8A");
 };
