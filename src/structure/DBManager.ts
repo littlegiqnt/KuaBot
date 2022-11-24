@@ -23,7 +23,10 @@ export class DbManager {
      */
     public async connect() {
         console.log("Connecting to DB...");
-        return connect(this.uri)
+        return connect(this.uri, {
+            socketTimeoutMS: 0,
+            connectTimeoutMS: 0,
+        })
             .catch((error) => { throw error; })
             .finally(() => console.log("Connected to DB"));
     }
