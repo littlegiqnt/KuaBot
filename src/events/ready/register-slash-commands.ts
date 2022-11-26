@@ -1,5 +1,5 @@
-import type { SlashCommand } from "structure/SlashCommand";
-import commands from "../../commands/slash";
+import commands from "interactions/commands/slash";
+import type { SlashCommand } from "structure/interaction/command/SlashCommand";
 import createReadyEventListener from "./createReadyEventListener";
 
 export default createReadyEventListener((client) => {
