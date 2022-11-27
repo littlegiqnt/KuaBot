@@ -6,17 +6,23 @@ import { isNormalTextChannel } from "utils/checkChannel";
 
 export default new SlashCommand({
     name: "clear",
-    description: "메세지 삭제",
+    description: {
+        "en-US": "Delete messages",
+        ko: "메세지 삭제",
+    },
     args: [
         {
             type: ApplicationCommandOptionType.Integer,
-            name: "개수",
-            description: "지울 메세지 개수",
+            name: "amount",
+            description: "Amount of messages to delete",
+            descriptionLocalizations: {
+                ko: "지울 메세지 개수",
+            },
         },
     ],
     async execute(interaction) {
         const { channel } = interaction;
-        const amount = interaction.options.getInteger("개수")!;
+        const amount = interaction.options.getInteger("amount")!;
         if (channel == null || !isNormalTextChannel(channel)) return;
 
         interaction.deferReply({ ephemeral: true });

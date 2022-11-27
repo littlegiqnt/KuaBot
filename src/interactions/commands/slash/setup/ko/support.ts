@@ -1,10 +1,10 @@
 import type { TextBasedChannel } from "discord.js";
 import { ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
 import { ActionRow } from "structure/ActionRow";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 import supportMessage from "templates/support/open";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "support",
     execute(interaction) {
         interaction.deferReply().then(() => interaction.deleteReply());

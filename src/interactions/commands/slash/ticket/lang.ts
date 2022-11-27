@@ -1,18 +1,30 @@
 import { ApplicationCommandOptionType, EmbedBuilder, GuildMember, Locale } from "discord.js";
 import dbManager from "structure/DBManager";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 import rolesManager from "structure/RolesManager";
 import { isNormalTextChannel } from "utils/checkChannel";
 import { notTicketEmbed } from "utils/tickets/closeTicketHandler";
 
-export default new SubSlashCommand({
-    name: "언어",
-    description: "이 문의의 언어를 보거나 설정해요",
+export default new SubCommand({
+    name: "language",
+    nameLocale: {
+        ko: "언어",
+    },
+    description: {
+        "en-US": "View or set the language for this ticket",
+        ko: "이 문의의 언어를 보거나 설정해요",
+    },
     optionalArgs: [
         {
             type: ApplicationCommandOptionType.String,
-            name: "언어",
-            description: "설정할 언어",
+            name: "language",
+            nameLocalizations: {
+                ko: "언어",
+            },
+            description: "Language to set",
+            descriptionLocalizations: {
+                ko: "설정할 언어",
+            },
         },
     ],
     async execute(interaction) {
@@ -27,7 +39,7 @@ export default new SubSlashCommand({
             interaction.reply(notTicketEmbed);
             return;
         }
-        const langInput = interaction.options.getString("언어");
+        const langInput = interaction.options.getString("language");
 
         if (langInput == null) {
             interaction.reply({ embeds: [ new EmbedBuilder()

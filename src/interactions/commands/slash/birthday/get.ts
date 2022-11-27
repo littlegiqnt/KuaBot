@@ -1,21 +1,33 @@
 import { ApplicationCommandOptionType, EmbedBuilder, GuildMember, userMention } from "discord.js";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
-    name: "언제",
-    description: "제가 생일을 잘 기억하고 있는지 확인해 주세요! :)",
+export default new SubCommand({
+    name: "when",
+    nameLocale: {
+        ko: "언제",
+    },
+    description: {
+        "en-US": "Check if I am remembering your birthday well! :)",
+        ko: "제가 생일을 잘 기억하고 있는지 확인해 주세요! :)",
+    },
     optionalArgs: [
         {
             type: ApplicationCommandOptionType.User,
-            name: "유저",
-            description: "특정한 유저를 선택해요.",
+            name: "user",
+            nameLocalizations: {
+                ko: "유저",
+            },
+            description: "Select specific user",
+            descriptionLocalizations: {
+                ko: "특정 유저를 선택해요",
+            },
         },
     ],
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: false });
-        const member = interaction.options.getMember("유저") ?? interaction.member;
+        const member = interaction.options.getMember("user") ?? interaction.member;
         if (!(member instanceof GuildMember)) {
             throw new Error("member가 GuildMember가 아님");
         }

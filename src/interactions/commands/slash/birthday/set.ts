@@ -1,21 +1,39 @@
 import { ApplicationCommandOptionType, EmbedBuilder, GuildMember, userMention } from "discord.js";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
-    name: "설정",
-    description: "저한테 생일을 알려주세요!",
+export default new SubCommand({
+    name: "set",
+    nameLocale: {
+        ko: "설정",
+    },
+    description: {
+        "en-US": "Tell me your birthday!",
+        ko: "저한테 생일을 알려주세요!",
+    },
     args: [
         {
             type: ApplicationCommandOptionType.Integer,
-            name: "월",
-            description: "월을 입력해 주세요!",
+            name: "month",
+            nameLocalizations: {
+                ko: "월",
+            },
+            description: "What month is it?",
+            descriptionLocalizations: {
+                ko: "월을 입력해 주세요!",
+            },
         },
         {
             type: ApplicationCommandOptionType.Integer,
-            name: "일",
-            description: "일을 입력해 주세요!",
+            name: "day",
+            nameLocalizations: {
+                ko: "일",
+            },
+            description: "What day is it?",
+            descriptionLocalizations: {
+                ko: "일을 입력해 주세요!",
+            },
         },
     ],
     async execute(interaction) {
@@ -25,8 +43,8 @@ export default new SubSlashCommand({
             throw new Error("member가 GuildMember가 아님");
         }
         const user = await dbManager.loadUser(member.id);
-        const month = interaction.options.getInteger("월");
-        const day = interaction.options.getInteger("일");
+        const month = interaction.options.getInteger("month");
+        const day = interaction.options.getInteger("day");
         if (month != null && month >= 1 && month <= 12
                 && day != null && day >= 1 && day <= 31) {
             user.birthday.month = month;

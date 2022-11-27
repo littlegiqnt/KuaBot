@@ -3,19 +3,32 @@ import { ApplicationCommandOptionType, EmbedBuilder, escapeMarkdown, GuildMember
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { SlashCommand } from "structure/interaction/command/SlashCommand";
+import msg from "utils/msg";
 
 export default new SlashCommand({
-    name: "레벨",
-    description: "자신 또는 다른 유저의 레벨을 확인해요!",
+    name: "level",
+    nameLocale: {
+        ko: "레벨",
+    },
+    description: {
+        "en-US": "Check your or specific user's level!",
+        ko: "자신 또는 다른 유저의 레벨을 확인해요!",
+    },
     optionalArgs: [
         {
             type: ApplicationCommandOptionType.User,
-            name: "유저",
-            description: "특정한 유저를 선택해요",
+            name: "user",
+            nameLocalizations: {
+                ko: "유저",
+            },
+            description: "Select specific user",
+            descriptionLocalizations: {
+                ko: "특정한 유저를 선택해요",
+            },
         },
     ],
     async execute(interaction) {
-        const member = interaction.options.getMember("유저") ?? interaction.member;
+        const member = interaction.options.getMember("user") ?? interaction.member;
         if (!(member instanceof GuildMember)) {
             throw new Error("member가 GuildMember가 아님");
         }
@@ -29,7 +42,7 @@ export default new SlashCommand({
             .setDescription(
                 `${userMention(member.id)}\n`
                 + `**XP**: ${xp}\n`
-                + "**Level**: 아직 준비중인 기능이에요!",
+                + `**Level**: ${msg(interaction.locale, "level.notReady")}`,
             );
 
         interaction.reply({ embeds: [ embed ] });

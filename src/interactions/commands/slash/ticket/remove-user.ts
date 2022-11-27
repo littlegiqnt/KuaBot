@@ -1,18 +1,30 @@
 import { ApplicationCommandOptionType, EmbedBuilder, GuildMember, userMention } from "discord.js";
 import dbManager from "structure/DBManager";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 import rolesManager from "structure/RolesManager";
 import { isNormalTextChannel } from "utils/checkChannel";
 import { notTicketEmbed } from "utils/tickets/closeTicketHandler";
 
-export default new SubSlashCommand({
-    name: "유저제거",
-    description: "이 문의에서 특정 유저를 제거해요",
+export default new SubCommand({
+    name: "removeuser",
+    nameLocale: {
+        ko: "유저제거",
+    },
+    description: {
+        "en-US": "Remove a specific user from this ticket",
+        ko: "이 문의에서 특정 유저를 제거해요",
+    },
     args: [
         {
             type: ApplicationCommandOptionType.User,
-            name: "유저",
-            description: "제거할 유저",
+            name: "user",
+            nameLocalizations: {
+                ko: "유저",
+            },
+            description: "User to remove",
+            descriptionLocalizations: {
+                ko: "제거할 유저",
+            },
         },
     ],
     async execute(interaction) {
@@ -28,7 +40,7 @@ export default new SubSlashCommand({
             return;
         }
 
-        const user = interaction.options.getUser("유저");
+        const user = interaction.options.getUser("user");
         if (user == null) return;
         const users = new Set(supportTicket.users);
         users.delete(user.id);

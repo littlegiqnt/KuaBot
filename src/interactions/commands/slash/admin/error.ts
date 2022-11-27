@@ -1,6 +1,6 @@
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "error",
     description: "오류 출력",
     args: [],

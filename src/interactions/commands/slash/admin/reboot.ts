@@ -1,6 +1,6 @@
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "reboot",
     description: "봇 재부팅",
     async execute(interaction) {

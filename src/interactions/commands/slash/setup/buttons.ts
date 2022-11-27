@@ -1,10 +1,12 @@
 import { ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
 import { ActionRow } from "structure/ActionRow";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "buttons",
-    description: "버튼 스타일 목록 보기",
+    description: {
+        "en-US": "버튼 스타일 목록 보기",
+    },
     args: [],
     async execute(interaction) {
         const row = new ActionRow<ButtonBuilder>(

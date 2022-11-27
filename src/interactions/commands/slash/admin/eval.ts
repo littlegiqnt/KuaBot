@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType } from "discord.js";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "eval",
     description: "자바스크립트 코드 실행",
     args: [

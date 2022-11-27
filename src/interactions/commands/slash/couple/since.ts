@@ -1,21 +1,33 @@
 import { ApplicationCommandOptionType, EmbedBuilder } from "discord.js";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
-    name: "시작날짜",
-    description: "두 분이 만나 신지 얼마나 되셨는지 저에게 알려주세요!",
+export default new SubCommand({
+    name: "since",
+    nameLocale: {
+        ko: "시작날짜",
+    },
+    description: {
+        "en-US": "Tell me know how long you have been in a relationship!",
+        ko: "두 분이 만나신지 얼마나 되셨는지 저에게 알려주세요!",
+    },
     args: [
         {
             type: ApplicationCommandOptionType.String,
-            name: "날짜",
-            description: "연도-달-일 형식으로 입력하세요",
+            name: "date",
+            nameLocalizations: {
+                ko: "날짜",
+            },
+            description: "Enter in year-month-day format please :>",
+            descriptionLocalizations: {
+                ko: "연도-달-일 형식으로 입력하세요",
+            },
         },
     ],
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: false });
-        const date: Date = new Date(new Date(interaction.options.getString("날짜")!)
+        const date: Date = new Date(new Date(interaction.options.getString("date")!)
             .toDateString());
         if (isNaN(date.valueOf())) {
             const embed = new EmbedBuilder()

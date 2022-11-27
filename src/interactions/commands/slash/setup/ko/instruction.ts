@@ -1,9 +1,9 @@
 import type { TextChannel } from "discord.js";
 import { EmbedBuilder } from "discord.js";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 import { isNormalTextChannel } from "utils/checkChannel";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "instruction",
     async execute(interaction) {
         interaction.deferReply().then(() => interaction.deleteReply());

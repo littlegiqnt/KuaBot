@@ -1,12 +1,18 @@
 import { channelMention, EmbedBuilder, GuildMember, time, userMention } from "discord.js";
 import { TicketStatus, TicketType } from "schema/ticketSchema";
 import dbManager from "structure/DBManager";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 import rolesManager from "structure/RolesManager";
 
-export default new SubSlashCommand({
-    name: "목록",
-    description: "현재 열려있는 모든 문의 티켓들을 확인해요",
+export default new SubCommand({
+    name: "list",
+    nameLocale: {
+        ko: "목록",
+    },
+    description: {
+        "en-US": "Check all the support tickets that are currently open",
+        ko: "현재 열려있는 모든 문의 티켓들을 확인해요",
+    },
     async execute(interaction) {
         if (!(interaction.member instanceof GuildMember)) return;
         if (!interaction.member.roles.cache.hasAny(rolesManager.getId("owner"), rolesManager.getId("manager"))) return;

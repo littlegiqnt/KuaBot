@@ -7,7 +7,7 @@
         "target": "es2022",
         "minify": {
             "compress": {
-                "arguments": true,
+                "arguments": false,
                 "dead_code": true,
                 "reduce_funcs": true
             }

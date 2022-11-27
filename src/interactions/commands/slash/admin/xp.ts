@@ -1,8 +1,8 @@
 import { ApplicationCommandOptionType } from "discord.js";
 import dbManager from "structure/DBManager";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "xp",
     description: "유저의 xp 확인",
     args: [

@@ -1,9 +1,9 @@
 import type { APISelectMenuOption } from "discord.js";
 import { ButtonBuilder, ButtonStyle, EmbedBuilder, SelectMenuBuilder } from "discord.js";
 import { ActionRow } from "structure/ActionRow";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "test",
     async execute(interaction) {
         const embed = new EmbedBuilder()

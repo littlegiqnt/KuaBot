@@ -1,20 +1,21 @@
-import type { ChatInputApplicationCommandData as ChatInputCommand, ChatInputCommandInteraction } from "discord.js";
-import { ApplicationCommandType as CommandType } from "discord.js";
+import type { ChatInputApplicationCommandData as ChatInputCommandData, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType } from "discord.js";
 import type { BaseSlashCommandOptions } from "./BaseSlashCommand";
 import { BaseSlashCommand } from "./BaseSlashCommand";
-import type { SubSlashCommand } from "./SubSlashCommand";
-
-export interface ParentSlashCommandOptions extends Pick<BaseSlashCommandOptions, "name" | "aliases"> {
-    readonly subCommands: SubSlashCommand[]
-    readonly guildID?: string
-}
+import type { SubCommand } from "./SubCommand";
+import type { SubCommandGroup } from "./SubCommandGroup";
 
 export interface SlashCommandOptions extends BaseSlashCommandOptions {
     readonly guildID?: string
 }
 
+export interface ParentSlashCommandOptions extends Pick<BaseSlashCommandOptions, "name"> {
+    readonly subCommands: (SubCommand | SubCommandGroup)[]
+    readonly guildID?: string
+}
+
 export class SlashCommand extends BaseSlashCommand {
-    private readonly subCommands: SubSlashCommand[] | null = null;
+    private readonly subCommands: (SubCommand | SubCommandGroup)[] | null = null;
 
     public readonly guildID?: string;
 
@@ -29,7 +30,7 @@ export class SlashCommand extends BaseSlashCommand {
     }
 
     public override isMine(interaction: ChatInputCommandInteraction): boolean {
-        return interaction.commandName === this.name || this.aliases.includes(interaction.commandName);
+        return interaction.commandName === this.name;
     }
 
     public override execute(interaction: ChatInputCommandInteraction) {
@@ -42,11 +43,11 @@ export class SlashCommand extends BaseSlashCommand {
         }
     }
 
-    public override toRaw(): ChatInputCommand {
+    public override toRaw(): ChatInputCommandData {
         return {
-            type: CommandType.ChatInput as const,
             ...super.toRaw(),
-            options: this.subCommands?.map((subCommand) => subCommand.toRaw()) ?? [ ...this.args, ...this.optionalArgs ],
+            type: ApplicationCommandType.ChatInput as const,
+            options: this.subCommands?.map((sub) => sub.toRaw()) ?? [ ...this.args, ...this.optionalArgs ],
         };
     }
 }

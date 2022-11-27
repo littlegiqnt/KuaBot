@@ -1,10 +1,17 @@
+import { createWriteStream } from "fs";
 import commands from "interactions/commands/slash";
 import type { SlashCommand } from "structure/interaction/command/SlashCommand";
 import createReadyEventListener from "./createReadyEventListener";
 
 export default createReadyEventListener((client) => {
+    // commandsDataDebug();
+
     // 글로벌 슬래시 명령어 등록
-    client.application.commands.set(commands.filter((command) => command.guildID == null).map((command) => command.toRaw()));
+    client.application.commands.set(
+        commands
+            .filter((command) => command.guildID == null)
+            .flatMap((command) => command.toRaw()),
+    );
 
     // 길드별로 그룹
     const groupedCommands = commands
@@ -20,9 +27,18 @@ export default createReadyEventListener((client) => {
     for (const key in groupedCommands) {
         const cmds: SlashCommand[] = groupedCommands[key];
         client.application.commands.set(
-            cmds.filter((command) => command.guildID)
-                .map((command) => command.toRaw()),
+            cmds
+                .filter((command) => command.guildID)
+                .flatMap((command) => command.toRaw()),
             key,
         );
     }
 });
+
+// eslint-disable-next-line no-unused-vars
+const commandsDataDebug = async () => {
+    const file = createWriteStream("debug.json");
+    file.on("error", (err) => { console.error(err); });
+    file.write(JSON.stringify(commands.flatMap((v) => v.toRaw())));
+    file.end();
+};

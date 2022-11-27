@@ -1,10 +1,10 @@
 import { ButtonBuilder, ButtonStyle, EmbedBuilder, SelectMenuBuilder } from "discord.js";
 import { ActionRow } from "structure/ActionRow";
 import Color from "structure/Color";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 import { description, title } from "templates/language";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "lang",
     async execute(interaction) {
         interaction.deferReply().then(() => interaction.deleteReply());

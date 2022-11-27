@@ -7,7 +7,10 @@ import list from "./list";
 import removeUser from "./remove-user";
 
 export default new SlashCommand({
-    name: "문의",
+    name: "tickets",
+    nameLocale: {
+        ko: "문의",
+    },
     subCommands: [ list, close, addUser, removeUser, lang ],
     guildID: GUILD_ID,
 });

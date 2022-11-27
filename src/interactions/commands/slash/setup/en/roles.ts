@@ -1,9 +1,9 @@
-import type { APISelectMenuOption, TextBasedChannel } from "discord.js";
-import { ButtonBuilder, ButtonStyle, EmbedBuilder, SelectMenuBuilder } from "discord.js";
+import type { TextBasedChannel } from "discord.js";
+import { ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
 import { ActionRow } from "structure/ActionRow";
-import { SubSlashCommand } from "structure/interaction/command/SubSlashCommand";
+import { SubCommand } from "structure/interaction/command/SubCommand";
 
-export default new SubSlashCommand({
+export default new SubCommand({
     name: "roles",
     async execute(interaction) {
         interaction.deferReply().then(() => interaction.deleteReply());
@@ -15,25 +15,24 @@ export default new SubSlashCommand({
         await loveSelect(interaction.channel);
         await dmSelect(interaction.channel);
         await pingRelatedSelect(interaction.channel);
-        await gamesSelect(interaction.channel);
     },
 });
 
 const genderSelect = async (channel: TextBasedChannel) => {
     const embed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setTitle(":restroom: 『성별선택』")
-        .setDescription("본인의 성별을 선택해 주세요");
+        .setTitle(":restroom: 『Pronouns』")
+        .setDescription("Please select your pronouns");
     const row = new ActionRow(
         new ButtonBuilder()
             .setCustomId("selectroles_male")
             .setEmoji("👦")
-            .setLabel("남자")
+            .setLabel("He/Him")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
             .setCustomId("selectroles_female")
             .setEmoji("👧")
-            .setLabel("여자")
+            .setLabel("She/Her")
             .setStyle(ButtonStyle.Primary),
     );
     return channel.send({ embeds: [ embed ], components: [ row ] });
@@ -42,23 +41,23 @@ const genderSelect = async (channel: TextBasedChannel) => {
 const ageSelect = async (channel: TextBasedChannel) => {
     const embed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setTitle("⏱️ 『나이대 선택』")
-        .setDescription("본인의 나이를 선택해 주세요");
+        .setTitle("⏱️ 『Age』")
+        .setDescription("Please select your age");
     const row = new ActionRow(
         new ButtonBuilder()
             .setCustomId("selectroles_adult")
             .setEmoji("🍷")
-            .setLabel("성인")
+            .setLabel("Adult")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
             .setCustomId("selectroles_highschool")
             .setEmoji("📖")
-            .setLabel("고등학생")
+            .setLabel("16~18")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
             .setCustomId("selectroles_middleschool")
             .setEmoji("📏")
-            .setLabel("중학생")
+            .setLabel("13~15")
             .setStyle(ButtonStyle.Primary),
     );
     return channel.send({ embeds: [ embed ], components: [ row ] });
@@ -67,28 +66,28 @@ const ageSelect = async (channel: TextBasedChannel) => {
 const loveSelect = async (channel: TextBasedChannel) => {
     const embed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setTitle("🧡 『애인 유무』")
-        .setDescription("현재 상태를 선택해 주세요");
+        .setTitle("🧡 『Relationship』")
+        .setDescription("Select your current relationship");
     const row = new ActionRow(
         new ButtonBuilder()
             .setCustomId("selectroles_couple")
             .setEmoji("💘")
-            .setLabel("커플")
+            .setLabel("Couple")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
             .setCustomId("selectroles_single")
             .setEmoji("🤍")
-            .setLabel("솔로")
+            .setLabel("Single")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
             .setCustomId("selectroles_foreveralone")
             .setEmoji("💙")
-            .setLabel("모솔")
+            .setLabel("Forever alone")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
             .setCustomId("selectroles_relationship_hide")
             .setEmoji("🤫")
-            .setLabel("애인 비공개")
+            .setLabel("Hide")
             .setStyle(ButtonStyle.Primary),
     );
     return channel.send({ embeds: [ embed ], components: [ row ] });
@@ -97,18 +96,18 @@ const loveSelect = async (channel: TextBasedChannel) => {
 const dmSelect = async (channel: TextBasedChannel) => {
     const embed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setTitle("📨 『DM 여부』")
-        .setDescription("DM을 허용 여부를 선택해 주세요");
+        .setTitle("📨 『DM availability』")
+        .setDescription("Can anybody DM you?");
     const row = new ActionRow(
         new ButtonBuilder()
             .setCustomId("selectroles_dm_allow")
             .setEmoji("⭕")
-            .setLabel("DM 허용")
+            .setLabel("Allow DM")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
             .setCustomId("selectroles_dm_disallow")
             .setEmoji("❌")
-            .setLabel("DM 비허용")
+            .setLabel("Disallow DM")
             .setStyle(ButtonStyle.Primary),
     );
     return channel.send({ embeds: [ embed ], components: [ row ] });
@@ -117,76 +116,19 @@ const dmSelect = async (channel: TextBasedChannel) => {
 const pingRelatedSelect = async (channel: TextBasedChannel) => {
     const embed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setTitle("📌 『알람 관련』 (선택)")
-        .setDescription("알람 관련된 역할을 선택해 주세요");
+        .setTitle("📌 『Notice related』 (Optional)")
+        .setDescription("You can get pinged for specific message.");
     const row = new ActionRow(
         new ButtonBuilder()
             .setCustomId("selectroles_announcement")
             .setEmoji("📢")
-            .setLabel("공지 알림 받기")
+            .setLabel("Announcement")
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
             .setCustomId("selectroles_giveaway")
             .setEmoji("🎉")
-            .setLabel("이벤트 알림 받기")
+            .setLabel("Giveaway")
             .setStyle(ButtonStyle.Primary),
     );
     return channel.send({ embeds: [ embed ], components: [ row ] });
-};
-
-const gamesSelect = async (channel: TextBasedChannel) => {
-    const embed = new EmbedBuilder()
-        .setColor(0x0099ff)
-        .setTitle("🎮 『게임 선택』 (선택)")
-        .setDescription("플레이 하시는 게임들을 선택해 주세요");
-    const options: APISelectMenuOption[] = [
-        {
-            label: "리그오브레전드",
-            value: "leagueOfLegends",
-        },
-        {
-            label: "오버워치",
-            value: "overwatch",
-        },
-        {
-            label: "배틀그라운드",
-            value: "battlegrounds",
-        },
-        {
-            label: "발로란트",
-            value: "valorant",
-        },
-        {
-            label: "메이플스토리",
-            value: "maplestory",
-        },
-        {
-            label: "피파 온라인",
-            value: "fifaonline",
-        },
-        {
-            label: "카트라이더",
-            value: "kartrider",
-        },
-        {
-            label: "마인크래프트",
-            value: "minecraft",
-        },
-        {
-            label: "스팀",
-            value: "steam",
-        },
-    ];
-    const row1 = new ActionRow<SelectMenuBuilder>(
-        new SelectMenuBuilder()
-            .setCustomId("selectroles_games")
-            .setPlaceholder("게임들을 고르세요!")
-            .setMinValues(0)
-            .setMaxValues(options.length)
-            .setOptions(
-                options,
-            ),
-    );
-
-    return channel.send({ embeds: [ embed ], components: [ row1 ] });
 };
