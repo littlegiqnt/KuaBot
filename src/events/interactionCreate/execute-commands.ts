@@ -1,5 +1,5 @@
 import handleErrorReply from "utils/handleErrorReply";
-import commands from "../../commands/slash";
+import commands from "interactions/commands/slash";
 import createInteractionCreateEventListener from "./createInteractionCreateEventListener";
 
 export default createInteractionCreateEventListener(async (interaction) => {

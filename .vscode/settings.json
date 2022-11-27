@@ -1,4 +1,17 @@
 {
-    "eslint.lintTask.options": "src/** --fix",
-    "eslint.lintTask.enable": true
+    "npm.packageManager": "pnpm",
+    "terminal.integrated.tabs.defaultIcon": "clone",
+    "eslint.packageManager": "pnpm",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "eslint.format.enable": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true
 }

@@ -37,5 +37,8 @@
             "suggestion": "건의",
             "other": "기타"
         }
+    },
+    "level": {
+        "notReady": "아직 준비중인 기능이에요!"
     }
 }

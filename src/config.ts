@@ -1,5 +1,6 @@
 import isProduction from "utils/isProduction";
 
+export const defaultLanguage = "en";
 export const GUILD_ID = "1023072472712609873";
 export const PREFIX = "!";
 export const NAME = "Prism";
