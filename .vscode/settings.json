@@ -1,4 +1,0 @@
-{
-    "eslint.lintTask.options": "src/** --fix",
-    "eslint.lintTask.enable": true
-}

@@ -4,8 +4,7 @@ import createReadyEventListener from "./createReadyEventListener";
 
 export default createReadyEventListener((client) => {
     // 글로벌 슬래시 명령어 등록
-    client.application.commands.set(commands.filter((command) => command.guildID == null)
-        .map((command) => command.toRaw()));
+    client.application.commands.set(commands.filter((command) => command.guildID == null).map((command) => command.toRaw()));
 
     // 길드별로 그룹
     const groupedCommands = commands

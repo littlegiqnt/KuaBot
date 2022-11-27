@@ -4,7 +4,7 @@ import type { BaseSlashCommandOptions } from "./BaseSlashCommand";
 import { BaseSlashCommand } from "./BaseSlashCommand";
 import type { SubSlashCommand } from "./SubSlashCommand";
 
-export interface ParentSlashCommandOptions extends Pick<BaseSlashCommandOptions, "name"> {
+export interface ParentSlashCommandOptions extends Pick<BaseSlashCommandOptions, "name" | "aliases"> {
     readonly subCommands: SubSlashCommand[]
     readonly guildID?: string
 }
@@ -18,10 +18,6 @@ export class SlashCommand extends BaseSlashCommand {
 
     public readonly guildID?: string;
 
-    constructor(options: ParentSlashCommandOptions);
-
-    constructor(options: SlashCommandOptions);
-
     constructor(options: SlashCommandOptions | ParentSlashCommandOptions) {
         super({
             // because of ts17009 need to create unnecessary anonymous function
@@ -33,7 +29,7 @@ export class SlashCommand extends BaseSlashCommand {
     }
 
     public override isMine(interaction: ChatInputCommandInteraction): boolean {
-        return interaction.commandName === this.name;
+        return interaction.commandName === this.name || this.aliases.includes(interaction.commandName);
     }
 
     public override execute(interaction: ChatInputCommandInteraction) {

@@ -10,12 +10,15 @@ type TransformedArgs = [interaction: ChatInputCommandInteraction];
 
 export interface BaseSlashCommandOptions extends CommandOptions<TransformedArgs> {
     readonly name: string
+    readonly aliases?: string[]
     readonly description?: string
     readonly args?: OmitEach<Arg, "required">[]
     readonly optionalArgs?: OmitEach<Arg, "required">[]
 }
 export abstract class BaseSlashCommand extends Command<ChatInputCommandInteraction, TransformedArgs> {
     public readonly name: string;
+
+    public readonly aliases: string[];
 
     public readonly description: string;
 
@@ -26,6 +29,7 @@ export abstract class BaseSlashCommand extends Command<ChatInputCommandInteracti
     constructor(options: BaseSlashCommandOptions) {
         super(options);
         this.name = options.name;
+        this.aliases = options.aliases ?? [];
         this.description = options.description ?? "-";
         this.args = options.args?.map((arg) => ({ ...arg, required: true })) ?? [];
         this.optionalArgs = options.optionalArgs?.map((arg) => ({ ...arg, required: false })) ?? [];
@@ -36,9 +40,10 @@ export abstract class BaseSlashCommand extends Command<ChatInputCommandInteracti
     }
 
     protected toRaw() {
-        return {
+        const data: any[] = [ {
             name: this.name,
             description: this.description,
-        };
+        } ];
+        return data;
     }
 }
