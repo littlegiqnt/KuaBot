@@ -11,7 +11,7 @@ export default new SubCommand({
         ko: "언어",
     },
     description: {
-        "en-US": "View or set the language for this ticket",
+        en: "View or set the language for this ticket",
         ko: "이 문의의 언어를 보거나 설정해요",
     },
     optionalArgs: [

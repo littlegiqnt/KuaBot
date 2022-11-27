@@ -3,7 +3,10 @@ import { SubCommand } from "structure/interaction/command/SubCommand";
 
 export default new SubCommand({
     name: "eval",
-    description: "자바스크립트 코드 실행",
+    description: {
+        en: "Evaluate javascript code",
+        ko: "자바스크립트 코드 실행",
+    },
     args: [
         {
             type: ApplicationCommandOptionType.String,

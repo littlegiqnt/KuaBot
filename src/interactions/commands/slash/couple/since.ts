@@ -9,7 +9,7 @@ export default new SubCommand({
         ko: "시작날짜",
     },
     description: {
-        "en-US": "Tell me know how long you have been in a relationship!",
+        en: "Tell me know how long you have been in a relationship!",
         ko: "두 분이 만나신지 얼마나 되셨는지 저에게 알려주세요!",
     },
     args: [

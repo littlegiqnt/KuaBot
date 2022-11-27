@@ -9,7 +9,7 @@ export default new SubCommand({
         ko: "몇일",
     },
     description: {
-        "en-US": "Calculate how long you or another user has been in a relationship!",
+        en: "Calculate how long you or another user has been in a relationship!",
         ko: "현재 자신 또는 다른 유저가 연인 사이를 얼마나 유지해왔는지 계산해 줘요!",
     },
     optionalArgs: [

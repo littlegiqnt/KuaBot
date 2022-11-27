@@ -9,7 +9,7 @@ export default new SubCommand({
         ko: "남은일수",
     },
     description: {
-        "en-US": "Calculate the number of days left until your or a specific user's birthday!",
+        en: "Calculate the number of days left until your or a specific user's birthday!",
         ko: "생일까지 남은 일수를 계산해줘요!",
     },
     optionalArgs: [

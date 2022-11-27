@@ -10,7 +10,7 @@ export default new SubCommand({
         ko: "목록",
     },
     description: {
-        "en-US": "Check all the support tickets that are currently open",
+        en: "Check all the support tickets that are currently open",
         ko: "현재 열려있는 모든 문의 티켓들을 확인해요",
     },
     async execute(interaction) {

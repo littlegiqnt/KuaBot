@@ -7,7 +7,7 @@ import { isNormalTextChannel } from "utils/checkChannel";
 export default new SlashCommand({
     name: "clear",
     description: {
-        "en-US": "Delete messages",
+        en: "Delete messages",
         ko: "메세지 삭제",
     },
     args: [
