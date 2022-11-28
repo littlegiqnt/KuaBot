@@ -3,7 +3,7 @@ import { ApplicationCommandOptionType, EmbedBuilder, escapeMarkdown, GuildMember
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { SlashCommand } from "structure/interaction/command/SlashCommand";
-import msg from "utils/msg";
+import { getLevelByXp } from "utils/level";
 
 export default new SlashCommand({
     name: "level",
@@ -28,13 +28,12 @@ export default new SlashCommand({
         },
     ],
     async execute(interaction) {
-        const t = msg(interaction.locale);
         const member = interaction.options.getMember("user") ?? interaction.member;
         if (!(member instanceof GuildMember)) {
             throw new Error("member가 GuildMember가 아님");
         }
         const xp = (await dbManager.loadUser(member.id)).totalXp;
-        // const level = (xp / 0.7) ** 2.5;
+        const level = getLevelByXp(xp);
 
         const embed = new EmbedBuilder()
             .setColor(Color.BRIGHT_BLUE)
@@ -43,7 +42,7 @@ export default new SlashCommand({
             .setDescription(
                 `${userMention(member.id)}\n`
                 + `**XP**: ${xp}\n`
-                + `**Level**: ${t("level.notReady")}`,
+                + `**Level**: ${level}`,
             );
 
         interaction.reply({ embeds: [ embed ] });

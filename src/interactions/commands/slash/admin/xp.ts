@@ -16,7 +16,7 @@ export default new SubCommand({
         },
     ],
     async execute(interaction) {
-        const user = await dbManager.loadUser(interaction.user.id);
+        const user = await dbManager.loadUser(interaction.options.getUser("유저")!.id);
         interaction.reply({ ephemeral: false, content: `XP: ${user.totalXp}` });
     },
 });
