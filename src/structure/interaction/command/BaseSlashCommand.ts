@@ -5,32 +5,28 @@ import type { CommandOptions, LocaleOption } from "./Command";
 import { Command } from "./Command";
 
 export type Arg = Exclude<CommandArg, SubCommandArg | SubGroupArg>;
-
 type TransformedArgs = [interaction: ChatInputCommandInteraction];
 
-
 export interface BaseSlashCommandOptions extends CommandOptions<TransformedArgs> {
-    readonly description?: PartiallyRequired<Record<Locale|"en", string>, "en"> | string
+    readonly description?: PartiallyRequired<Record<Locale|"en", string>, "en">
     readonly args?: OmitEach<Arg, "required">[]
     readonly optionalArgs?: OmitEach<Arg, "required">[]
 }
 
 export abstract class BaseSlashCommand extends Command<ChatInputCommandInteraction, TransformedArgs> {
-    public readonly description: string;
-    public readonly descriptions: LocaleOption = {};
+    public readonly descriptions: LocaleOption;
     public readonly args: Arg[];
     public readonly optionalArgs: Arg[];
 
     constructor(options: BaseSlashCommandOptions) {
         super(options);
-        this.description = (typeof options.description === "string") ? (options.description ?? "-") : (options.description?.en ?? "-");
-        if (typeof options.description !== "string") {
-            const desc: Partial<Record<Locale | "en", string>> = options.description ?? {};
-            delete desc.en;
-            this.descriptions = desc;
-        }
         this.args = options.args?.map((value) => ({ ...value, required: true })) ?? [];
         this.optionalArgs = options.optionalArgs?.map((value) => ({ ...value, required: false })) ?? [];
+        this.descriptions = Object.fromEntries(Object.entries(options.description ?? { "en-US": "-" })
+            .map(([ key, value ]) =>
+                [ key in BaseSlashCommand.localeAliasMap
+                    ? BaseSlashCommand.localeAliasMap[key as keyof typeof BaseSlashCommand.localeAliasMap] : key,
+                value ] as const));
     }
 
     protected override transform(interaction: ChatInputCommandInteraction): [ChatInputCommandInteraction] {
@@ -41,8 +37,12 @@ export abstract class BaseSlashCommand extends Command<ChatInputCommandInteracti
         return {
             name: this.name,
             nameLocalizations: this.nameLocale,
-            description: this.description,
+            description: this.descriptions["en-US"],
             descriptionLocalizations: this.descriptions,
         };
     }
+
+    private static localeAliasMap = {
+        "en": "en-US",
+    };
 }

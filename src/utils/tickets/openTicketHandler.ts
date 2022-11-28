@@ -10,30 +10,31 @@ import { ticketDateFormatter } from "utils/dateFormatter";
 import msg from "utils/msg";
 
 export const createTicketCheck = async (interaction: ButtonInteraction | ChatInputCommandInteraction) => {
+    const t = msg(interaction.locale);
     interaction.reply({
         ephemeral: true,
         embeds: [
             new EmbedBuilder()
                 .setColor("Gold")
-                .setTitle(msg(interaction.locale, "tickets.createConfirmEmbed.title"))
-                .setDescription(msg(interaction.locale, "tickets.createConfirmEmbed.description")),
+                .setTitle(t("tickets.createConfirmEmbed.title"))
+                .setDescription(t("tickets.createConfirmEmbed.description")),
         ],
         components: [
             new ActionRow(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Danger)
                     .setCustomId("create_ticket_report")
-                    .setLabel(msg(interaction.locale, "tickets.category.report"))
+                    .setLabel(t("tickets.category.report"))
                     .setEmoji("⚠️"),
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Success)
                     .setCustomId("create_ticket_suggestion")
-                    .setLabel(msg(interaction.locale, "tickets.category.suggestion"))
+                    .setLabel(t("tickets.category.suggestion"))
                     .setEmoji("🙋"),
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Secondary)
                     .setCustomId("create_ticket_other")
-                    .setLabel(msg(interaction.locale, "tickets.category.other"))
+                    .setLabel(t("tickets.category.other"))
                     .setEmoji("❓"),
             ),
         ],
@@ -42,6 +43,7 @@ export const createTicketCheck = async (interaction: ButtonInteraction | ChatInp
 
 export const createTicket = async (interaction: ButtonInteraction) => {
     await interaction.deferReply({ ephemeral: true });
+    const t = msg(interaction.locale);
 
     const { member } = interaction;
     if (!(member instanceof GuildMember)) return;
@@ -54,16 +56,18 @@ export const createTicket = async (interaction: ButtonInteraction) => {
         interaction.editReply({ embeds: [
             new EmbedBuilder()
                 .setColor("Red")
-                .setTitle(msg(interaction.locale, "error"))
-                .setDescription(msg(interaction.locale, "tickets.max.overall")),
+                .setTitle(t("error"))
+                .setDescription(t("tickets.max.overall")),
         ] });
+        return;
     } else if (tickets.filter((value) => value.type === ticketType).length >= 2) {
         interaction.editReply({ embeds: [
             new EmbedBuilder()
                 .setColor("Red")
-                .setTitle(msg(interaction.locale, "error"))
-                .setDescription(msg(interaction.locale, "tickets.max.type")),
+                .setTitle(t("error"))
+                .setDescription(t("tickets.max.type")),
         ] });
+        return;
     }
 
     const category = bot.channels.cache.get("1037195764419530802");
@@ -103,8 +107,8 @@ Date: ${ticketDateFormatter.format(now)}`,
         embeds: [
             new EmbedBuilder()
                 .setColor("Green")
-                .setTitle(msg(interaction.locale, "tickets.createEmbed.title"))
-                .setDescription(msg(interaction.locale, "tickets.createEmbed.description")),
+                .setTitle(t("tickets.createEmbed.title"))
+                .setDescription(t("tickets.createEmbed.description")),
         ],
         content: `${userMention(member.id)}`,
         allowedMentions: {
@@ -115,7 +119,7 @@ Date: ${ticketDateFormatter.format(now)}`,
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Secondary)
                     .setCustomId("close_ticket_check")
-                    .setLabel(msg(interaction.locale, "tickets.createEmbed.closeButton")),
+                    .setLabel(t("tickets.createEmbed.closeButton")),
             ),
         ],
     });
@@ -124,8 +128,8 @@ Date: ${ticketDateFormatter.format(now)}`,
         embeds: [
             new EmbedBuilder()
                 .setColor(Color.GREEN)
-                .setTitle(msg(interaction.locale, "tickets.createMessage.title"))
-                .setDescription(msg(interaction.locale, "tickets.createMessage.description", { channel: channelMention(channel.id) })),
+                .setTitle(t("tickets.createMessage.title"))
+                .setDescription(t("tickets.createMessage.description", { channel: channelMention(channel.id) })),
         ],
     });
 };

@@ -28,6 +28,7 @@ export default new SlashCommand({
         },
     ],
     async execute(interaction) {
+        const t = msg(interaction.locale);
         const member = interaction.options.getMember("user") ?? interaction.member;
         if (!(member instanceof GuildMember)) {
             throw new Error("member가 GuildMember가 아님");
@@ -42,7 +43,7 @@ export default new SlashCommand({
             .setDescription(
                 `${userMention(member.id)}\n`
                 + `**XP**: ${xp}\n`
-                + `**Level**: ${msg(interaction.locale, "level.notReady")}`,
+                + `**Level**: ${t("level.notReady")}`,
             );
 
         interaction.reply({ embeds: [ embed ] });

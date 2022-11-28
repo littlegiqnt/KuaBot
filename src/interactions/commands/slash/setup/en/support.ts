@@ -16,14 +16,14 @@ export default new SubCommand({
 
 const sendSupportInstruction = async (channel: TextBasedChannel) => {
     const embed = new EmbedBuilder()
-        .setTitle("문의하기")
-        .setDescription(`서버에 대한 문의사항/신고사항이 있으신가요?
-밑의 버튼을 눌러 문의 카테고리를 선택해 주세요!`);
+        .setTitle("Create a support ticket")
+        .setDescription(`Do you have a suggestion or want to report someone?
+Please click button below to make a ticket!`);
     const row = new ActionRow(
         new ButtonBuilder()
             .setCustomId("create_ticket_check")
             .setEmoji("🔍")
-            .setLabel("문의하기")
+            .setLabel("Click this to get a support!")
             .setStyle(ButtonStyle.Primary),
     );
 

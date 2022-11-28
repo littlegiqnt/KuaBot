@@ -47,6 +47,8 @@ export const addTranscriptMessage = async (message: Message) => {
         const supportTicket = await dbManager.SupportTicket.findById(message.channelId);
         if (supportTicket == null) return;
 
+        const t = msg(supportTicket.lang);
+
         if (supportTicket.status === TicketStatus.CREATED && !message.author.bot) {
             try {
                 const category = await channel.parent?.fetch();
@@ -64,8 +66,8 @@ export const addTranscriptMessage = async (message: Message) => {
                     embeds: [
                         new EmbedBuilder()
                             .setColor("Blue")
-                            .setTitle(msg(supportTicket.lang, "tickets.openEmbed.title"))
-                            .setDescription(msg(supportTicket.lang, "tickets.openEmbed.description")),
+                            .setTitle(t("tickets.openEmbed.title"))
+                            .setDescription(t("tickets.openEmbed.description")),
                     ],
                 });
             } catch (e) {

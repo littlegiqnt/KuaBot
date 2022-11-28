@@ -4,7 +4,10 @@ import { SubCommand } from "structure/interaction/command/SubCommand";
 
 export default new SubCommand({
     name: "xp",
-    description: "유저의 xp 확인",
+    description: {
+        en: "Check user's xp",
+        ko: "유저의 xp 확인",
+    },
     args: [
         {
             type: ApplicationCommandOptionType.User,

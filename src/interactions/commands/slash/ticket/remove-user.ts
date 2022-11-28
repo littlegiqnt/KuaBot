@@ -3,7 +3,7 @@ import dbManager from "structure/DBManager";
 import { SubCommand } from "structure/interaction/command/SubCommand";
 import rolesManager from "structure/RolesManager";
 import { isNormalTextChannel } from "utils/checkChannel";
-import { notTicketEmbed } from "utils/tickets/closeTicketHandler";
+import { notTicketReply } from "utils/tickets/closeTicketHandler";
 
 export default new SubCommand({
     name: "removeuser",
@@ -36,7 +36,7 @@ export default new SubCommand({
 
         const supportTicket = await dbManager.SupportTicket.findById(interaction.channelId);
         if (supportTicket == null) {
-            interaction.reply(notTicketEmbed);
+            interaction.reply(notTicketReply);
             return;
         }
 

@@ -19,6 +19,16 @@ export class SubCommandGroup extends BaseSlashCommand {
         this.subCommands = options.subCommands;
     }
 
+    public override execute(interaction: ChatInputCommandInteraction) {
+        if (this.subCommands !== null) {
+            for (const subCommand of this.subCommands) {
+                if (subCommand.isMine(interaction)) return subCommand.execute(interaction);
+            }
+        } else {
+            super.execute(interaction); return;
+        }
+    }
+
     public override isMine(interaction: ChatInputCommandInteraction): boolean {
         return interaction.options.getSubcommandGroup(false) === this.name;
     }
@@ -27,7 +37,7 @@ export class SubCommandGroup extends BaseSlashCommand {
         return {
             ...super.toRaw(),
             type: ApplicationCommandOptionType.SubcommandGroup as const,
-            options: this.subCommands?.flatMap((sub) => sub.toRaw()),
+            options: this.subCommands?.map((sub) => sub.toRaw()),
         };
     }
 }

@@ -27,6 +27,8 @@ const processSelectRoles = (interaction: MessageComponentInteraction) => {
     queue.enqueue(async () => {
         await interaction.deferReply({ ephemeral: true });
 
+        const t = msg(interaction.locale);
+
         const { member } = interaction;
         if (!(member instanceof GuildMember)) {
             handleErrorReply(new Error("member가 GuildMember가 아님"), interaction);
@@ -132,19 +134,19 @@ const processSelectRoles = (interaction: MessageComponentInteraction) => {
                 return;
             }
             default: {
-                interaction.editReply({ content: msg(interaction.locale, "rolesSelect.failed") });
+                interaction.editReply({ content: t("rolesSelect.failed") });
                 return;
             }
         }
 
         if (member.roles.cache.has(rolesManager.get("stepOneVerified")!.id)) {
-            interaction.editReply({ content: msg(interaction.locale, "rolesSelect.success") });
+            interaction.editReply({ content: t("rolesSelect.success") });
         } else {
             const rolesLeft: number = await checkRolesLeft(member);
             if (rolesLeft > 0) {
-                interaction.editReply({ content: msg(interaction.locale, "rolesSelect.successWithRolesLeft", { count: rolesLeft }) });
+                interaction.editReply({ content: t("rolesSelect.successWithRolesLeft", { count: rolesLeft }) });
             } else {
-                interaction.editReply({ content: msg(interaction.locale, "rolesSelect.successComplete") });
+                interaction.editReply({ content: t("rolesSelect.successComplete") });
                 member.roles.add(rolesManager.get("stepOneVerified")!);
                 logger.stepOneVerify(member);
             }
@@ -181,11 +183,12 @@ const checkRolesLeft = async (member: GuildMember): Promise<number> => {
 };
 
 const handlePingRole = async (role: Role, member: GuildMember, interaction: MessageComponentInteraction) => {
+    const t = msg(interaction.locale);
     if (member.roles.cache.has(role.id)) {
         await member.roles.remove(role);
-        interaction.editReply({ content: `\\➖ ${msg(interaction.locale, "rolesSelect.remove")}` });
+        interaction.editReply({ content: `\\➖ ${t("rolesSelect.remove")}` });
     } else {
         await member.roles.add(role);
-        interaction.editReply({ content: `\\➕ ${msg(interaction.locale, "rolesSelect.add")}` });
+        interaction.editReply({ content: `\\➕ ${t("rolesSelect.add")}` });
     }
 };

@@ -148,7 +148,7 @@ class Logger {
             transcriptUrl == null ? undefined : opener.send({ embeds: [
                 new EmbedBuilder()
                     .setColor("Navy")
-                    .setTitle(msg(supportTicket.lang, "tickets.transcript"))
+                    .setTitle(msg(supportTicket.lang)("tickets.transcript"))
                     .setDescription(transcriptUrl),
             ] }).catch(() => {}),
         ]);
