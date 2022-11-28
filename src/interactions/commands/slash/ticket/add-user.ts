@@ -11,7 +11,7 @@ export default new SubCommand({
         ko: "유저추가",
     },
     description: {
-        "en-US": "Add a specific user to this ticket",
+        en: "Add a specific user to this ticket",
         ko: "이 문의에 특정 유저를 추가해요",
     },
     args: [

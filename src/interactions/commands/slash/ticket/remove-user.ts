@@ -11,7 +11,7 @@ export default new SubCommand({
         ko: "유저제거",
     },
     description: {
-        "en-US": "Remove a specific user from this ticket",
+        en: "Remove a specific user from this ticket",
         ko: "이 문의에서 특정 유저를 제거해요",
     },
     args: [

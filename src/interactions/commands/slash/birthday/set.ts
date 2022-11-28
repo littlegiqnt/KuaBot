@@ -9,7 +9,7 @@ export default new SubCommand({
         ko: "설정",
     },
     description: {
-        "en-US": "Tell me your birthday!",
+        en: "Tell me your birthday!",
         ko: "저한테 생일을 알려주세요!",
     },
     args: [

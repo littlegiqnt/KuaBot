@@ -10,22 +10,25 @@ type TransformedArgs = [interaction: ChatInputCommandInteraction];
 
 
 export interface BaseSlashCommandOptions extends CommandOptions<TransformedArgs> {
-    readonly description?: PartiallyRequired<Record<Locale, string>, Locale.EnglishUS> | string
+    readonly description?: PartiallyRequired<Record<Locale|"en", string>, "en"> | string
     readonly args?: OmitEach<Arg, "required">[]
     readonly optionalArgs?: OmitEach<Arg, "required">[]
 }
 
 export abstract class BaseSlashCommand extends Command<ChatInputCommandInteraction, TransformedArgs> {
     public readonly description: string;
-    public readonly descriptions: LocaleOption;
+    public readonly descriptions: LocaleOption = {};
     public readonly args: Arg[];
     public readonly optionalArgs: Arg[];
 
     constructor(options: BaseSlashCommandOptions) {
         super(options);
-        this.description = (typeof options.description === "string") ? (options.description ?? "-") : (options.description?.["en-US"] ?? "-");
-        this.descriptions = (typeof options.description !== "string") ? options.description ?? {} : {};
-        delete this.descriptions["en-US"];
+        this.description = (typeof options.description === "string") ? (options.description ?? "-") : (options.description?.en ?? "-");
+        if (typeof options.description !== "string") {
+            const desc: Partial<Record<Locale | "en", string>> = options.description ?? {};
+            delete desc.en;
+            this.descriptions = desc;
+        }
         this.args = options.args?.map((value) => ({ ...value, required: true })) ?? [];
         this.optionalArgs = options.optionalArgs?.map((value) => ({ ...value, required: false })) ?? [];
     }

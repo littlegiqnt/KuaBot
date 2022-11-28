@@ -1,10 +1,13 @@
+import { DEBUG_COMMANDS } from "config";
 import { createWriteStream } from "fs";
 import commands from "interactions/commands/slash";
 import type { SlashCommand } from "structure/interaction/command/SlashCommand";
 import createReadyEventListener from "./createReadyEventListener";
 
 export default createReadyEventListener((client) => {
-    // commandsDataDebug();
+    if (DEBUG_COMMANDS) {
+        commandsDataDebug();
+    }
 
     // 글로벌 슬래시 명령어 등록
     client.application.commands.set(
@@ -35,7 +38,6 @@ export default createReadyEventListener((client) => {
     }
 });
 
-// eslint-disable-next-line no-unused-vars
 const commandsDataDebug = async () => {
     const file = createWriteStream("debug.json");
     file.on("error", (err) => { console.error(err); });

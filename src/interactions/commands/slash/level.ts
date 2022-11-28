@@ -11,7 +11,7 @@ export default new SlashCommand({
         ko: "레벨",
     },
     description: {
-        "en-US": "Check your or specific user's level!",
+        en: "Check your or specific user's level!",
         ko: "자신 또는 다른 유저의 레벨을 확인해요!",
     },
     optionalArgs: [

@@ -9,7 +9,7 @@ export default new SubCommand({
         ko: "언제",
     },
     description: {
-        "en-US": "Check if I am remembering your birthday well! :)",
+        en: "Check if I am remembering your birthday well! :)",
         ko: "제가 생일을 잘 기억하고 있는지 확인해 주세요! :)",
     },
     optionalArgs: [
