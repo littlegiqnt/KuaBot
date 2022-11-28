@@ -1,4 +1,5 @@
 {
+    "error": "오류가 발생했어요!",
     "rolesSelect": {
         "success": "설정되었습니다!",
         "successWithRolesLeft_one": "설정되었습니다!\n남은 필수 역할은 총 {{count}}개입니다! :D",
@@ -36,6 +37,10 @@
             "report": "신고",
             "suggestion": "건의",
             "other": "기타"
+        },
+        "max": {
+            "overall": "최대 문의 개수에 도달했습니다!",
+            "type": "해당 카테고리에 생성 가능한 문의 개수가 최대에 도달했어요!"
         }
     },
     "level": {

@@ -1,4 +1,4 @@
-import type { ButtonInteraction, ChatInputCommandInteraction } from "discord.js";
+import type { ButtonInteraction, ChatInputCommandInteraction, User } from "discord.js";
 import { ButtonBuilder, ButtonStyle, CategoryChannel, channelMention, ChannelType, EmbedBuilder, GuildMember, PermissionsBitField, userMention } from "discord.js";
 import { bot } from "index";
 import type { TicketTypeKey } from "schema/ticketSchema";
@@ -46,11 +46,31 @@ export const createTicket = async (interaction: ButtonInteraction) => {
     const { member } = interaction;
     if (!(member instanceof GuildMember)) return;
 
+    const ticketType = getTicketType(interaction.customId);
+
+    // --- 문의 한도 ---
+    const tickets = await getTicketsByUser(member.user);
+    if (tickets.length >= 3) {
+        interaction.editReply({ embeds: [
+            new EmbedBuilder()
+                .setColor("Red")
+                .setTitle(msg(interaction.locale, "error"))
+                .setDescription(msg(interaction.locale, "tickets.max.overall")),
+        ] });
+    } else if (tickets.filter((value) => value.type === ticketType).length >= 2) {
+        interaction.editReply({ embeds: [
+            new EmbedBuilder()
+                .setColor("Red")
+                .setTitle(msg(interaction.locale, "error"))
+                .setDescription(msg(interaction.locale, "tickets.max.type")),
+        ] });
+    }
+
     const category = bot.channels.cache.get("1037195764419530802");
     if (!(category instanceof CategoryChannel)) throw new Error("문의 카테고리 인식 실패");
 
     const channel = await category.children.create({
-        name: `${member.displayName}`,
+        name: `${TicketType[ticketType]}-${member.displayName}`,
         type: ChannelType.GuildText,
         permissionOverwrites: [
             {
@@ -115,3 +135,5 @@ const getTicketType = (buttonId: string): TicketType => {
     const typeString = splitted[splitted.length - 1].toUpperCase() as TicketTypeKey;
     return TicketType[typeString];
 };
+
+const getTicketsByUser = async (user: User) => await dbManager.SupportTicket.find({ opener: user.id });
