@@ -1,4 +1,3 @@
-import axios from "axios";
 import { GuildMember } from "discord.js";
 import { join } from "path";
 import sharp from "sharp";
@@ -11,20 +10,35 @@ export default new SubCommand({
         if (!(member instanceof GuildMember)) return;
 
         await interaction.deferReply();
-        console.log(member.displayAvatarURL());
-        const avatar = await sharp(
-            (await axios.get(member.displayAvatarURL(), {
-                responseType: "arraybuffer",
-            })).data,
-        ).resize(100)
+        /* const avatarOrigin = (await axios.get(member.displayAvatarURL(), {
+            responseType: "arraybuffer",
+        })).data;*/
+        const avatar = await sharp()
+            .composite([
+                {
+                    input: {
+                        create: {
+                            width: 600,
+                            height: 600,
+                            background: "white",
+                            channels: 3,
+                        },
+                    },
+                    blend: "dest-in",
+                },
+            ])
+            .resize(400)
             .toBuffer();
+        console.debug(2);
         const image = await sharp(join("images/level.png"))
             .composite([
                 {
                     input: avatar,
+                    top: 150,
+                    left: 150,
                 },
             ])
             .toBuffer();
-        interaction.editReply({ files: [ image ] });
+        interaction.editReply({ files: [image] });
     },
 });

@@ -14,5 +14,9 @@
     "git.autofetch": true,
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
-    "git.postCommitCommand": "sync"
+    "git.postCommitCommand": "sync",
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "typescript.tsserver.experimental.enableProjectDiagnostics": true
 }
