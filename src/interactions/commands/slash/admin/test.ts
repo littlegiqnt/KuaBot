@@ -12,9 +12,12 @@ export default new SubCommand({
 
         await interaction.deferReply();
         console.log(member.displayAvatarURL());
-        const avatar = (await axios.get(member.displayAvatarURL(), {
-            responseType: "arraybuffer",
-        })).data;
+        const avatar = await sharp(
+            (await axios.get(member.displayAvatarURL(), {
+                responseType: "arraybuffer",
+            })).data,
+        ).resize(100)
+            .toBuffer();
         const image = await sharp(join("images/level.png"))
             .composite([
                 {
