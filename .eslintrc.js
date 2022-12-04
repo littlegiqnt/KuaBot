@@ -286,7 +286,7 @@ const rules = {
     "no-sparse-arrays": "error",
     "no-tabs": ["error", { allowIndentationTabs: true }],
     "no-template-curly-in-string": "error",
-    "no-trailing-spaces": ["warn", { ignoreComments: true, skipBlankLines: true }],
+    "no-trailing-spaces": ["warn", { ignoreComments: true }],
     "no-unexpected-multiline": "error",
     "no-unneeded-ternary": "warn",
     "no-unsafe-negation": "error",

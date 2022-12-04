@@ -1,8 +1,7 @@
-import axios from "axios";
 import { GuildMember } from "discord.js";
-import { join } from "path";
-import sharp from "sharp";
+import dbManager from "structure/DBManager";
 import { SubCommand } from "structure/interaction/command/SubCommand";
+import { createLevelImage } from "utils/level/levelImage";
 
 export default new SubCommand({
     name: "test",
@@ -11,34 +10,8 @@ export default new SubCommand({
         if (!(member instanceof GuildMember)) return;
 
         await interaction.deferReply();
-        const avatarOrigin = (await axios.get(member.displayAvatarURL(), {
-            responseType: "arraybuffer",
-        })).data as Buffer;
-        const avatar = await sharp({
-            create: {
-                width: 600,
-                height: 600,
-                channels: 4,
-                background: { r: 0, g: 0, b: 0, alpha: 0.0 },
-            },
-        })
-            .composite([
-                {
-                    input: avatarOrigin,
-                    blend: "in",
-                },
-            ])
-            .png()
-            .toBuffer();
-        const image = await sharp(join("images/level.png"))
-            .composite([
-                {
-                    input: avatar,
-                    top: 150,
-                    left: 150,
-                },
-            ])
-            .toBuffer();
-        interaction.editReply({ files: [image] });
+        interaction.editReply({ files: [
+            await createLevelImage(member, await dbManager.loadUser(member.id)),
+        ] });
     },
 });

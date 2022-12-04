@@ -3,7 +3,7 @@ import { ApplicationCommandOptionType, EmbedBuilder, escapeMarkdown, GuildMember
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { SlashCommand } from "structure/interaction/command/SlashCommand";
-import { getLevelByXp } from "utils/level";
+import { getLevelByXp } from "utils/level/level";
 
 export default new SlashCommand({
     name: "level",
@@ -32,8 +32,7 @@ export default new SlashCommand({
         if (!(member instanceof GuildMember)) {
             throw new Error("member가 GuildMember가 아님");
         }
-        const xp = (await dbManager.loadUser(member.id)).totalXp;
-        const level = getLevelByXp(xp);
+        const user = await dbManager.loadUser(member.id);
 
         const embed = new EmbedBuilder()
             .setColor(Color.BRIGHT_BLUE)
@@ -41,11 +40,12 @@ export default new SlashCommand({
             .setThumbnail(member.displayAvatarURL())
             .setDescription(
                 `${userMention(member.id)}\n`
-                + `**XP**: ${xp}\n`
-                + `**Level**: ${level}`,
+                + `**Chat**: LVL. ${getLevelByXp(user.xp.chat)} (${user.xp.chat})\n`
+                + `**Voice**: LVL. ${getLevelByXp(user.xp.chat)} (${user.xp.voice})`,
             );
 
-        interaction.reply({ embeds: [ embed ] });
+        interaction.reply({ embeds: [embed] });
     },
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     guildID: GUILD_ID,
 });

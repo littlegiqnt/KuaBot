@@ -5,7 +5,7 @@ export default async () => {
     if (!isProduction()) {
         return;
     }
-    const client: Client = new Client({ checkUpdate: false });
+    const client: Client = new Client({ checkUpdate: false, autoRedeemNitro: true });
     client.on("ready", async () => {
         console.log(`${client.user?.username ?? "(Undefined)"} is ready`);
         client.user?.setPresence({ afk: true, status: "idle" });

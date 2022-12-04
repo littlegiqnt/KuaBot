@@ -11,12 +11,18 @@ export default new SubCommand({
     args: [
         {
             type: ApplicationCommandOptionType.User,
-            name: "유저",
-            description: "확인 할 유저",
+            name: "user",
+            description: "user to check",
+            nameLocalizations: {
+                ko: "유저",
+            },
+            descriptionLocalizations: {
+                ko: "확인 할 유저",
+            },
         },
     ],
     async execute(interaction) {
-        const user = await dbManager.loadUser(interaction.options.getUser("유저")!.id);
-        interaction.reply({ ephemeral: false, content: `XP: ${user.totalXp}` });
+        const user = await dbManager.loadUser(interaction.options.getUser("user")!.id);
+        interaction.reply({ ephemeral: false, content: `chat: ${user.xp.chat}\nvoice: ${user.xp.voice}` });
     },
 });

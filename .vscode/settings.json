@@ -18,5 +18,7 @@
     "[javascript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
-    "typescript.tsserver.experimental.enableProjectDiagnostics": true
+    "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }

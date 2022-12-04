@@ -7,8 +7,9 @@ import interactionCreate from "./interactionCreate";
 import messageCreate from "./messageCreate";
 import messageUpdate from "./messageUpdate";
 import ready from "./ready";
+import voiceStateUpdate from "./voiceStateUpdate";
 
-const events: AllEventListener[][] = [
+const events: Array<Array<AllEventListener>> = [
     ready,
     messageCreate,
     messageUpdate,
@@ -17,6 +18,7 @@ const events: AllEventListener[][] = [
     guildMemberRemove,
     guildMemberUpdate,
     channelDelete,
+    voiceStateUpdate,
 ];
 
 export default events;

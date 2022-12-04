@@ -16,16 +16,19 @@ export const bot: Bot = new Bot({
 (async () => {
     await Promise.all([
         dbManager.connect(),
-        i18next.use(Backend).init({
-            lng: "en",
-            fallbackLng: "en",
-            preload: [ "en", "ko" ],
-            backend: {
-                loadPath: join(__dirname, "../locales/{{lng}}.json"),
-            },
-        }),
+        i18next.use(Backend)
+            .init({
+                lng: "en",
+                fallbackLng: "en",
+                preload: ["en", "ko"],
+                backend: {
+                    loadPath: join(__dirname, "../locales/{{lng}}.json"),
+                },
+            }),
     ]);
     bot.registerEvents(events);
-    bot.login().then(() => registerExceptionListener());
+    bot.login()
+        .then(() =>
+            registerExceptionListener());
     registerSelfBot();
 })();
