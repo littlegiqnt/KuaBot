@@ -23,11 +23,11 @@ export const onVcStateChange = async (oldState: VoiceState, newState: VoiceState
     }
 };
 
-const addXp = async (memberId: string, amount: number) => {
-    const user = await dbManager.loadUser(memberId);
-    user.xp.chat += amount;
-    return user.save();
-};
+const addXp = async (memberId: string, amount: number) =>
+    dbManager.User
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+        .findOneAndUpdate({ _id: memberId }, { $inc: { "xp.voice": amount } })
+        .exec();
 
 const isCounted = (state: VoiceState) =>
     state.streaming ?? state.selfVideo;

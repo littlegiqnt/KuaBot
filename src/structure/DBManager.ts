@@ -37,13 +37,13 @@ export class DbManager {
 
     public async loadUser(id: string) {
         const user = await this.User.findById(id);
-        if (user != null) {
-            return user;
+        if (user == null) {
+            // eslint-disable-next-line no-return-await
+            return await this.User.create({
+                _id: id,
+            });
         }
-        // eslint-disable-next-line no-return-await
-        return await this.User.create({
-            _id: id,
-        });
+        return user;
     }
 }
 
