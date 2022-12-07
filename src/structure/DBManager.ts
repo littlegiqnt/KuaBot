@@ -1,15 +1,15 @@
 import { DB_URI } from "config";
-import { connect, connection, model } from "mongoose";
+import { connect, connection, model, set } from "mongoose";
 import type { ISupportTicket } from "schema/ticketSchema";
 import { supportTicketSchema } from "schema/ticketSchema";
 import type { IUser } from "schema/userSchema";
 import { userSchema } from "schema/userSchema";
 
 export class DbManager {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    /* eslint-disable @typescript-eslint/naming-convention */
     public readonly User = model<IUser>("User", userSchema);
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     public readonly SupportTicket = model<ISupportTicket>("SupportTicket", supportTicketSchema);
+    /* eslint-disable @typescript-eslint/naming-convention */
 
     public constructor(private uri: string) {}
 
@@ -18,10 +18,9 @@ export class DbManager {
      */
     public async connect() {
         console.log("Connecting to DB...");
+        set("strictQuery", false);
         return connect(this.uri, {
             /* eslint-disable @typescript-eslint/naming-convention */
-            socketTimeoutMS: 0,
-            connectTimeoutMS: 0,
             /* eslint-enable @typescript-eslint/naming-convention */
         })
             .catch((error) => {
