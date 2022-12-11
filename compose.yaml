@@ -1,8 +1,7 @@
 version: "3.9"
 
 services:
-  prism_bot:
-    container_name: "prismbot"
+  kua_bot:
     build: ./
     networks:
       - prismbot
@@ -10,8 +9,7 @@ services:
     restart: always
     volumes:
       - /etc/localtime:/etc/localtime:ro
-  prism_db:
-    container_name: "prismdb"
+  kua_db:
     image: "mongo:latest"
     networks:
       - prismbot
