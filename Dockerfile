@@ -7,7 +7,7 @@ ENV TOKEN=${TOKEN}
 
 COPY . .
 RUN rm Dockerfile compose.yaml && printf "\nTOKEN=${TOKEN}" >> .env
-RUN pnpm install --frozen-lockfile \
+RUN pnpm install \
     && pnpm run build \
     && rm -rf src/
 
