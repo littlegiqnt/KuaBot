@@ -5,12 +5,9 @@ RUN npm install -g pnpm
 ARG TOKEN
 ENV TOKEN=${TOKEN}
 
-COPY package.json ./
-RUN pnpm fetch
-
 COPY . .
 RUN rm Dockerfile compose.yaml && printf "\nTOKEN=${TOKEN}" >> .env
-RUN pnpm install -r --offline \
+RUN pnpm install --frozen-lockfile \
     && pnpm run build \
     && rm -rf src/
 
