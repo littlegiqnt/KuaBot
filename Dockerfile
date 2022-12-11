@@ -1,5 +1,7 @@
 FROM node:18.10-alpine3.15 AS base
 
+SHELL ["/bin/bash", "-c"]
+
 ARG TOKEN
 ENV TOKEN=${TOKEN}
 
