@@ -1,18 +1,18 @@
 version: "3.9"
 
 services:
-  kua_bot:
+  kuabot:
     build: ./
     networks:
-      - prismbot
+      - kuabot
     privileged: true
     restart: always
     volumes:
       - /etc/localtime:/etc/localtime:ro
-  kua_db:
+  kuabot_db:
     image: "mongo:latest"
     networks:
-      - prismbot
+      - kuabot
     privileged: true
     restart: always
     volumes:
@@ -24,4 +24,4 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=qwer11!!
 
 networks:
-  prismbot:
+  kuabot:
