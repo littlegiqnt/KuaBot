@@ -1,14 +1,17 @@
 FROM node:18.10-alpine3.15 AS base
 
-SHELL ["/bin/bash", "-c"]
-
+WORKDIR /bot
+RUN npm install -g pnpm
 ARG TOKEN
 ENV TOKEN=${TOKEN}
 
-WORKDIR /bot
+COPY package.json ./
+RUN pnpm fetch
 
 COPY . .
 RUN rm Dockerfile compose.yaml && printf "\nTOKEN=${TOKEN}" >> .env
-RUN pnpm i && pnpm run build && rm -rf src/
+RUN pnpm install -r --offline \
+    && pnpm run build \
+    && rm -rf src/
 
-ENTRYPOINT [ "npm", "start" ]
+ENTRYPOINT [ "pnpm", "start" ]
