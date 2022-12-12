@@ -16,10 +16,7 @@ services:
     privileged: true
     restart: always
     volumes:
-      - ../db_data:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=qwer11!!
+      - ./db_data:/data/db
 
 networks:
   kuabot:
