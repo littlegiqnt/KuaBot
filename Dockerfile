@@ -7,4 +7,4 @@ ENV TOKEN=${TOKEN}
 COPY . .
 RUN printf "\nTOKEN=${TOKEN}" >> .env
 
-ENTRYPOINT [ "pnpm", "start" ]
+ENTRYPOINT [ "npm", "start" ]
