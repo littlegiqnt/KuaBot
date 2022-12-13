@@ -1,4 +1,3 @@
-import { DB_URI } from "config";
 import { connect, connection, model, set } from "mongoose";
 import type { ISupportTicket } from "schema/ticketSchema";
 import { supportTicketSchema } from "schema/ticketSchema";
@@ -11,15 +10,13 @@ export class DbManager {
     public readonly SupportTicket = model<ISupportTicket>("SupportTicket", supportTicketSchema);
     /* eslint-disable @typescript-eslint/naming-convention */
 
-    public constructor(private uri: string) {}
-
     /**
      * Connect to the db
      */
-    public async connect() {
+    public async connect(uri: string) {
         console.log("Connecting to DB...");
         set("strictQuery", false);
-        return connect(this.uri, {
+        return connect(uri, {
             /* eslint-disable @typescript-eslint/naming-convention */
             connectTimeoutMS: 3000,
             /* eslint-enable @typescript-eslint/naming-convention */
@@ -47,5 +44,5 @@ export class DbManager {
     }
 }
 
-const dbManager = new DbManager(DB_URI);
+const dbManager = new DbManager();
 export default dbManager;
