@@ -13,7 +13,7 @@ export default createReadyEventListener((client) => {
     client.application.commands.set(
         commands
             .filter((command) =>
-                command.guildID == null)
+                command.guildId == null)
             .flatMap((command) =>
                 command.toRaw()),
     );
@@ -22,8 +22,8 @@ export default createReadyEventListener((client) => {
     const groupedCommands = commands
         .reduce<Record<string, Array<SlashCommand>>>(
         (grouped, obj) => {
-            if (obj.guildID == null) return grouped;
-            const value = obj.guildID;
+            if (obj.guildId == null) return grouped;
+            const value = obj.guildId;
             grouped[value] ??= [];
             grouped[value].push(obj);
             return grouped;
@@ -35,7 +35,7 @@ export default createReadyEventListener((client) => {
         client.application.commands.set(
             cmds
                 .filter((command) =>
-                    command.guildID)
+                    command.guildId)
                 .flatMap((command) =>
                     command.toRaw()),
             key,

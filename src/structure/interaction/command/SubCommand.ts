@@ -7,11 +7,11 @@ export class SubCommand extends BaseSlashCommand {
         return interaction.options.getSubcommand(false) === this.name;
     }
 
-    public override toRaw(): ApplicationCommandSubCommand[] {
+    public override toRaw(): Array<ApplicationCommandSubCommand> {
         return {
             ...super.toRaw(),
             type: ApplicationCommandOptionType.Subcommand as const,
-            options: [ ...this.args, ...this.optionalArgs ],
+            options: [...this.args, ...this.optionalArgs],
         };
     }
 }

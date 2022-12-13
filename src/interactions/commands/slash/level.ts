@@ -40,12 +40,12 @@ export default new SlashCommand({
             .setThumbnail(member.displayAvatarURL())
             .setDescription(
                 `${userMention(member.id)}\n`
-                + `**Chat**: LVL. ${getLevelByXp(user.xp.chat)} (${user.xp.chat})\n`
-                + `**Voice**: LVL. ${getLevelByXp(user.xp.chat)} (${user.xp.voice})`,
+                + `**Chat**: LVL ${getLevelByXp(user.xp.chat)} (${user.xp.chat})\n`
+                + `**Voice**: LVL ${getLevelByXp(user.xp.chat)} (${user.xp.voice})`,
             );
 
         interaction.reply({ embeds: [embed] });
     },
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    guildID: GUILD_ID,
+    guildId: GUILD_ID,
 });

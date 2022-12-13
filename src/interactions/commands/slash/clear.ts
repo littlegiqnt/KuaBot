@@ -36,5 +36,5 @@ export default new SlashCommand({
 
         interaction.editReply({ embeds: [ embed ] });
     },
-    guildID: GUILD_ID,
+    guildId: GUILD_ID,
 });

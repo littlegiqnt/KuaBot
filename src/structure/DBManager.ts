@@ -21,6 +21,7 @@ export class DbManager {
         set("strictQuery", false);
         return connect(this.uri, {
             /* eslint-disable @typescript-eslint/naming-convention */
+            connectTimeoutMS: 3000,
             /* eslint-enable @typescript-eslint/naming-convention */
         })
             .catch((error) => {

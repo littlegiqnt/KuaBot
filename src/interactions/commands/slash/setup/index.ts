@@ -13,5 +13,5 @@ export default new SlashCommand({
         buttons,
         language,
     ],
-    guildID: GUILD_ID,
+    guildId: GUILD_ID,
 });

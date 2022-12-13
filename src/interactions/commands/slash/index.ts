@@ -8,6 +8,6 @@ import ping from "./ping";
 import setup from "./setup";
 import ticket from "./ticket";
 
-const commands: SlashCommand[] = [ ping, setup, couple, clear, admin, level, birthday, ticket ];
+const commands: Array<SlashCommand> = [ping, setup, couple, clear, admin, level, birthday, ticket];
 
 export default commands;

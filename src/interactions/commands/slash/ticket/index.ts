@@ -12,5 +12,5 @@ export default new SlashCommand({
         ko: "문의",
     },
     subCommands: [ list, close, addUser, removeUser, lang ],
-    guildID: GUILD_ID,
+    guildId: GUILD_ID,
 });

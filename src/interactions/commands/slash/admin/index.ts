@@ -9,5 +9,5 @@ import xp from "./xp";
 export default new SlashCommand({
     name: "admin",
     subCommands: [ xp, reboot, error, evaljs, test ],
-    guildID: GUILD_ID,
+    guildId: GUILD_ID,
 });

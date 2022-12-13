@@ -9,5 +9,5 @@ export default new SlashCommand({
         ko: "커플",
     },
     subCommands: [ since, days ],
-    guildID: GUILD_ID,
+    guildId: GUILD_ID,
 });

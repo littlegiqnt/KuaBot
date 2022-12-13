@@ -8,29 +8,33 @@ export type Arg = Exclude<CommandArg, SubCommandArg | SubGroupArg>;
 type TransformedArgs = [interaction: ChatInputCommandInteraction];
 
 export interface BaseSlashCommandOptions extends CommandOptions<TransformedArgs> {
-    readonly description?: PartiallyRequired<Record<Locale|"en", string>, "en">
-    readonly args?: OmitEach<Arg, "required">[]
-    readonly optionalArgs?: OmitEach<Arg, "required">[]
+    readonly description?: PartiallyRequired<Record<Locale | "en", string>, "en">
+    readonly args?: Array<OmitEach<Arg, "required">>
+    readonly optionalArgs?: Array<OmitEach<Arg, "required">>
 }
 
 export abstract class BaseSlashCommand extends Command<ChatInputCommandInteraction, TransformedArgs> {
     public readonly descriptions: LocaleOption;
-    public readonly args: Arg[];
-    public readonly optionalArgs: Arg[];
+    public readonly args: Array<Arg>;
+    public readonly optionalArgs: Array<Arg>;
 
-    constructor(options: BaseSlashCommandOptions) {
+    public constructor(options: BaseSlashCommandOptions) {
         super(options);
-        this.args = options.args?.map((value) => ({ ...value, required: true })) ?? [];
-        this.optionalArgs = options.optionalArgs?.map((value) => ({ ...value, required: false })) ?? [];
+        this.args = options.args?.map((value) =>
+            ({ ...value, required: true })) ?? [];
+        this.optionalArgs = options.optionalArgs?.map((value) =>
+            ({ ...value, required: false })) ?? [];
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         this.descriptions = Object.fromEntries(Object.entries(options.description ?? { "en-US": "-" })
-            .map(([ key, value ]) =>
-                [ key in BaseSlashCommand.localeAliasMap
-                    ? BaseSlashCommand.localeAliasMap[key as keyof typeof BaseSlashCommand.localeAliasMap] : key,
-                value ] as const));
+            .map(([key, value]) =>
+                [key in BaseSlashCommand.localeAliasMap
+                    ? BaseSlashCommand.localeAliasMap[key as keyof typeof BaseSlashCommand.localeAliasMap]
+                    : key,
+                value] as const));
     }
 
     protected override transform(interaction: ChatInputCommandInteraction): [ChatInputCommandInteraction] {
-        return [ interaction ];
+        return [interaction];
     }
 
     protected toRaw(): any {

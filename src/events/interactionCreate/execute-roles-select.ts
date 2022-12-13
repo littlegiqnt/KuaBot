@@ -16,7 +16,7 @@ export default createInteractionCreateEventListener(async (interaction) => {
     }
 });
 
-const workQueue: Map<string, TaskQueue> = new Map();
+const workQueue = new Map<string, TaskQueue>();
 
 const processSelectRoles = (interaction: MessageComponentInteraction) => {
     let queue = workQueue.get(interaction.user.id);
