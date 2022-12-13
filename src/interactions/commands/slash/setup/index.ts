@@ -4,7 +4,6 @@ import buttons from "./buttons";
 import en from "./en";
 import ko from "./ko";
 import language from "./language";
-import test from "./test";
 
 export default new SlashCommand({
     name: "setup",
@@ -12,8 +11,7 @@ export default new SlashCommand({
         ko,
         en,
         buttons,
-        test,
         language,
     ],
-    guildID: GUILD_ID,
+    guildId: GUILD_ID,
 });

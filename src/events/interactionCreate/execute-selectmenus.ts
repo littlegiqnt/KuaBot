@@ -6,7 +6,7 @@ import updateLang from "utils/updateLang";
 import createInteractionCreateEventListener from "./createInteractionCreateEventListener";
 
 export default createInteractionCreateEventListener(async (interaction) => {
-    if (!interaction.isSelectMenu()) return;
+    if (!interaction.isStringSelectMenu()) return;
 
     try {
         if (interaction.customId === "selectroles_games") {
@@ -27,10 +27,10 @@ const processSelectGames = async (interaction: SelectMenuInteraction) => {
         throw new Error("member가 GuildMember가 아님");
     }
 
-    const rolesToAdd: Role[] = [];
+    const rolesToAdd: Array<Role> = [];
     interaction.values.forEach((value: string) => {
         const role = rolesManager.get(value) ?? null;
-        if (!role) return;
+        if (role == null) return;
         rolesToAdd.push(role);
     });
     await member.roles.remove(await rolesManager.getGrouped("games") ?? []);
@@ -49,7 +49,7 @@ const processSelectLanguage = async (interaction: SelectMenuInteraction) => {
         interaction.editReply("Error!");
         return;
     }
-    const [ lang ] = interaction.values;
+    const [lang] = interaction.values;
 
     switch (lang) {
         case "lang_ko": {

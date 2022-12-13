@@ -10,5 +10,5 @@ export default new SlashCommand({
         ko: "생일",
     },
     subCommands: [ get, set, left ],
-    guildID: GUILD_ID,
+    guildId: GUILD_ID,
 });

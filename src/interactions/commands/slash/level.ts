@@ -3,7 +3,7 @@ import { ApplicationCommandOptionType, EmbedBuilder, escapeMarkdown, GuildMember
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { SlashCommand } from "structure/interaction/command/SlashCommand";
-import msg from "utils/msg";
+import { getLevelByXp } from "utils/level/level";
 
 export default new SlashCommand({
     name: "level",
@@ -28,13 +28,11 @@ export default new SlashCommand({
         },
     ],
     async execute(interaction) {
-        const t = msg(interaction.locale);
         const member = interaction.options.getMember("user") ?? interaction.member;
         if (!(member instanceof GuildMember)) {
             throw new Error("member가 GuildMember가 아님");
         }
-        const xp = (await dbManager.loadUser(member.id)).totalXp;
-        // const level = (xp / 0.7) ** 2.5;
+        const user = await dbManager.loadUser(member.id);
 
         const embed = new EmbedBuilder()
             .setColor(Color.BRIGHT_BLUE)
@@ -42,11 +40,12 @@ export default new SlashCommand({
             .setThumbnail(member.displayAvatarURL())
             .setDescription(
                 `${userMention(member.id)}\n`
-                + `**XP**: ${xp}\n`
-                + `**Level**: ${t("level.notReady")}`,
+                + `**Chat**: LVL ${getLevelByXp(user.xp.chat)} (${user.xp.chat})\n`
+                + `**Voice**: LVL ${getLevelByXp(user.xp.chat)} (${user.xp.voice})`,
             );
 
-        interaction.reply({ embeds: [ embed ] });
+        interaction.reply({ embeds: [embed] });
     },
-    guildID: GUILD_ID,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    guildId: GUILD_ID,
 });

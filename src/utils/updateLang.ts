@@ -3,7 +3,7 @@ import { channelMention, GuildMember, Locale } from "discord.js";
 import dbManager from "structure/DBManager";
 import rolesManager from "structure/RolesManager";
 
-export default async (interaction: MessageComponentInteraction|SelectMenuInteraction, lang: Locale) => {
+export default async (interaction: MessageComponentInteraction | SelectMenuInteraction, lang: Locale) => {
     const { member } = interaction;
     if (!(member instanceof GuildMember)) return;
     const user = await dbManager.loadUser(interaction.user.id);

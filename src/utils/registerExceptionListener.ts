@@ -2,11 +2,12 @@ import logger from "structure/Logger";
 import isProduction from "./isProduction";
 
 export default async () => {
-    process.on("uncaughtException", async (err) => {
+    process.on("uncaughtException", (err) => {
         console.log(err);
         if (isProduction()) {
-            await logger.error(err);
+            logger.error(err)
+                .then(() =>
+                    process.exit(1));
         }
-        process.exit(1);
     });
 };
