@@ -16,7 +16,7 @@ services:
     privileged: true
     restart: always
     volumes:
-      - ./db_data:/data/db
+      - ./dbdata:/data/db
 
 networks:
   kuabot:
