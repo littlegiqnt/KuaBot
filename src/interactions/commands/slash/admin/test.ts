@@ -1,7 +1,5 @@
 import { GuildMember } from "discord.js";
-import dbManager from "structure/DBManager";
 import { SubCommand } from "structure/interaction/command/SubCommand";
-import { createLevelImage } from "utils/level/levelImage";
 
 export default new SubCommand({
     name: "test",
@@ -10,8 +8,8 @@ export default new SubCommand({
         if (!(member instanceof GuildMember)) return;
 
         await interaction.deferReply();
-        interaction.editReply({ files: [
+        /* interaction.editReply({ files: [
             await createLevelImage(member, await dbManager.loadUser(member.id)),
-        ] });
+        ] });*/
     },
 });

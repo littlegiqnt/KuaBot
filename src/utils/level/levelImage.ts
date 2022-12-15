@@ -1,5 +1,4 @@
-import { createCanvas, loadImage, registerFont } from "canvas";
-import { GuildMember } from "discord.js";
+/* import { GuildMember } from "discord.js";
 import { join } from "path";
 import { IUser } from "schema/userSchema";
 import dbManager from "structure/DBManager";
@@ -20,4 +19,4 @@ export const createLevelImage = async (member: GuildMember, iuser?: IUser) => {
     ctx.drawImage(bgimg, 0, 0);
 
     return canvas.createPNGStream();
-};
+};*/
