@@ -10,5 +10,5 @@ export default async () => {
         console.log(`${client.user?.username ?? "(Undefined)"} is ready`);
         client.user?.setAFK(true);
     });
-    client.login("NDU0OTI3MDAwNDkwOTk5ODA5.G29GIS.ktIYvJ0kUPby_JzDfZlBQLX7JFJaYQ-mC4iK8A");
+    client.login(process.env.USER_TOKEN);
 };
