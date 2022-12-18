@@ -1,4 +1,1 @@
-data/
-src/
-Dockerfile
-compose.yml
+dbdata/

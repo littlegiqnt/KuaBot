@@ -1,22 +1,24 @@
 version: "3.9"
 
 services:
-  kuabot:
+  bot:
+    container_name: kua_bot
     build: ./
     networks:
-      - kuabot
+      - kua
     privileged: true
     restart: always
     volumes:
       - /etc/localtime:/etc/localtime:ro
-  kuabot_db:
+  db:
+    container_name: kua_db
     image: "mongo:latest"
     networks:
-      - kuabot
+      - kua
     privileged: true
     restart: always
     volumes:
       - ./dbdata:/data/db
 
 networks:
-  kuabot:
+  kua:
