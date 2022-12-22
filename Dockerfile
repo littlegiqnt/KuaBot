@@ -6,7 +6,7 @@ ARG USER_TOKEN
 ENV TOKEN=${TOKEN}
 ENV USER_TOKEN=${USER_TOKEN}
 
-RUN printf "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> .env
-COPY ["./dist/", ".env", "./"]
+RUN echo "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> .env
+COPY ./dist/ .env ./
 
 ENTRYPOINT [ "node", "main.js" ]
