@@ -7,6 +7,6 @@ ENV TOKEN=${TOKEN}
 ENV USER_TOKEN=${USER_TOKEN}
 
 COPY ./dist/ ./
-RUN echo "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> dist/.env
+RUN echo "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> .env
 
 ENTRYPOINT [ "node", "main.js" ]
