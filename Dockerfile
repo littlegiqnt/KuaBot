@@ -6,7 +6,7 @@ ARG USER_TOKEN
 ENV TOKEN=${TOKEN}
 ENV USER_TOKEN=${USER_TOKEN}
 
-RUN echo "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> dist/.env
 COPY ./dist/ ./
+RUN echo "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> dist/.env
 
 ENTRYPOINT [ "node", "main.js" ]
