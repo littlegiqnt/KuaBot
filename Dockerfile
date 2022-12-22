@@ -6,8 +6,7 @@ ARG USER_TOKEN
 ENV TOKEN=${TOKEN}
 ENV USER_TOKEN=${USER_TOKEN}
 
-COPY . .
+COPY ./* ./
 RUN printf "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> .env
-RUN npm install && npm build
 
 ENTRYPOINT [ "npm", "start" ]
