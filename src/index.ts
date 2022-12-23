@@ -1,5 +1,4 @@
 import { DB_URI } from "config";
-import * as dotenv from "dotenv";
 import i18next from "i18next";
 import Backend from "i18next-fs-backend";
 import { join } from "path";
@@ -11,7 +10,6 @@ import registerExceptionListener from "utils/registerExceptionListener";
 import registerSelfBot from "utils/registerSelfBot";
 import events from "./events";
 
-dotenv.config();
 export const bot: Bot = new Bot({
     token: process.env.TOKEN!,
 });

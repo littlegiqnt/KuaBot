@@ -1,9 +1,6 @@
-// @ts-check
+import { ESLint, Linter } from "eslint";
 
-/**
- * @type {import('eslint').ESLint.ConfigData}
- */
-const baseConfig = {
+const baseConfig:ESLint.ConfigData = {
     root: true,
     parser: "@typescript-eslint/parser",
     parserOptions: {
@@ -23,10 +20,8 @@ const baseConfig = {
  *  - can cause unexpected behavior
  *  - strongly recommended to use
  * set to `'warn'` for rules which can make code looks better
- *
- * @type {import('eslint').Linter.RulesRecord}
  */
-const rules = {
+const rules:Linter.RulesRecord = {
     /* eslint-disable @typescript-eslint/naming-convention */
     /**
      * `T[]` might be confused with property access. \
