@@ -1,54 +1,44 @@
 import DotEnv from "dotenv-webpack";
-import path, { resolve } from "path";
+import { resolve } from "path";
 import { Configuration } from "webpack";
 
 const isProduction = process.env.NODE_ENV === "production";
 
-const config:Configuration = {
+const config: Configuration = {
+    mode: isProduction
+        ? "production"
+        : "development",
     entry: "./src/index.ts",
     target: "node",
-    externals: (ctx, callback) => {
-		if (
-			(
-				/node_modules/.test(ctx.context!)
-			) || (
-				!path.isAbsolute(ctx.request!) && !/^(?:@|\.+\/)/.test(ctx.request!)
-			)
-		) callback(undefined, `commonjs ${ctx.request!}`)
-		else callback()
-	},
     output: {
-		clean: true,
-        libraryTarget: 'commonjs',
+        clean: true,
+        libraryTarget: "commonjs",
         path: resolve(__dirname, "dist"),
     },
     plugins: [
-        new DotEnv()
+        new DotEnv(),
     ],
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'esbuild-loader',
+                loader: "esbuild-loader",
                 options: {
-                    loader: 'ts',  // Or 'ts' if you don't need tsx
-                    target: 'node18'
-                }
+                    loader: "tsx",
+                    target: "node18",
+                },
+                resolve: {
+                    fullySpecified: false,
+                },
             },
         ],
     },
     resolve: {
-        modules: [resolve(__dirname, "js"), "node_modules"],
-        extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
-        symlinks: true
+        extensions: [".ts", ".tsx", ".jsx", ".js", "..."],
+        symlinks: true,
+        modules: ["node_modules", resolve(__dirname, "src"), "..."],
+        fullySpecified: false,
     },
 };
 
-module.exports = () => {
-    if (isProduction) {
-        config.mode = "production";
-    } else {
-        config.mode = "development";
-    }
-    return config;
-}
+module.exports = config;

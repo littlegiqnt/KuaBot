@@ -1,4 +1,3 @@
-import { DB_URI } from "config";
 import i18next from "i18next";
 import Backend from "i18next-fs-backend";
 import { join } from "path";
@@ -8,6 +7,7 @@ import createMongoServer from "utils/createMongoServer";
 import isProduction from "utils/isProduction";
 import registerExceptionListener from "utils/registerExceptionListener";
 import registerSelfBot from "utils/registerSelfBot";
+import { DB_URI } from "./config";
 import events from "./events";
 
 export const bot: Bot = new Bot({
