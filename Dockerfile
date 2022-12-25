@@ -9,6 +9,6 @@ ENV USER_TOKEN=${USER_TOKEN}
 COPY node_modules/ node_modules/
 COPY dist/ dist/
 COPY package.json ./
-RUN echo "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> bot/.env
+RUN echo "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}"
 
 ENTRYPOINT npm start
