@@ -1,3 +1,4 @@
+import { config } from "dotenv";
 import i18next from "i18next";
 import Backend from "i18next-fs-backend";
 import { join } from "path";
@@ -10,6 +11,7 @@ import registerSelfBot from "utils/registerSelfBot";
 import { DB_URI } from "./config";
 import events from "./events";
 
+config();
 export const bot: Bot = new Bot({
     token: process.env.TOKEN!,
 });

@@ -9,7 +9,8 @@
             "compress": {
                 "arguments": false,
                 "dead_code": true,
-                "reduce_funcs": true
+                "reduce_funcs": true,
+                "unused": true
             }
         }
     },

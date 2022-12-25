@@ -6,7 +6,9 @@ ARG USER_TOKEN
 ENV TOKEN=${TOKEN}
 ENV USER_TOKEN=${USER_TOKEN}
 
-COPY ./dist/ ./
-# RUN echo "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> .env
+COPY node_modules/ node_modules/
+COPY dist/ dist/
+COPY package.json ./
+RUN echo "\nTOKEN=${TOKEN}\nUSER_TOKEN=${USER_TOKEN}" >> .env
 
-ENTRYPOINT [ "node", "main.js" ]
+ENTRYPOINT npm start
