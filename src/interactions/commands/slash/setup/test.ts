@@ -10,7 +10,7 @@ export default new SubCommand({
             .setColor(0x0099ff)
             .setTitle("🎮 『게임 선택』 (선택)")
             .setDescription("플레이 하시는 게임들을 선택해 주세욥!");
-        const options: APISelectMenuOption[] = [
+        const options: Array<APISelectMenuOption> = [
             {
                 label: "리그오브레전드",
                 value: "leagueOfLegends",
@@ -65,6 +65,6 @@ export default new SubCommand({
                 .setStyle(ButtonStyle.Primary),
         );
 
-        await interaction.reply({ ephemeral: false, embeds: [ embed ], components: [ row1, row2 ] });
+        await interaction.reply({ ephemeral: false, embeds: [embed], components: [row1, row2] });
     },
 });

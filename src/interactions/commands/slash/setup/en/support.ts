@@ -6,9 +6,10 @@ import { SubCommand } from "structure/interaction/command/SubCommand";
 export default new SubCommand({
     name: "support",
     execute(interaction) {
-        interaction.deferReply().then(() => interaction.deleteReply());
+        interaction.deferReply()
+            .then(() => interaction.deleteReply());
 
-        if (!interaction.channel) return;
+        if (interaction.channel == null) return;
 
         sendSupportInstruction(interaction.channel);
     },
@@ -27,5 +28,5 @@ Please click button below to make a ticket!`);
             .setStyle(ButtonStyle.Primary),
     );
 
-    await channel.send({ embeds: [ embed ], components: [ row ] });
+    await channel.send({ embeds: [embed], components: [row] });
 };

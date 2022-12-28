@@ -6,7 +6,8 @@ import { isNormalTextChannel } from "utils/checkChannel";
 export default new SubCommand({
     name: "instruction",
     async execute(interaction) {
-        interaction.deferReply().then(() => interaction.deleteReply());
+        interaction.deferReply()
+            .then(() => interaction.deleteReply());
 
         if (interaction.channel == null || !isNormalTextChannel(interaction.channel)) return;
 
@@ -30,8 +31,8 @@ const sendMain = async (channel: TextChannel) => {
             "이 메세지를 보내는 저는 이 서버만을 위해 특별히 자체 제작된 봇이에요!\n여러분들이 도움이 필요할 때면 언제든지 여기저기서 나타날 거랍니다 :3",
         );
 
-    await channel.send({ files: [ "https://media.discordapp.net/attachments/1024959239384477726/1026067822993997824/prism.png" ] });
-    await channel.send({ embeds: [ embed1, embed2 ] });
+    await channel.send({ files: ["https://media.discordapp.net/attachments/1024959239384477726/1026067822993997824/prism.png"] });
+    await channel.send({ embeds: [embed1, embed2] });
 };
 
 const sendRoles = async (channel: TextChannel) => {
@@ -43,6 +44,6 @@ const sendRoles = async (channel: TextChannel) => {
             + "<@&1026358836145176636>\n서버를 운영하는데 있어 큰 도움을 주신 분들! 제가 태어나는데도 많은 도움을 주셨다고 해요.",
         );
 
-    await channel.send({ files: [ "https://media.discordapp.net/attachments/1027203777289261167/1027248208826605669/-009.png" ] });
-    await channel.send({ embeds: [ embed ] });
+    await channel.send({ files: ["https://media.discordapp.net/attachments/1027203777289261167/1027248208826605669/-009.png"] });
+    await channel.send({ embeds: [embed] });
 };

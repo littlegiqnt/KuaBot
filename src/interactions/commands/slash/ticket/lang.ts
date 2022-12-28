@@ -42,23 +42,23 @@ export default new SubCommand({
         const langInput = interaction.options.getString("language");
 
         if (langInput == null) {
-            interaction.reply({ embeds: [ new EmbedBuilder()
+            interaction.reply({ embeds: [new EmbedBuilder()
                 .setColor("NotQuiteBlack")
                 .setTitle("이 문의의 언어")
-                .setDescription(`이 문의의 언어는 ${supportTicket.lang}이에요!`) ] });
+                .setDescription(`이 문의의 언어는 ${supportTicket.lang}이에요!`)] });
         } else {
-            if (!(Object.values(Locale) as string[]).includes(langInput)) {
-                interaction.reply({ embeds: [ new EmbedBuilder()
+            if (!(Object.values(Locale) as Array<string>).includes(langInput)) {
+                interaction.reply({ embeds: [new EmbedBuilder()
                     .setColor("Red")
                     .setTitle("알 수 없는 언어에요!")
-                    .setDescription("올바른 예시: en-US, ko") ] });
+                    .setDescription("올바른 예시: en-US, ko")] });
                 return;
             }
             supportTicket.lang = langInput as Locale;
             await supportTicket.save();
-            interaction.reply({ embeds: [ new EmbedBuilder()
+            interaction.reply({ embeds: [new EmbedBuilder()
                 .setColor("Green")
-                .setTitle("설정했어요!") ] });
+                .setTitle("설정했어요!")] });
         }
     },
 });

@@ -6,9 +6,10 @@ import { SubCommand } from "structure/interaction/command/SubCommand";
 export default new SubCommand({
     name: "roles",
     async execute(interaction) {
-        interaction.deferReply().then(() => interaction.deleteReply());
+        interaction.deferReply()
+            .then(() => interaction.deleteReply());
 
-        if (!interaction.channel) return;
+        if (interaction.channel == null) return;
 
         await genderSelect(interaction.channel);
         await ageSelect(interaction.channel);
@@ -35,7 +36,7 @@ const genderSelect = async (channel: TextBasedChannel) => {
             .setLabel("She/Her")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };
 
 const ageSelect = async (channel: TextBasedChannel) => {
@@ -60,7 +61,7 @@ const ageSelect = async (channel: TextBasedChannel) => {
             .setLabel("13~15")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };
 
 const loveSelect = async (channel: TextBasedChannel) => {
@@ -90,7 +91,7 @@ const loveSelect = async (channel: TextBasedChannel) => {
             .setLabel("Hide")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };
 
 const dmSelect = async (channel: TextBasedChannel) => {
@@ -110,7 +111,7 @@ const dmSelect = async (channel: TextBasedChannel) => {
             .setLabel("Disallow DM")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };
 
 const pingRelatedSelect = async (channel: TextBasedChannel) => {
@@ -130,5 +131,5 @@ const pingRelatedSelect = async (channel: TextBasedChannel) => {
             .setLabel("Giveaway")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };

@@ -12,10 +12,8 @@ export default createReadyEventListener((client) => {
     // 글로벌 슬래시 명령어 등록
     client.application.commands.set(
         commands
-            .filter((command) =>
-                command.guildId == null)
-            .flatMap((command) =>
-                command.toRaw()),
+            .filter((command) => command.guildId == null)
+            .flatMap((command) => command.toRaw()),
     );
 
     // 길드별로 그룹
@@ -34,10 +32,8 @@ export default createReadyEventListener((client) => {
         const cmds: Array<SlashCommand> = groupedCommands[key];
         client.application.commands.set(
             cmds
-                .filter((command) =>
-                    command.guildId)
-                .flatMap((command) =>
-                    command.toRaw()),
+                .filter((command) => command.guildId)
+                .flatMap((command) => command.toRaw()),
             key,
         );
     }
@@ -48,7 +44,6 @@ const commandsDataDebug = async () => {
     file.on("error", (err) => {
         console.error(err);
     });
-    file.write(JSON.stringify(commands.flatMap((v) =>
-        v.toRaw())));
+    file.write(JSON.stringify(commands.flatMap((v) => v.toRaw())));
     file.end();
 };

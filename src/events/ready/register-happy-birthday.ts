@@ -7,5 +7,6 @@ export default createReadyEventListener(async () => {
 });
 
 const onEveryDay = async () => {
-    logger.debug(`${new Intl.DateTimeFormat("ko-KR", { dateStyle: "short", timeStyle: "medium" }).format(Date.now())}`);
+    logger.debug(`${new Intl.DateTimeFormat("ko-KR", { dateStyle: "short", timeStyle: "medium" })
+        .format(Date.now())}`);
 };

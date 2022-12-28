@@ -205,7 +205,7 @@ const rules = {
      */
     "eqeqeq": ["error", "smart"],
     "function-call-argument-newline": ["warn", "consistent"],
-    "implicit-arrow-linebreak": ["error", "below"],
+    "implicit-arrow-linebreak": ["error", "beside"],
     /**
      * strongly recommended
      */

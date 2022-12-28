@@ -79,7 +79,7 @@ export const createTicket = async (interaction: ButtonInteraction) => {
         permissionOverwrites: [
             {
                 id: member.id,
-                allow: [ PermissionsBitField.Flags.ViewChannel ],
+                allow: [PermissionsBitField.Flags.ViewChannel],
             },
         ],
     });
@@ -112,7 +112,7 @@ Date: ${ticketDateFormatter.format(now)}`,
         ],
         content: `${userMention(member.id)}`,
         allowedMentions: {
-            parse: [ "users" ],
+            parse: ["users"],
         },
         components: [
             new ActionRow(
@@ -140,4 +140,4 @@ const getTicketType = (buttonId: string): TicketType => {
     return TicketType[typeString];
 };
 
-const getTicketsByUser = async (user: User) => await dbManager.SupportTicket.find({ opener: user.id });
+const getTicketsByUser = async (user: User) => dbManager.SupportTicket.find({ opener: user.id });

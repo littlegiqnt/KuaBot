@@ -1,7 +1,7 @@
 import { ButtonBuilder, ButtonInteraction, InteractionButtonComponentData } from "discord.js";
 import { ComponentOptions, MessageComponent } from "./MessageComponent";
 
-export interface ButtonOptions extends InteractionButtonComponentData, Omit<ComponentOptions<[interaction: ButtonInteraction]>, "customId"> {
+export interface ButtonOptions extends Omit<InteractionButtonComponentData, "type">, Omit<ComponentOptions<[interaction: ButtonInteraction]>, "customId"> {
 }
 
 export class Button extends MessageComponent<ButtonInteraction> {

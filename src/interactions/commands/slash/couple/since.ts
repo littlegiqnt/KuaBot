@@ -34,7 +34,7 @@ export default new SubCommand({
                 .setColor(Color.BRIGHT_RED)
                 .setTitle("엇, 날짜를 설정하지 못했어요..")
                 .setDescription("혹시 잘못된 날짜를 입력하지는 않았는지 확인해봐요!");
-            interaction.editReply({ embeds: [ embed ] });
+            interaction.editReply({ embeds: [embed] });
             return;
         }
         const user = await dbManager.loadUser(interaction.user.id);
@@ -43,7 +43,8 @@ export default new SubCommand({
         const embed = new EmbedBuilder()
             .setColor(Color.GREEN)
             .setTitle("날짜를 저장해 놨어요!")
-            .setDescription(`설정된 날짜는 ${new Intl.DateTimeFormat("ko-KR").format(date)}이에요!`);
-        interaction.editReply({ embeds: [ embed ] });
+            .setDescription(`설정된 날짜는 ${new Intl.DateTimeFormat("ko-KR")
+                .format(date)}이에요!`);
+        interaction.editReply({ embeds: [embed] });
     },
 });

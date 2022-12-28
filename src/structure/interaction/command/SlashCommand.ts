@@ -22,8 +22,7 @@ export class SlashCommand extends BaseSlashCommand {
     public constructor(options: SlashCommandOptions | ParentSlashCommandOptions) {
         super({
             // because of ts17009 need to create unnecessary anonymous function
-            execute: (interaction) =>
-                this.execute(interaction),
+            execute: (interaction) => this.execute(interaction),
             ...options,
         });
         if ("subCommands" in options) this.subCommands = options.subCommands;
@@ -49,8 +48,7 @@ export class SlashCommand extends BaseSlashCommand {
         return {
             ...super.toRaw(),
             type: ApplicationCommandType.ChatInput as const,
-            options: this.subCommands?.map((sub) =>
-                sub.toRaw()) ?? [...this.args, ...this.optionalArgs],
+            options: this.subCommands?.map((sub) => sub.toRaw()) ?? [...this.args, ...this.optionalArgs],
         };
     }
 }

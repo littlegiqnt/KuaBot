@@ -20,17 +20,14 @@ export abstract class BaseSlashCommand extends Command<ChatInputCommandInteracti
 
     public constructor(options: BaseSlashCommandOptions) {
         super(options);
-        this.args = options.args?.map((value) =>
-            ({ ...value, required: true })) ?? [];
-        this.optionalArgs = options.optionalArgs?.map((value) =>
-            ({ ...value, required: false })) ?? [];
+        this.args = options.args?.map((value) => ({ ...value, required: true })) ?? [];
+        this.optionalArgs = options.optionalArgs?.map((value) => ({ ...value, required: false })) ?? [];
         // eslint-disable-next-line @typescript-eslint/naming-convention
         this.descriptions = Object.fromEntries(Object.entries(options.description ?? { "en-US": "-" })
-            .map(([key, value]) =>
-                [key in BaseSlashCommand.localeAliasMap
-                    ? BaseSlashCommand.localeAliasMap[key as keyof typeof BaseSlashCommand.localeAliasMap]
-                    : key,
-                value] as const));
+            .map(([key, value]) => [key in BaseSlashCommand.localeAliasMap
+                ? BaseSlashCommand.localeAliasMap[key as keyof typeof BaseSlashCommand.localeAliasMap]
+                : key,
+            value] as const));
     }
 
     protected override transform(interaction: ChatInputCommandInteraction): [ChatInputCommandInteraction] {

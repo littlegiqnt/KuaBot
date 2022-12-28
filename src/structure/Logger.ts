@@ -30,7 +30,7 @@ class Logger {
                     .setColor(0xFF5733)
                     .setTitle("오류 발생!")
                     .setDescription(`**${error.message}**\n${error.stack}`);
-                await this.devChannel?.send({ embeds: [ embed ] });
+                await this.devChannel?.send({ embeds: [embed] });
             } catch (e) {
                 console.log(error);
                 console.log(e);
@@ -47,7 +47,7 @@ class Logger {
                 .setColor("Grey")
                 .setTitle("디버그")
                 .setDescription(message);
-            await this.devChannel?.send({ embeds: [ embed ] });
+            await this.devChannel?.send({ embeds: [embed] });
         } catch (e) {
             this.error(e);
             return;
@@ -55,7 +55,7 @@ class Logger {
     }
 
     public async userJoin(member: GuildMember) {
-        if (!isProduction()) return;
+        if (!isProduction()) return null;
         const logEmbed = new EmbedBuilder()
             .setColor(0x00ff00)
             .setTitle(`Join: ${member.user.tag}`)
@@ -71,17 +71,17 @@ class Logger {
             .setTitle(title)
             .setDescription(description(member));
         return Promise.all([
-            this.userLogChannel?.send({ embeds: [ logEmbed ] }),
+            this.userLogChannel?.send({ embeds: [logEmbed] }),
             this.userWelcomeChannel?.send({
-                embeds: [ welcomeEmbed ],
+                embeds: [welcomeEmbed],
                 content: userMention(member.id),
-                allowedMentions: { parse: [ "users" ] },
+                allowedMentions: { parse: ["users"] },
             }),
         ]);
     }
 
     public async userQuit(member: GuildMember | PartialGuildMember) {
-        if (!isProduction()) return;
+        if (!isProduction()) return null;
         const logEmbed = new EmbedBuilder()
             .setColor(0xEE4B2B)
             .setTitle(`Quit: ${member.user.tag}`)
@@ -92,11 +92,11 @@ class Logger {
                 + `**Joined At**: <t:${Math.floor(member.joinedAt!.getTime() / 1000)}:F>`,
             )
             .setThumbnail(member.displayAvatarURL());
-        return this.userLogChannel?.send({ embeds: [ logEmbed ] });
+        return this.userLogChannel?.send({ embeds: [logEmbed] });
     }
 
     public async stepOneVerify(member: GuildMember | PartialGuildMember) {
-        if (!isProduction()) return;
+        if (!isProduction()) return null;
         const logEmbed = new EmbedBuilder()
             .setColor(0x0096FF)
             .setTitle(`Verified(Step 1): ${member.user.tag}`)
@@ -108,7 +108,7 @@ class Logger {
             )
             .setThumbnail(member.displayAvatarURL());
 
-        return this.userLogChannel?.send({ embeds: [ logEmbed ] });
+        return this.userLogChannel?.send({ embeds: [logEmbed] });
     }
 
     public async ticket(supportTicket: ISupportTicket, client: Client, transcriptUrl?: string) {
@@ -129,12 +129,16 @@ class Logger {
                 },
                 {
                     name: "문의 시작 날짜",
-                    value: `${supportTicket.whenOpened == null ? "시작 안됨" : time(supportTicket.whenOpened, "F")}`,
+                    value: `${supportTicket.whenOpened == null
+                        ? "시작 안됨"
+                        : time(supportTicket.whenOpened, "F")}`,
                     inline: true,
                 },
                 {
                     name: "추가로 참여한 유저들",
-                    value: `${supportTicket.users.length === 0 ? "없음" : supportTicket.users.map((value) => userMention(value))}`,
+                    value: `${supportTicket.users.length === 0
+                        ? "없음"
+                        : supportTicket.users.map((value) => userMention(value))}`,
                     inline: true,
                 },
                 {
@@ -144,13 +148,16 @@ class Logger {
                 },
             ]);
         Promise.all([
-            this.ticketLogChannel?.send({ embeds: [ embed ] }),
-            transcriptUrl == null ? undefined : opener.send({ embeds: [
-                new EmbedBuilder()
-                    .setColor("Navy")
-                    .setTitle(msg(supportTicket.lang)("tickets.transcript"))
-                    .setDescription(transcriptUrl),
-            ] }).catch(() => {}),
+            this.ticketLogChannel?.send({ embeds: [embed] }),
+            transcriptUrl == null
+                ? undefined
+                : opener.send({ embeds: [
+                    new EmbedBuilder()
+                        .setColor("Navy")
+                        .setTitle(msg(supportTicket.lang)("tickets.transcript"))
+                        .setDescription(transcriptUrl),
+                ] })
+                    .catch(() => {}),
         ]);
     }
 }

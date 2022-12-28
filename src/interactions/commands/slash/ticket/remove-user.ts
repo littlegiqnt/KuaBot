@@ -46,10 +46,10 @@ export default new SubCommand({
         users.delete(user.id);
         supportTicket.users = Array.from(users);
 
-        await Promise.all([ channel.permissionOverwrites.delete(user), supportTicket.save() ]);
-        interaction.reply({ embeds: [ new EmbedBuilder()
+        await Promise.all([channel.permissionOverwrites.delete(user), supportTicket.save()]);
+        interaction.reply({ embeds: [new EmbedBuilder()
             .setColor("Yellow")
             .setTitle("해당 유저를 제거했어요!")
-            .setDescription(`이제부터 ${userMention(user.id)}님은 이 문의에 참가할 수 없어요.`) ] });
+            .setDescription(`이제부터 ${userMention(user.id)}님은 이 문의에 참가할 수 없어요.`)] });
     },
 });

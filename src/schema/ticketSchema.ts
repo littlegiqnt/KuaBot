@@ -4,7 +4,7 @@ import { Schema } from "mongoose";
 export enum TicketType {
     REPORT,
     SUGGESTION,
-    OTHER
+    OTHER,
 }
 
 export type TicketTypeKey = keyof typeof TicketType;
@@ -12,7 +12,7 @@ export type TicketTypeKey = keyof typeof TicketType;
 export enum TicketStatus {
     CREATED,
     OPENED,
-    CLOSED
+    CLOSED,
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -23,8 +23,8 @@ export interface ISupportTicket {
     type: TicketType
     lang: Locale
     whenCreated: Date
-    whenOpened: Date|null
-    users: string[]
+    whenOpened: Date | null
+    users: Array<string>
     transcript: string
 }
 

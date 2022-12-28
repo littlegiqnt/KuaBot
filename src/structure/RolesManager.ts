@@ -4,10 +4,9 @@ type RolesType = Record<string, Role>;
 type RolesIdType = Record<string, string>;
 
 class RolesManager {
-    private guildId: string;
     private roles: RolesType = {};
 
-    private rolesIDs: Record<string, RolesIdType> = {
+    private rolesIdGroups: Record<string, RolesIdType> = {
         dividers: {
             dividerRoleProfile: "1023196714078830705",
             dividerRoleNotice: "1024229642598621195",
@@ -27,8 +26,8 @@ class RolesManager {
         },
     };
 
-    private rolesID: RolesIdType = {
-        ...this.rolesIDs.dividers,
+    private rolesId: RolesIdType = {
+        ...this.rolesIdGroups.dividers,
         owner: "1023192476573519912",
         manager: "1023228298907627542",
         stepOneVerified: "1023192667372388412",
@@ -46,19 +45,17 @@ class RolesManager {
         dmAllow: "1024229137809952778",
         dmDisallow: "1024229118583255060",
         giveaway: "1027775934645932093",
-        ...this.rolesIDs.games,
+        ...this.rolesIdGroups.games,
     };
 
-    constructor(guildId: string) {
-        this.guildId = guildId;
-    }
+    public constructor(private guildId: string) {}
 
     public async load(client: Client) {
         const guild = await client.guilds.fetch(this.guildId);
         if (guild == null) return;
         const roles = await guild.roles.fetch();
-        for (const name in this.rolesID) {
-            this.roles[name] = roles.get(this.rolesID[name])!;
+        for (const name in this.rolesId) {
+            this.roles[name] = roles.get(this.rolesId[name])!;
         }
     }
 
@@ -67,15 +64,15 @@ class RolesManager {
     }
 
     public getId(name: string): string {
-        return this.rolesID[name];
+        return this.rolesId[name];
     }
 
     public async getGrouped(groupName: string) {
-        const ids: RolesIdType = this.rolesIDs[groupName];
-        const roles: Role[] = [];
+        const ids: RolesIdType = this.rolesIdGroups[groupName];
+        const roles: Array<Role> = [];
         for (const name of Object.keys(ids)) {
             const role = this.get(name);
-            if (role) {
+            if (role != null) {
                 roles.push(role);
             }
         }

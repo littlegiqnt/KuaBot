@@ -14,6 +14,6 @@ export default new SlashCommand({
             .setTitle("Pong! 🏓")
             .setDescription(`**응답 속도**\nBot: ${Date.now() - interaction.createdTimestamp}ms\nAPI: ${interaction.client.ws.ping}ms`);
 
-        interaction.reply({ ephemeral: false, embeds: [ embed ] });
+        interaction.reply({ ephemeral: false, embeds: [embed] });
     },
 });

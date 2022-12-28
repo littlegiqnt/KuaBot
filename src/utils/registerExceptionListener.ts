@@ -6,8 +6,7 @@ export default async () => {
         console.log(err);
         if (isProduction()) {
             logger.error(err)
-                .then(() =>
-                    process.exit(1));
+                .then(() => process.exit(1));
         }
     });
 };

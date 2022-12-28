@@ -33,7 +33,6 @@ export const bot: Bot = new Bot({
     ]);
     bot.registerEvents(events);
     bot.login()
-        .then(() =>
-            registerExceptionListener());
+        .then(() => registerExceptionListener());
     registerSelfBot();
 })();

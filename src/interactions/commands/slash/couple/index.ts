@@ -8,6 +8,6 @@ export default new SlashCommand({
     nameLocale: {
         ko: "커플",
     },
-    subCommands: [ since, days ],
+    subCommands: [since, days],
     guildId: GUILD_ID,
 });

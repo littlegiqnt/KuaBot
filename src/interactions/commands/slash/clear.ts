@@ -34,7 +34,7 @@ export default new SlashCommand({
             .setTitle("삭제 성공!")
             .setDescription(`총 ${size}/${amount}개의 메세지가 삭제됐어요!`);
 
-        interaction.editReply({ embeds: [ embed ] });
+        interaction.editReply({ embeds: [embed] });
     },
     guildId: GUILD_ID,
 });

@@ -24,8 +24,7 @@ export class DbManager {
             .catch((error) => {
                 throw error;
             })
-            .finally(() =>
-                console.log("Connected to DB"));
+            .finally(() => console.log("Connected to DB"));
     }
 
     public isConnected(): boolean {

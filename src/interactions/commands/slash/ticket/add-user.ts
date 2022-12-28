@@ -41,12 +41,13 @@ export default new SubCommand({
         }
         const user = interaction.options.getUser("user");
         if (user == null) return;
-        supportTicket.users = Array.from(new Set(supportTicket.users).add(user.id));
+        supportTicket.users = Array.from(new Set(supportTicket.users)
+            .add(user.id));
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        await Promise.all([ channel.permissionOverwrites.edit(user, { ViewChannel: true }), supportTicket.save() ]);
-        interaction.reply({ embeds: [ new EmbedBuilder()
+        await Promise.all([channel.permissionOverwrites.edit(user, { ViewChannel: true }), supportTicket.save()]);
+        interaction.reply({ embeds: [new EmbedBuilder()
             .setColor("Green")
             .setTitle("해당 유저를 추가했어요!")
-            .setDescription(`이제부터 ${userMention(user.id)}님은 이 문의에 참가할 수 있어요.`) ] });
+            .setDescription(`이제부터 ${userMention(user.id)}님은 이 문의에 참가할 수 있어요.`)] });
     },
 });

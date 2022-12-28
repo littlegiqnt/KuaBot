@@ -56,7 +56,7 @@ export const addTranscriptMessage = async (message: Message) => {
                     ...category?.permissionOverwrites.cache.values() ?? [],
                     {
                         id: supportTicket.opener,
-                        allow: [ PermissionsBitField.Flags.ViewChannel ],
+                        allow: [PermissionsBitField.Flags.ViewChannel],
                     },
                 ]);
                 supportTicket.status = TicketStatus.OPENED;
@@ -79,7 +79,8 @@ export const addTranscriptMessage = async (message: Message) => {
         if (message.attachments != null && message.attachments.size > 0) {
             supportTicket.transcript = supportTicket.transcript.concat("\n",
                 `[${ticketDateFormatter.format(message.createdAt)}] [${message.author.tag}]: `
-            + `${message.attachments.map((value) => value.url).join(", ")}`);
+            + `${message.attachments.map((value) => value.url)
+                .join(", ")}`);
         }
         await supportTicket.save();
     });
@@ -111,7 +112,8 @@ export const buildTranscriptLine = (message: Message): string => {
             line += "\n";
         }
         line += `[${ticketDateFormatter.format(message.createdAt)}] [${message.author.tag}]: `
-            + `${message.attachments.map((value) => value.url).join(", ")}`;
+            + `${message.attachments.map((value) => value.url)
+                .join(", ")}`;
     }
     return line;
 };

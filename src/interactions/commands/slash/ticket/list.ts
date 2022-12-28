@@ -29,15 +29,21 @@ export default new SubCommand({
                     value: `\
 채널: ${channelMention(value.id)}
 신청자: ${userMention(value.opener)}
-상태: ${value.status === TicketStatus.CREATED ? "아직 시작 안됨(아직 아무 채팅을 안 입력함)" : "오픈됨"}
+상태: ${value.status === TicketStatus.CREATED
+        ? "아직 시작 안됨(아직 아무 채팅을 안 입력함)"
+        : "오픈됨"}
 종류: ${ticketTypeName(value.type)}
 생성된 날짜: ${time(value.whenCreated, "F")}
-시작된 날짜: ${value.whenOpened == null ? "아직 시작 안됨" : time(value.whenOpened, "F")}
-추가로 참여한 유저들: ${value.users.length === 0 ? "없음" : [ ...value.users ].map((id) => userMention(id))}`,
+시작된 날짜: ${value.whenOpened == null
+        ? "아직 시작 안됨"
+        : time(value.whenOpened, "F")}
+추가로 참여한 유저들: ${value.users.length === 0
+        ? "없음"
+        : [...value.users].map((id) => userMention(id))}`,
                 });
             });
         }
-        interaction.reply({ embeds: [ embed ] });
+        interaction.reply({ embeds: [embed] });
     },
 });
 

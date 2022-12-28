@@ -7,7 +7,8 @@ import { description, title } from "templates/language";
 export default new SubCommand({
     name: "lang",
     async execute(interaction) {
-        interaction.deferReply().then(() => interaction.deleteReply());
+        interaction.deferReply()
+            .then(() => interaction.deleteReply());
 
         const embed = new EmbedBuilder()
             .setColor(Color.BRIGHT_BLUE)
@@ -35,6 +36,6 @@ export default new SubCommand({
                 ]),
         );
 
-        await interaction.channel?.send({ embeds: [ embed ], components: [ row1, row2 ] });
+        await interaction.channel?.send({ embeds: [embed], components: [row1, row2] });
     },
 });

@@ -1,15 +1,13 @@
 import handleErrorReply from "utils/handleErrorReply";
 import { closeTicket, closeTicketCheck } from "utils/tickets/closeTicketHandler";
-import { createTicket, createTicketCheck } from "utils/tickets/openTicketHandler";
+import { createTicket } from "utils/tickets/openTicketHandler";
 import createInteractionCreateEventListener from "./createInteractionCreateEventListener";
 
 export default createInteractionCreateEventListener(async (interaction) => {
     if (!interaction.isButton()) return;
 
     try {
-        if (interaction.customId === "create_ticket_check") {
-            await createTicketCheck(interaction);
-        } else if (interaction.customId === "close_ticket_check") {
+        if (interaction.customId === "close_ticket_check") {
             await closeTicketCheck(interaction);
         } else if (interaction.customId.startsWith("create_ticket_")) {
             await createTicket(interaction);

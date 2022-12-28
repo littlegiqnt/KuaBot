@@ -37,10 +37,11 @@ export default new SubCommand({
                 .setColor(Color.BRIGHT_RED)
                 .setTitle("아앗.. 생일이 기억나지 않아요..")
                 .setDescription("혹시 저한테 말해주신 적이 없는 건 아닌가요..?");
-            interaction.editReply({ embeds: [ embed ] });
+            interaction.editReply({ embeds: [embed] });
             return;
         }
-        const now = new Date(new Date().toDateString());
+        const now = new Date(new Date()
+            .toDateString());
         const birthday = new Date(`${now.getFullYear()}.${user.birthday.month}.${user.birthday.day}`);
         if (now.getTime() > birthday.getTime()) {
             birthday.setFullYear(birthday.getFullYear() + 1);
@@ -51,12 +52,12 @@ export default new SubCommand({
                 .setColor(Color.BRIGHT_BLUE)
                 .setDescription(`${userMention(member.id)}님의 생일은 바로 오늘, ${user.birthday.month}월 ${user.birthday.day}일이에요!\n`
                     + "생일 축하드려요!! 🥳🎉🎉");
-            interaction.editReply({ embeds: [ embed ] });
+            interaction.editReply({ embeds: [embed] });
             return;
         }
         const embed = new EmbedBuilder()
             .setColor(Color.BRIGHT_BLUE)
             .setDescription(`${userMention(member.id)}님의 생일은 **${daysLeft}일** 남았어요!`);
-        interaction.editReply({ embeds: [ embed ] });
+        interaction.editReply({ embeds: [embed] });
     },
 });

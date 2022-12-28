@@ -8,6 +8,6 @@ import xp from "./xp";
 
 export default new SlashCommand({
     name: "admin",
-    subCommands: [ xp, reboot, error, evaljs, test ],
+    subCommands: [xp, reboot, error, evaljs, test],
     guildId: GUILD_ID,
 });

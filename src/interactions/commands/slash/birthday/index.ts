@@ -9,6 +9,6 @@ export default new SlashCommand({
     nameLocale: {
         ko: "생일",
     },
-    subCommands: [ get, set, left ],
+    subCommands: [get, set, left],
     guildId: GUILD_ID,
 });

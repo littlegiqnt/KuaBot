@@ -37,6 +37,6 @@ export default new SubCommand({
             .setTitle("버튼 스타일 목록")
             .setDescription("버튼 스타일들 목록!");
 
-        await interaction.reply({ ephemeral: false, embeds: [ embed ], components: [ row ] });
+        await interaction.reply({ ephemeral: false, embeds: [embed], components: [row] });
     },
 });

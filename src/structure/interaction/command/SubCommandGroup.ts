@@ -5,11 +5,11 @@ import { BaseSlashCommand } from "./BaseSlashCommand";
 import type { SubCommand } from "./SubCommand";
 
 export interface SubCommandGroupOptions extends Pick<BaseSlashCommandOptions, "name"> {
-    readonly subCommands: SubCommand[]
+    readonly subCommands: Array<SubCommand>
 }
 
 export class SubCommandGroup extends BaseSlashCommand {
-    private readonly subCommands: SubCommand[];
+    private readonly subCommands: Array<SubCommand>;
 
     constructor(options: SubCommandGroupOptions) {
         super({

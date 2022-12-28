@@ -6,9 +6,10 @@ import { SubCommand } from "structure/interaction/command/SubCommand";
 export default new SubCommand({
     name: "roles",
     async execute(interaction) {
-        interaction.deferReply().then(() => interaction.deleteReply());
+        interaction.deferReply()
+            .then(() => interaction.deleteReply());
 
-        if (!interaction.channel) return;
+        if (interaction.channel == null) return;
 
         await genderSelect(interaction.channel);
         await ageSelect(interaction.channel);
@@ -36,7 +37,7 @@ const genderSelect = async (channel: TextBasedChannel) => {
             .setLabel("여자")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };
 
 const ageSelect = async (channel: TextBasedChannel) => {
@@ -61,7 +62,7 @@ const ageSelect = async (channel: TextBasedChannel) => {
             .setLabel("중학생")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };
 
 const loveSelect = async (channel: TextBasedChannel) => {
@@ -91,7 +92,7 @@ const loveSelect = async (channel: TextBasedChannel) => {
             .setLabel("애인 비공개")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };
 
 const dmSelect = async (channel: TextBasedChannel) => {
@@ -111,7 +112,7 @@ const dmSelect = async (channel: TextBasedChannel) => {
             .setLabel("DM 비허용")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };
 
 const pingRelatedSelect = async (channel: TextBasedChannel) => {
@@ -131,7 +132,7 @@ const pingRelatedSelect = async (channel: TextBasedChannel) => {
             .setLabel("이벤트 알림 받기")
             .setStyle(ButtonStyle.Primary),
     );
-    return channel.send({ embeds: [ embed ], components: [ row ] });
+    return channel.send({ embeds: [embed], components: [row] });
 };
 
 const gamesSelect = async (channel: TextBasedChannel) => {
@@ -139,7 +140,7 @@ const gamesSelect = async (channel: TextBasedChannel) => {
         .setColor(0x0099ff)
         .setTitle("🎮 『게임 선택』 (선택)")
         .setDescription("플레이 하시는 게임들을 선택해 주세요");
-    const options: APISelectMenuOption[] = [
+    const options: Array<APISelectMenuOption> = [
         {
             label: "리그오브레전드",
             value: "leagueOfLegends",
@@ -188,5 +189,5 @@ const gamesSelect = async (channel: TextBasedChannel) => {
             ),
     );
 
-    return channel.send({ embeds: [ embed ], components: [ row1 ] });
+    return channel.send({ embeds: [embed], components: [row1] });
 };

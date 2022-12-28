@@ -1,12 +1,13 @@
-type Task = (...args: any[]) => Promise<void>
+type Task = (...args: Array<any>) => Promise<void>
 
 export default class TaskQueue {
-    private storage: Task[] = [];
+    private storage: Array<Task> = [];
 
     private execute() {
         const task = this.dequeue();
         if (task == null) return;
-        task().then(() => this.execute());
+        task()
+            .then(() => this.execute());
     }
 
     public enqueue(item: Task) {
