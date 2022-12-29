@@ -9,6 +9,7 @@ export default async () => {
     client.on("ready", async () => {
         console.log(`${client.user?.username ?? "(Undefined)"} is ready`);
         client.user?.setAFK(true);
+        client.user?.setStatus("idle");
     });
     client.login(process.env.USER_TOKEN);
 };
