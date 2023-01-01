@@ -1,12 +1,21 @@
-import { ButtonBuilder, ButtonInteraction, InteractionButtonComponentData } from "discord.js";
+import { ButtonBuilder, ButtonInteraction, InteractionButtonComponentData, Locale } from "discord.js";
+import Locales from "utils/types/LocaleOptionWithEn";
 import { ComponentOptions, MessageComponent } from "./MessageComponent";
 
-export interface ButtonOptions extends Omit<InteractionButtonComponentData, "type">, Omit<ComponentOptions<[interaction: ButtonInteraction]>, "customId"> {
+type ButtonOptionsType = Omit<InteractionButtonComponentData, "type" | "customId" | "label"> & ComponentOptions<[interaction: ButtonInteraction]>;
+export interface ButtonOptions extends ButtonOptionsType {
+    labels: Locales
 }
 
 export class Button extends MessageComponent<ButtonInteraction> {
-    public constructor(public readonly options: ButtonOptions) {
+    public readonly options: ButtonOptionsType;
+    public readonly labels;
+
+    public constructor(options: ButtonOptions) {
         super(options);
+        const { labels, ..._options } = options;
+        this.options = _options;
+        this.labels = labels;
     }
 
     protected transform(x: ButtonInteraction): [ButtonInteraction] {
@@ -17,9 +26,15 @@ export class Button extends MessageComponent<ButtonInteraction> {
         return x.customId === this.customId;
     }
 
-    public getButton() {
-        return new ButtonBuilder({
+    public getButton(locale?: Locale) {
+        const options = {
             ...this.options,
+            label: locale == null || locale === Locale.EnglishUS
+                ? this.labels.en
+                : this.labels[locale],
+        };
+        return new ButtonBuilder({
+            ...options,
         });
     }
 }

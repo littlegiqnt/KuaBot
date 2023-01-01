@@ -5,7 +5,7 @@ import { SubCommand } from "structure/interaction/command/SubCommand";
 
 export default new SubCommand({
     name: "days",
-    nameLocale: {
+    nameLocales: {
         ko: "몇일",
     },
     description: {

@@ -1,4 +1,5 @@
-import { ButtonBuilder, ButtonStyle, EmbedBuilder, SelectMenuBuilder } from "discord.js";
+import { EmbedBuilder, StringSelectMenuBuilder } from "discord.js";
+import detectLanguage from "interactions/components/buttons/detect-language";
 import { ActionRow } from "structure/ActionRow";
 import Color from "structure/Color";
 import { SubCommand } from "structure/interaction/command/SubCommand";
@@ -14,28 +15,29 @@ export default new SubCommand({
             .setColor(Color.BRIGHT_BLUE)
             .setTitle(title)
             .setDescription(description);
-        const row1 = new ActionRow(
-            new ButtonBuilder()
-                .setStyle(ButtonStyle.Success)
-                .setLabel("언어 자동 감지 / Automatically detect Language")
-                .setCustomId("detect_language"),
-        );
-        const row2 = new ActionRow(
-            new SelectMenuBuilder()
-                .setCustomId("select_language")
-                .setPlaceholder("Select your language")
-                .setOptions([
-                    {
-                        label: "한국어",
-                        value: "lang_ko",
-                    },
-                    {
-                        label: "English",
-                        value: "lang_en",
-                    },
-                ]),
-        );
 
-        await interaction.channel?.send({ embeds: [embed], components: [row1, row2] });
+        await interaction.channel?.send({
+            embeds: [embed],
+            components: [
+                new ActionRow(
+                    detectLanguage.getButton(),
+                ),
+                new ActionRow(
+                    new StringSelectMenuBuilder()
+                        .setCustomId("select_language")
+                        .setPlaceholder("Select your language")
+                        .setOptions([
+                            {
+                                label: "한국어",
+                                value: "lang_ko",
+                            },
+                            {
+                                label: "English",
+                                value: "lang_en",
+                            },
+                        ]),
+                ),
+            ],
+        });
     },
 });

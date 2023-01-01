@@ -3,7 +3,7 @@ import { closeTicketCheck } from "utils/tickets/closeTicketHandler";
 
 export default new SubCommand({
     name: "close",
-    nameLocale: {
+    nameLocales: {
         ko: "닫기",
     },
     description: {

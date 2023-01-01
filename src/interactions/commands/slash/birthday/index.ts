@@ -6,7 +6,7 @@ import set from "./set";
 
 export default new SlashCommand({
     name: "birthday",
-    nameLocale: {
+    nameLocales: {
         ko: "생일",
     },
     subCommands: [get, set, left],

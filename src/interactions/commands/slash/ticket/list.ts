@@ -6,7 +6,7 @@ import rolesManager from "structure/RolesManager";
 
 export default new SubCommand({
     name: "list",
-    nameLocale: {
+    nameLocales: {
         ko: "목록",
     },
     description: {

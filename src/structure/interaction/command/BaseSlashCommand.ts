@@ -1,14 +1,20 @@
-import type { ApplicationCommandOptionData as CommandArg, ApplicationCommandSubCommandData as SubCommandArg, ApplicationCommandSubGroupData as SubGroupArg, ChatInputCommandInteraction, Locale } from "discord.js";
+import type {
+    ApplicationCommandOptionData as CommandArg,
+    ApplicationCommandSubCommandData as SubCommandArg,
+    ApplicationCommandSubGroupData as SubGroupArg,
+    ChatInputCommandInteraction
+} from "discord.js";
+import LocaleOption from "utils/types/LocaleOption";
+import Locales from "utils/types/LocaleOptionWithEn";
 import type OmitEach from "utils/types/OmitEach";
-import type PartiallyRequired from "utils/types/PartiallyRequired";
-import type { CommandOptions, LocaleOption } from "./Command";
+import type { CommandOptions } from "./Command";
 import { Command } from "./Command";
 
 export type Arg = Exclude<CommandArg, SubCommandArg | SubGroupArg>;
 type TransformedArgs = [interaction: ChatInputCommandInteraction];
 
 export interface BaseSlashCommandOptions extends CommandOptions<TransformedArgs> {
-    readonly description?: PartiallyRequired<Record<Locale | "en", string>, "en">
+    readonly description?: Locales
     readonly args?: Array<OmitEach<Arg, "required">>
     readonly optionalArgs?: Array<OmitEach<Arg, "required">>
 }

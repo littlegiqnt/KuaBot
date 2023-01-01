@@ -1,11 +1,9 @@
-import type { Locale } from "discord.js";
+import LocaleOption from "utils/types/LocaleOption";
 import { Interaction, InteractionOptions } from "../Interaction";
-
-export type LocaleOption = Partial<Record<Locale, string>>
 
 export interface CommandOptions<Args extends Array<any>> extends InteractionOptions<Args> {
     readonly name: string
-    readonly nameLocale?: LocaleOption
+    readonly nameLocales?: LocaleOption
 }
 
 export abstract class Command<T, Args extends Array<any> = [T]> extends Interaction<T, Args> {
@@ -15,6 +13,6 @@ export abstract class Command<T, Args extends Array<any> = [T]> extends Interact
     public constructor(options: CommandOptions<Args>) {
         super(options);
         this.name = options.name;
-        this.nameLocale = options.nameLocale;
+        this.nameLocale = options.nameLocales;
     }
 }

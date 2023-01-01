@@ -8,7 +8,7 @@ import removeUser from "./remove-user";
 
 export default new SlashCommand({
     name: "tickets",
-    nameLocale: {
+    nameLocales: {
         ko: "문의",
     },
     subCommands: [list, close, addUser, removeUser, lang],

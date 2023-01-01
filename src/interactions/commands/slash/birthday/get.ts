@@ -5,7 +5,7 @@ import { SubCommand } from "structure/interaction/command/SubCommand";
 
 export default new SubCommand({
     name: "when",
-    nameLocale: {
+    nameLocales: {
         ko: "언제",
     },
     description: {

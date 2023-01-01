@@ -5,7 +5,7 @@ import { SubCommand } from "structure/interaction/command/SubCommand";
 
 export default new SubCommand({
     name: "set",
-    nameLocale: {
+    nameLocales: {
         ko: "설정",
     },
     description: {

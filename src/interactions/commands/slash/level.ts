@@ -7,7 +7,7 @@ import { getLevelByXp } from "utils/level/level";
 
 export default new SlashCommand({
     name: "level",
-    nameLocale: {
+    nameLocales: {
         ko: "레벨",
     },
     description: {

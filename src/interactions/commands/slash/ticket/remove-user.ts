@@ -7,7 +7,7 @@ import { notTicketReply } from "utils/tickets/closeTicketHandler";
 
 export default new SubCommand({
     name: "removeuser",
-    nameLocale: {
+    nameLocales: {
         ko: "유저제거",
     },
     description: {
