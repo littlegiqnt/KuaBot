@@ -5,7 +5,7 @@ export default async () => {
     if (!isProduction()) {
         return;
     }
-    const client: Client = new Client();
+    const client: Client = new Client({ readyStatus: false });
     client.on("ready", async () => {
         console.log(`${client.user?.username ?? "(Undefined)"} is ready`);
         client.user?.setStatus("idle");
