@@ -23,6 +23,7 @@ export default class Bot extends Client {
                 Intents.GuildMessages,
                 Intents.MessageContent,
                 Intents.GuildMembers,
+                Intents.GuildPresences,
                 Intents.GuildVoiceStates,
             ],
         });
