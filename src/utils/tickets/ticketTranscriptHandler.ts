@@ -8,7 +8,6 @@ import TaskQueue from "structure/TaskQueue";
 import { isNormalTextChannel } from "utils/checkChannel";
 import { ticketDateFormatter } from "utils/dateFormatter";
 import handleErrorReply from "utils/handleErrorReply";
-import msg from "utils/msg";
 
 const queue: TaskQueue = new TaskQueue(); // ?
 
@@ -18,6 +17,7 @@ export const uploadTranscript = async (transcript: string): Promise<string | und
             method: "post",
             url: "https://pastebin.com/api/api_post.php",
             headers: {
+                // eslint-disable-next-line @typescript-eslint/naming-convention
                 "content-type": "multipart/form-data;",
             },
             data: {
@@ -47,8 +47,6 @@ export const addTranscriptMessage = async (message: Message) => {
         const supportTicket = await dbManager.SupportTicket.findById(message.channelId);
         if (supportTicket == null) return;
 
-        const t = msg(supportTicket.lang);
-
         if (supportTicket.status === TicketStatus.CREATED && !message.author.bot) {
             try {
                 const category = await channel.parent?.fetch();
@@ -66,8 +64,8 @@ export const addTranscriptMessage = async (message: Message) => {
                     embeds: [
                         new EmbedBuilder()
                             .setColor("Blue")
-                            .setTitle(t("tickets.openEmbed.title"))
-                            .setDescription(t("tickets.openEmbed.description")),
+                            .setTitle("문의가 공개되었어요!")
+                            .setDescription("관리자분들이 곧 도와주실 거예요."),
                     ],
                 });
             } catch (e) {

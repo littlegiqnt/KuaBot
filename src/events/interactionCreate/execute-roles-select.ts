@@ -1,11 +1,9 @@
 /* eslint-disable no-lonely-if */
 import type { MessageComponentInteraction, Role } from "discord.js";
 import { GuildMember } from "discord.js";
-import logger from "structure/Logger";
 import rolesManager from "structure/RolesManager";
 import TaskQueue from "structure/TaskQueue";
 import handleErrorReply from "utils/handleErrorReply";
-import msg from "utils/msg";
 import createInteractionCreateEventListener from "./createInteractionCreateEventListener";
 
 export default createInteractionCreateEventListener(async (interaction) => {
@@ -26,8 +24,6 @@ const processSelectRoles = (interaction: MessageComponentInteraction) => {
     }
     queue.enqueue(async () => {
         await interaction.deferReply({ ephemeral: true });
-
-        const t = msg(interaction.locale);
 
         const { member } = interaction;
         if (!(member instanceof GuildMember)) {
@@ -134,61 +130,21 @@ const processSelectRoles = (interaction: MessageComponentInteraction) => {
                 return;
             }
             default: {
-                interaction.editReply({ content: t("rolesSelect.failed") });
+                interaction.editReply({ content: "실패했어요.. 관리자에게 문의해주세요!" });
                 return;
             }
         }
 
-        if (member.roles.cache.has(rolesManager.get("stepOneVerified")!.id)) {
-            interaction.editReply({ content: t("rolesSelect.success") });
-        } else {
-            const rolesLeft: number = await checkRolesLeft(member);
-            if (rolesLeft > 0) {
-                interaction.editReply({ content: t("rolesSelect.successWithRolesLeft", { count: rolesLeft }) });
-            } else {
-                interaction.editReply({ content: t("rolesSelect.successComplete") });
-                member.roles.add(rolesManager.get("stepOneVerified")!);
-                logger.stepOneVerify(member);
-            }
-        }
+        interaction.editReply({ content: "<a:check:1061576200075620362> 설정되었어요!" });
     });
 };
 
-const checkRolesLeft = async (member: GuildMember): Promise<number> => {
-    let left = 0;
-    if (!(member.roles.cache.has(rolesManager.get("male")!.id) || member.roles.cache.has(rolesManager.get("female")!.id))) {
-        left += 1;
-    }
-    if (
-        !(
-            member.roles.cache.has(rolesManager.get("adult")!.id)
-            || member.roles.cache.has(rolesManager.get("highschool")!.id)
-            || member.roles.cache.has(rolesManager.get("middleschool")!.id)
-        )
-    ) {
-        left += 1;
-    }
-    if (!(member.roles.cache.has(rolesManager.get("couple")!.id)
-            || member.roles.cache.has(rolesManager.get("single")!.id)
-            || member.roles.cache.has(rolesManager.get("foreveralone")!.id)
-            || member.roles.cache.has(rolesManager.get("lovePrivate")!.id))) {
-        left += 1;
-    }
-    if (
-        !(member.roles.cache.has(rolesManager.get("dmAllow")!.id) || member.roles.cache.has(rolesManager.get("dmDisallow")!.id))
-    ) {
-        left += 1;
-    }
-    return left;
-};
-
 const handlePingRole = async (role: Role, member: GuildMember, interaction: MessageComponentInteraction) => {
-    const t = msg(interaction.locale);
     if (member.roles.cache.has(role.id)) {
         await member.roles.remove(role);
-        interaction.editReply({ content: `\\➖ ${t("rolesSelect.remove")}` });
+        interaction.editReply({ content: "➖ 해당 역할을 제거했어요!" });
     } else {
         await member.roles.add(role);
-        interaction.editReply({ content: `\\➕ ${t("rolesSelect.add")}` });
+        interaction.editReply({ content: "➕ 해당 역할을 추가했어요!" });
     }
 };

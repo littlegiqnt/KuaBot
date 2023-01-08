@@ -4,7 +4,6 @@ import { TicketStatus } from "schema/ticketSchema";
 import { ActionRow } from "structure/ActionRow";
 import dbManager from "structure/DBManager";
 import logger from "structure/Logger";
-import msg from "utils/msg";
 import replyEphemeralEmbed from "utils/replyEphemeralEmbed";
 import { uploadTranscript } from "./ticketTranscriptHandler";
 
@@ -16,7 +15,6 @@ export const notTicketReply = replyEphemeralEmbed(
 );
 
 export const closeTicketCheck = async (interaction: ButtonInteraction | ChatInputCommandInteraction) => {
-    const t = msg(interaction.locale);
     const supportTicket = await dbManager.SupportTicket.findById(interaction.channelId);
     if (supportTicket == null) {
         interaction.reply(notTicketReply);
@@ -27,15 +25,15 @@ export const closeTicketCheck = async (interaction: ButtonInteraction | ChatInpu
         embeds: [
             new EmbedBuilder()
                 .setColor("Gold")
-                .setTitle(t("tickets.closeConfirmEmbed.title"))
-                .setDescription(t("tickets.closeConfirmEmbed.description")),
+                .setTitle("정말로 닫으실 건가요?")
+                .setDescription("실수가 아닌지 확인하는 거랍니다! :D\n또한, 문의를 닫으시면 제가 개인 메세지로 채팅 기록을 보내드려요."),
         ],
         components: [
             new ActionRow(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Danger)
                     .setCustomId("close_ticket")
-                    .setLabel(t("tickets.closeConfirmEmbed.confirmButton")),
+                    .setLabel("정말로 문의를 닫아주세요!"),
             ),
         ],
     });

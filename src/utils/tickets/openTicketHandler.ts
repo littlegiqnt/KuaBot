@@ -7,34 +7,32 @@ import { ActionRow } from "structure/ActionRow";
 import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { ticketDateFormatter } from "utils/dateFormatter";
-import msg from "utils/msg";
 
 export const createTicketCheck = async (interaction: ButtonInteraction | ChatInputCommandInteraction) => {
-    const t = msg(interaction.locale);
     interaction.reply({
         ephemeral: true,
         embeds: [
             new EmbedBuilder()
                 .setColor("Gold")
-                .setTitle(t("tickets.createConfirmEmbed.title"))
-                .setDescription(t("tickets.createConfirmEmbed.description")),
+                .setTitle("정말로 문의를 하실 거죠?")
+                .setDescription("적합한 카테고리를 선택해 주세요!"),
         ],
         components: [
             new ActionRow(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Danger)
                     .setCustomId("create_ticket_report")
-                    .setLabel(t("tickets.category.report"))
+                    .setLabel("신고")
                     .setEmoji("⚠️"),
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Success)
                     .setCustomId("create_ticket_suggestion")
-                    .setLabel(t("tickets.category.suggestion"))
+                    .setLabel("건의")
                     .setEmoji("🙋"),
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Secondary)
                     .setCustomId("create_ticket_other")
-                    .setLabel(t("tickets.category.other"))
+                    .setLabel("기타")
                     .setEmoji("❓"),
             ),
         ],
@@ -43,7 +41,6 @@ export const createTicketCheck = async (interaction: ButtonInteraction | ChatInp
 
 export const createTicket = async (interaction: ButtonInteraction) => {
     await interaction.deferReply({ ephemeral: true });
-    const t = msg(interaction.locale);
 
     const { member } = interaction;
     if (!(member instanceof GuildMember)) return;
@@ -56,16 +53,16 @@ export const createTicket = async (interaction: ButtonInteraction) => {
         interaction.editReply({ embeds: [
             new EmbedBuilder()
                 .setColor("Red")
-                .setTitle(t("error"))
-                .setDescription(t("tickets.max.overall")),
+                .setTitle("오류가 발생했어요!")
+                .setDescription("현재 생성되어 있는 문의가 너무 많아요.."),
         ] });
         return;
     } else if (tickets.filter((value) => value.type === ticketType).length >= 2) {
         interaction.editReply({ embeds: [
             new EmbedBuilder()
                 .setColor("Red")
-                .setTitle(t("error"))
-                .setDescription(t("tickets.max.type")),
+                .setTitle("오류가 발생했어요!")
+                .setDescription("이 카테고리에 생성되어 있는 문의가 너무 많아요.."),
         ] });
         return;
     }
@@ -107,8 +104,8 @@ Date: ${ticketDateFormatter.format(now)}`,
         embeds: [
             new EmbedBuilder()
                 .setColor("Green")
-                .setTitle(t("tickets.createEmbed.title"))
-                .setDescription(t("tickets.createEmbed.description")),
+                .setTitle("문의가 신청되었어요!")
+                .setDescription("현재 발생한 문제 또는 상황에 대하여 최대한 자세하게 설명해 주세요!\n또한, 채팅을 입력하면 바로 문의가 열려요."),
         ],
         content: `${userMention(member.id)}`,
         allowedMentions: {
@@ -119,7 +116,7 @@ Date: ${ticketDateFormatter.format(now)}`,
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Secondary)
                     .setCustomId("close_ticket_check")
-                    .setLabel(t("tickets.createEmbed.closeButton")),
+                    .setLabel("문의 닫기"),
             ),
         ],
     });
@@ -128,8 +125,8 @@ Date: ${ticketDateFormatter.format(now)}`,
         embeds: [
             new EmbedBuilder()
                 .setColor(Color.GREEN)
-                .setTitle(t("tickets.createMessage.title"))
-                .setDescription(t("tickets.createMessage.description", { channel: channelMention(channel.id) })),
+                .setTitle("문의가 성공적으로 신청되었어요!")
+                .setDescription(`${channelMention(channel.id)}로 이동해 주세요!`),
         ],
     });
 };

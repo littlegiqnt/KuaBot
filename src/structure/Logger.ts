@@ -3,7 +3,6 @@ import { EmbedBuilder, time, userMention } from "discord.js";
 import type { ISupportTicket } from "schema/ticketSchema";
 import { description, title } from "templates/join";
 import isProduction from "utils/isProduction";
-import msg from "utils/msg";
 
 class Logger {
     private userWelcomeChannel: TextChannel | undefined;
@@ -154,7 +153,7 @@ class Logger {
                 : opener.send({ embeds: [
                     new EmbedBuilder()
                         .setColor("Navy")
-                        .setTitle(msg(supportTicket.lang)("tickets.transcript"))
+                        .setTitle("문의 기록")
                         .setDescription(transcriptUrl),
                 ] })
                     .catch(() => {}),
