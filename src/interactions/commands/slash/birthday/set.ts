@@ -1,5 +1,4 @@
 import { ApplicationCommandOptionType, EmbedBuilder, GuildMember, userMention } from "discord.js";
-import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { SubCommand } from "structure/interaction/command/SubCommand";
 
@@ -51,13 +50,13 @@ export default new SubCommand({
             user.birthday.day = day;
             await user.save();
             const embed = new EmbedBuilder()
-                .setColor(Color.GREEN)
+                .setColor("green")
                 .setTitle("생일을 기억할게요!")
                 .setDescription(`${userMention(member.id)}님의 생일은 ${month}월 ${day}일 이에요!\n`);
             interaction.editReply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-                .setColor(Color.BRIGHT_RED)
+                .setColor("red")
                 .setTitle("잘못된 날짜를 입력하셨어요!")
                 .setDescription("다시 한번 확인해 주세요!");
             interaction.editReply({ embeds: [embed] });

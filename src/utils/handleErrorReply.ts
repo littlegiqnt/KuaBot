@@ -1,6 +1,5 @@
 import type { BaseInteraction } from "discord.js";
 import { EmbedBuilder, Message } from "discord.js";
-import Color from "structure/Color";
 import logger from "structure/Logger";
 
 export default async (error: unknown, replyTo?: BaseInteraction | Message) => {
@@ -11,7 +10,7 @@ export default async (error: unknown, replyTo?: BaseInteraction | Message) => {
     if (replyTo == null) return;
 
     const embed = new EmbedBuilder()
-        .setColor(Color.BRIGHT_RED)
+        .setColor("red")
         .setTitle("엇, 오류가 발생했어요..")
         .setDescription("관리자에게 문의해 주세요!");
     if (replyTo instanceof Message) {

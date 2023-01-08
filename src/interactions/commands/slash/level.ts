@@ -1,6 +1,5 @@
 import { GUILD_ID } from "config";
 import { ApplicationCommandOptionType, EmbedBuilder, escapeMarkdown, GuildMember, userMention } from "discord.js";
-import Color from "structure/Color";
 import dbManager from "structure/DBManager";
 import { SlashCommand } from "structure/interaction/command/SlashCommand";
 import { getLevelByXp } from "utils/level/level";
@@ -35,7 +34,7 @@ export default new SlashCommand({
         const user = await dbManager.loadUser(member.id);
 
         const embed = new EmbedBuilder()
-            .setColor(Color.BRIGHT_BLUE)
+            .setColor("blue")
             .setTitle(`${escapeMarkdown((await member.user.fetch()).tag)}`)
             .setThumbnail(member.displayAvatarURL())
             .setDescription(

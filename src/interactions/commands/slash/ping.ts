@@ -1,5 +1,4 @@
 import { EmbedBuilder } from "discord.js";
-import Color from "structure/Color";
 import { SlashCommand } from "structure/interaction/command/SlashCommand";
 
 export default new SlashCommand({
@@ -10,7 +9,7 @@ export default new SlashCommand({
     },
     execute(interaction) {
         const embed = new EmbedBuilder()
-            .setColor(Color.BRIGHT_BLUE)
+            .setColor("blue")
             .setTitle("Pong! 🏓")
             .setDescription(`**응답 속도**\nBot: ${Date.now() - interaction.createdTimestamp}ms\nAPI: ${interaction.client.ws.ping}ms`);
 

@@ -1,7 +1,6 @@
 import { EmbedBuilder, StringSelectMenuBuilder } from "discord.js";
 import detectLanguage from "interactions/components/buttons/detect-language";
 import { ActionRow } from "structure/ActionRow";
-import Color from "structure/Color";
 import { SubCommand } from "structure/interaction/command/SubCommand";
 import { description, title } from "templates/language";
 
@@ -12,7 +11,7 @@ export default new SubCommand({
             .then(() => interaction.deleteReply());
 
         const embed = new EmbedBuilder()
-            .setColor(Color.BRIGHT_BLUE)
+            .setColor("blue")
             .setTitle(title)
             .setDescription(description);
 
