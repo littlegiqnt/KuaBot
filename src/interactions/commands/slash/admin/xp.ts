@@ -23,6 +23,6 @@ export default new SubCommand({
     ],
     async execute(interaction) {
         const user = await dbManager.loadUser(interaction.options.getUser("user")!.id);
-        interaction.reply({ ephemeral: false, content: `chat: ${user.xp.chat}\nvoice: ${user.xp.voice}` });
+        interaction.reply({ ephemeral: false, content: `chat: ${user.xp.chat}` });
     },
 });
