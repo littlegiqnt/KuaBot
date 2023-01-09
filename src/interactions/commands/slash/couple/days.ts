@@ -33,7 +33,7 @@ export default new SubCommand({
         const user = await dbManager.loadUser(member.id);
         if (user.coupleSince == null) {
             const embed = new EmbedBuilder()
-                .setColor("red")
+                .setColor("Red")
                 .setTitle("아앗.. 날짜가 기억나지 않아요..")
                 .setDescription("혹시 저한테 말해주신 적이 없는 건 아닌가요..?");
             interaction.editReply({ embeds: [embed] });
@@ -43,7 +43,7 @@ export default new SubCommand({
             .toDateString())
             .getTime() - user.coupleSince.getTime()) / (1000 * 60 * 60 * 24)) + 1;
         const embed = new EmbedBuilder()
-            .setColor("green")
+            .setColor("Green")
             .setDescription(`현재 ${escapeMarkdown(member.displayName)}님은 ${days}일 이에요!`);
         interaction.editReply({ embeds: [embed] });
     },

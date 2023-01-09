@@ -11,7 +11,7 @@ export default new SubCommand({
             .then(() => interaction.deleteReply());
 
         const embed = new EmbedBuilder()
-            .setColor("blue")
+            .setColor("Blue")
             .setTitle(title)
             .setDescription(description);
 

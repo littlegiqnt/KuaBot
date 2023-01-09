@@ -10,7 +10,7 @@ export default async (error: unknown, replyTo?: BaseInteraction | Message) => {
     if (replyTo == null) return;
 
     const embed = new EmbedBuilder()
-        .setColor("red")
+        .setColor("Red")
         .setTitle("엇, 오류가 발생했어요..")
         .setDescription("관리자에게 문의해 주세요!");
     if (replyTo instanceof Message) {

@@ -33,7 +33,7 @@ export default new SubCommand({
         const user = await dbManager.loadUser(member.id);
         if (user.birthday.month == null || user.birthday.day == null) {
             const embed = new EmbedBuilder()
-                .setColor("red")
+                .setColor("Red")
                 .setTitle("아앗.. 생일이 기억나지 않아요..")
                 .setDescription("혹시 저한테 말해주신 적이 없는 건 아닌가요..?");
             interaction.editReply({ embeds: [embed] });
@@ -48,14 +48,14 @@ export default new SubCommand({
         const daysLeft = (birthday.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
         if (daysLeft === 0) {
             const embed = new EmbedBuilder()
-                .setColor("blue")
+                .setColor("Blue")
                 .setDescription(`${userMention(member.id)}님의 생일은 바로 오늘, ${user.birthday.month}월 ${user.birthday.day}일이에요!\n`
                     + "생일 축하드려요!! 🥳🎉🎉");
             interaction.editReply({ embeds: [embed] });
             return;
         }
         const embed = new EmbedBuilder()
-            .setColor("blue")
+            .setColor("Blue")
             .setDescription(`${userMention(member.id)}님의 생일은 **${daysLeft}일** 남았어요!`);
         interaction.editReply({ embeds: [embed] });
     },

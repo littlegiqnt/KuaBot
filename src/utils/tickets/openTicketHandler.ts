@@ -123,7 +123,7 @@ Date: ${ticketDateFormatter.format(now)}`,
     interaction.editReply({
         embeds: [
             new EmbedBuilder()
-                .setColor("green")
+                .setColor("Green")
                 .setTitle("문의가 성공적으로 신청되었어요!")
                 .setDescription(`${channelMention(channel.id)}로 이동해 주세요!`),
         ],

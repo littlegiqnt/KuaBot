@@ -34,7 +34,7 @@ export default new SlashCommand({
         const user = await dbManager.loadUser(member.id);
 
         const embed = new EmbedBuilder()
-            .setColor("blue")
+            .setColor("Blue")
             .setTitle(`${escapeMarkdown((await member.user.fetch()).tag)}`)
             .setThumbnail(member.displayAvatarURL())
             .setDescription(

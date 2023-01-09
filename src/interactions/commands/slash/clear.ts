@@ -29,7 +29,7 @@ export default new SlashCommand({
         const { size } = await channel.bulkDelete(amount);
 
         const embed = new EmbedBuilder()
-            .setColor("green")
+            .setColor("Green")
             .setTitle("삭제 성공!")
             .setDescription(`총 ${size}/${amount}개의 메세지가 삭제됐어요!`);
 

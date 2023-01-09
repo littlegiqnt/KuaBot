@@ -1,6 +1,7 @@
 import { ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
 import { ActionRow } from "structure/ActionRow";
 import { SubCommand } from "structure/interaction/command/SubCommand";
+import { isNormalTextChannel } from "utils/checkChannel";
 
 export default new SubCommand({
     name: "guide",
