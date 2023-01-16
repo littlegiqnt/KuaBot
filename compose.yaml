@@ -12,7 +12,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
   db:
     container_name: kua_db
-    image: "mongo:latest"
+    image: mongo:latest
     networks:
       - kua
     privileged: true
