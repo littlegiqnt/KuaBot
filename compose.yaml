@@ -8,8 +8,8 @@ services:
       - kua
     privileged: true
     restart: always
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
+    environments:
+      - TZ=Asia/Seoul
   db:
     container_name: kua_db
     image: mongo:4.4.18
