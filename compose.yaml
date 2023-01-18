@@ -8,7 +8,7 @@ services:
       - kua
     privileged: true
     restart: always
-    environments:
+    environment:
       - TZ=Asia/Seoul
   db:
     container_name: kua_db
