@@ -1,4 +1,4 @@
-import { ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
+import { ButtonBuilder, ButtonStyle, EmbedBuilder, TextChannel } from "discord.js";
 import { ActionRow } from "structure/ActionRow";
 import { SubCommand } from "structure/interaction/command/SubCommand";
 import { isNormalTextChannel } from "utils/checkChannel";
@@ -8,9 +8,9 @@ export default new SubCommand({
     async execute(interaction) {
         interaction.deferReply()
             .then(() => interaction.deleteReply());
-        
+
         if (interaction.channel == null || !isNormalTextChannel(interaction.channel)) return;
-        
+
         await send(interaction.channel);
     },
 });
@@ -25,10 +25,10 @@ const send = async (channel: TextChannel) => {
             + "Please click a button below!",
         );
     const row = new ActionRow<ButtonBuilder>(
-            new ButtonBuilder()
-                .setCustomId("guide_1")
-                .setLabel("진행하기")
-                .setStyle(ButtonStyle.Primary),
-        );
+        new ButtonBuilder()
+            .setCustomId("guide_1")
+            .setLabel("진행하기")
+            .setStyle(ButtonStyle.Primary),
+    );
     await channel.send({ embeds: [embed], components: [row] });
 };
