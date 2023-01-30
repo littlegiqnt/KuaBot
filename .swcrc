@@ -14,7 +14,7 @@
             }
         }
     },
-    "isModule": false,
+    "isModule": true,
     "minify": true,
     "module": {
         "type": "commonjs"
