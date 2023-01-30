@@ -3,11 +3,9 @@
 .env
 .example.env
 .gitignore
-.swcrc
 .vscode/
 compose.yaml
 dbdata/
 Dockerfile
 README.md
 src/
-tsconfig.json
