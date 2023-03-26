@@ -4,6 +4,7 @@
             "syntax": "typescript",
             "dynamicImport": true
         },
+        "baseUrl": "./src/",
         "target": "es2022",
         "minify": {
             "compress": {
