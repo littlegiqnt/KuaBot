@@ -16,7 +16,7 @@
     "git.enableSmartCommit": true,
     "git.postCommitCommand": "sync",
     "[javascript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "typescript.tsserver.experimental.enableProjectDiagnostics": true,
     "javascript.updateImportsOnFileMove.enabled": "always",

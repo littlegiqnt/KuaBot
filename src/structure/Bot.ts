@@ -8,7 +8,6 @@ export interface BotOptions extends Omit<ClientOptions, "intents"> {
     readonly intents?: Array<Intents>
 }
 export default class Bot extends Client {
-    public readonly token: string;
 
     public readonly prefix: string | null;
 
@@ -40,6 +39,6 @@ export default class Bot extends Client {
     }
 
     public async login() {
-        return super.login(this.token);
+        return super.login(this.token!);
     }
 }
