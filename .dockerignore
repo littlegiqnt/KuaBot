@@ -9,6 +9,5 @@ src/
 .swcrc
 compose.yaml
 Dockerfile
-package.json
 README.md
 tsconfig.json
